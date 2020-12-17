@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hoard.WebUI.Services.Commands
+namespace Hoard.WebUI.Services.ViewModels
 {
-    class GameCommands
+    public class PlayerProgressViewModel
     {
     }
 }

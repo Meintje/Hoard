@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hoard.WebUI.Services.Queries
+namespace Hoard.WebUI.Services
 {
-    class GameQueries
+    class GameService
     {
     }
 }

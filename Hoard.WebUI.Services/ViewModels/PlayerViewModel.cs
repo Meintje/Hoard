@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.ViewModels
 {
-    public class GameCreateEditViewModel
+    public class PlayerViewModel
     {
         public int ID { get; set; }
-        public string Title { get; set; }
-        public DateTime ReleaseDate { get; set; }
+        public string Name { get; set; }
     }
 }

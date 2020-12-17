@@ -11,7 +11,7 @@ namespace Hoard.WebUI.Services.ViewModels
     {
         public int ID { get; set; }
         public string Title { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
+        [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
         public string PlayStatus { get; set; }
     }
