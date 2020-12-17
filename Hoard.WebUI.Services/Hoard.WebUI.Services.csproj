@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hoard.Data.Persistence\Hoard.Data.Persistence.csproj" />
+    <ProjectReference Include="..\Hoard.Data.Services\Hoard.Data.Services.csproj" />
+  </ItemGroup>
+
+</Project>
