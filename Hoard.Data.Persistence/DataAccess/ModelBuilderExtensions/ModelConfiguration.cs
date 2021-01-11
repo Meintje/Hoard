@@ -1,4 +1,4 @@
-﻿using Hoard.Data.Persistence.Entities;
+﻿using Hoard.Data.Entities.Game;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
             builder.Entity<PlayStatus>().ToTable("PlayStatuses");
             #endregion
 
-            builder.Entity<PlayerProgress>()
+            builder.Entity<PlayData>()
                 .HasKey(pp => new { pp.GameID, pp.PlayerID });
 
             builder.Entity<Game>()

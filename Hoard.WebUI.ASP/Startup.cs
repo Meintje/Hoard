@@ -1,4 +1,9 @@
+using Hoard.Data.Persistence.DataAccess;
+using Hoard.Data.Services;
+using Hoard.Data.Services.Interfaces;
 using Hoard.WebUI.ASP.Data;
+using Hoard.WebUI.Services;
+using Hoard.WebUI.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,9 +33,13 @@ namespace Hoard.WebUI.ASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<HoardDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("HoardConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameDbService, GameDbService>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

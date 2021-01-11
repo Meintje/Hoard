@@ -1,4 +1,4 @@
-﻿using Hoard.Data.Persistence.Entities;
+﻿using Hoard.Data.Entities.Game;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,13 +26,13 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
                 new PlayStatus { ID = 2, Name = "Playing", OrdinalNumber = 2 },
                 new PlayStatus { ID = 3, Name = "Finished", OrdinalNumber = 3 });
 
-            builder.Entity<PlayerProgress>().HasData(
-                new PlayerProgress { GameID = 1, PlayerID = 1, PlayStatusID = 2 },
-                new PlayerProgress { GameID = 1, PlayerID = 2, PlayStatusID = 1 },
-                new PlayerProgress { GameID = 2, PlayerID = 1, PlayStatusID = 2 },
-                new PlayerProgress { GameID = 2, PlayerID = 2, PlayStatusID = 2 },
-                new PlayerProgress { GameID = 3, PlayerID = 1, PlayStatusID = 3 },
-                new PlayerProgress { GameID = 3, PlayerID = 2, PlayStatusID = 3 }
+            builder.Entity<PlayData>().HasData(
+                new PlayData { GameID = 1, PlayerID = 1, PlayStatusID = 2 },
+                new PlayData { GameID = 1, PlayerID = 2, PlayStatusID = 1 },
+                new PlayData { GameID = 2, PlayerID = 1, PlayStatusID = 2 },
+                new PlayData { GameID = 2, PlayerID = 2, PlayStatusID = 2 },
+                new PlayData { GameID = 3, PlayerID = 1, PlayStatusID = 3 },
+                new PlayData { GameID = 3, PlayerID = 2, PlayStatusID = 3 }
                 );
         }
     }

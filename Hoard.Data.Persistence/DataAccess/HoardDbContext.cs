@@ -1,5 +1,5 @@
 ﻿using Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions;
-using Hoard.Data.Persistence.Entities;
+using Hoard.Data.Entities.Game;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,15 +11,14 @@ namespace Hoard.Data.Persistence.DataAccess
 {
     public class HoardDbContext : DbContext
     {
+        public HoardDbContext(DbContextOptions<HoardDbContext> options) : base(options)
+        {
+        }
+
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
-        public DbSet<PlayerProgress> PlayerProgress { get; set; }
+        public DbSet<PlayData> PlayerProgress { get; set; }
         public DbSet<PlayStatus> PlayStatuses { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=HoardMainDb;Trusted_Connection=True;MultipleActiveResultSets=true");
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

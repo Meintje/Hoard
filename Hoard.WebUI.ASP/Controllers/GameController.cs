@@ -6,20 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hoard.Data.Persistence.DataAccess;
-using Hoard.Data.Persistence.Entities;
+using Hoard.WebUI.Services.Interfaces;
+using Hoard.WebUI.Services;
+using Hoard.WebUI.Services.ViewModels;
 
 namespace Hoard.WebUI.ASP.Controllers
 {
     public class GameController : Controller
     {
-        public GameController()
+        private readonly IGameService _gameService;
+
+        public GameController(IGameService gameService)
         {
+            _gameService = gameService;
         }
 
         // GET: Game
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Games.ToListAsync());
+            return View(_gameService.GetGameIndex());
         }
 
         // GET: Game/Details/5
@@ -30,8 +35,8 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = await _context.Games
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var game = new GameCreateEditViewModel();
+            //var game = await _context.Games.FirstOrDefaultAsync(m => m.ID == id);
             if (game == null)
             {
                 return NotFound();
@@ -51,13 +56,15 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,ID")] Game game)
+        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,ID")] GameCreateEditViewModel game)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(game);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                game = new GameCreateEditViewModel();
+
+                //_context.Add(game);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
             }
             return View(game);
         }
@@ -70,7 +77,8 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = await _context.Games.FindAsync(id);
+            var game = new GameCreateEditViewModel();
+            //var game = await _context.Games.FindAsync(id);
             if (game == null)
             {
                 return NotFound();
@@ -83,7 +91,7 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,ReleaseDate,ID")] Game game)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,ReleaseDate,ID")] GameCreateEditViewModel game)
         {
             if (id != game.ID)
             {
@@ -94,8 +102,8 @@ namespace Hoard.WebUI.ASP.Controllers
             {
                 try
                 {
-                    _context.Update(game);
-                    await _context.SaveChangesAsync();
+                    //_context.Update(game);
+                    //await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -121,8 +129,8 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = await _context.Games
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var game = new GameCreateEditViewModel();
+            //var game = await _context.Games.FirstOrDefaultAsync(m => m.ID == id);
             if (game == null)
             {
                 return NotFound();
@@ -136,15 +144,17 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var game = await _context.Games.FindAsync(id);
-            _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
+            var game = new GameCreateEditViewModel();
+            //var game = await _context.Games.FindAsync(id);
+            //_context.Games.Remove(game);
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GameExists(int id)
         {
-            return _context.Games.Any(e => e.ID == id);
+            return true;
+            //return _context.Games.Any(e => e.ID == id);
         }
     }
 }

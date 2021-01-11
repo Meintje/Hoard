@@ -1,5 +1,6 @@
 ﻿using Hoard.Data.Persistence.DataAccess;
-using Hoard.Data.Persistence.Entities;
+using Hoard.Data.Entities.Game;
+using Hoard.Data.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +9,28 @@ using System.Threading.Tasks;
 
 namespace Hoard.Data.Services
 {
-    class GameService
+    public class GameDbService : IGameDbService
     {
-        private readonly HoardDbContext context;
+        private readonly HoardDbContext _context;
 
-        public GameService()
+        public GameDbService(HoardDbContext context)
         {
-            // How do I get access to the DbContext here, without doing this?
-            context = new HoardDbContext();
+            _context = context;
         }
 
         public List<Game> GetGames()
         {
-            return context.Games.ToList();
+            return _context.Games.ToList();
         }
 
         public Game GetGameByID(int id)
         {
-            return context.Games.Find(id);
+            return _context.Games.Find(id);
         }
 
         public List<Game> GetGamesByTitle(string title)
         {
-            return context.Games.Where(g => g.Title == title).ToList();
+            return _context.Games.Where(g => g.Title == title).ToList();
         }
 
         public void CreateGame(Game game)

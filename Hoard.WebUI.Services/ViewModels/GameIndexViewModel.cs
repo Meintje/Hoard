@@ -10,4 +10,11 @@ namespace Hoard.WebUI.Services.ViewModels
     {
         public List<GameIndexItemViewModel> Games { get; set; }
     }
+
+    public class GameIndexItemViewModel
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public string ReleaseDate { get; set; }
+    }
 }

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hoard.Data.Entities\Hoard.Data.Entities.csproj" />
     <ProjectReference Include="..\Hoard.Data.Persistence\Hoard.Data.Persistence.csproj" />
   </ItemGroup>
 

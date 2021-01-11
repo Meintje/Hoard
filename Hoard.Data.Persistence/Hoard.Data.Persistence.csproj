@@ -13,4 +13,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hoard.Data.Entities\Hoard.Data.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
