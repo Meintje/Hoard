@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Hoard.Data.Persistence.DataAccess;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.Services;
 using Hoard.WebUI.Services.ViewModels;

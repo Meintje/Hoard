@@ -1,10 +1,5 @@
 ﻿using Hoard.Data.Entities.Game;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
 {
@@ -18,19 +13,37 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
             builder.Entity<PlayStatus>().ToTable("PlayStatuses");
             #endregion
 
+            #region PlayData
             builder.Entity<PlayData>()
-                .HasKey(pp => new { pp.GameID, pp.PlayerID });
+                .HasAlternateKey(pd => new { pd.GameID, pd.PlayerID });
+            #endregion
 
+
+            #region Game
             builder.Entity<Game>()
                 .HasAlternateKey(g => new { g.Title, g.ReleaseDate });
             builder.Entity<Game>()
                 .Property(g => g.ReleaseDate)
                 .HasColumnType("date");
+            #endregion
 
+            #region PlayStatus
             builder.Entity<PlayStatus>()
                 .HasAlternateKey(ps => ps.Name);
             builder.Entity<PlayStatus>()
                 .HasAlternateKey(ps => ps.OrdinalNumber);
+            #endregion
+
+            #region Playthrough
+            builder.Entity<Playthrough>()
+                .HasKey(pt => new { pt.PlayDataID, pt.OrdinalNumber });
+            builder.Entity<Playthrough>()
+                .Property(g => g.DateStart)
+                .HasColumnType("date");
+            builder.Entity<Playthrough>()
+                .Property(g => g.DateEnd)
+                .HasColumnType("date");
+            #endregion
         }
     }
 }

@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.WebUI.Services", "Hoa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Data.Entities", "Hoard.Data.Entities\Hoard.Data.Entities.csproj", "{53010E55-68BC-4EFA-A886-4DC42A576867}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1E2197D4-5B1D-4E5D-BB6B-64EC73B44582}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.Core.Constants", "Hoard.Core.Constants\Hoard.Core.Constants.csproj", "{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,10 @@ Global
 		{53010E55-68BC-4EFA-A886-4DC42A576867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53010E55-68BC-4EFA-A886-4DC42A576867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53010E55-68BC-4EFA-A886-4DC42A576867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,7 @@ Global
 		{FBFD1FC6-9CC8-4B6C-A7FD-870C7D723CBD} = {3EE8A3F9-CA2B-4990-91AB-BBB0BA031676}
 		{04699D69-A424-4250-840F-A1ABAB224C43} = {B61AFBB1-FD90-4728-91FC-F3F33E0C0055}
 		{53010E55-68BC-4EFA-A886-4DC42A576867} = {3EE8A3F9-CA2B-4990-91AB-BBB0BA031676}
+		{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D} = {1E2197D4-5B1D-4E5D-BB6B-64EC73B44582}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {60335ECC-00EC-4484-BE35-61765DF5E8C5}

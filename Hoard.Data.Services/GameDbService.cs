@@ -1,11 +1,8 @@
 ﻿using Hoard.Data.Persistence.DataAccess;
 using Hoard.Data.Entities.Game;
 using Hoard.Data.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hoard.Data.Services
 {
@@ -18,7 +15,7 @@ namespace Hoard.Data.Services
             _context = context;
         }
 
-        public List<Game> GetGames()
+        public List<Game> GetAllGames()
         {
             return _context.Games.ToList();
         }
