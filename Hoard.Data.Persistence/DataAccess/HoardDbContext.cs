@@ -18,7 +18,8 @@ namespace Hoard.Data.Persistence.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ConfigureEntities();
+            // Applies entity configurations found in EntityConfigurations folder.
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(HoardDbContext).Assembly);
             modelBuilder.SeedDatabase();
         }
     }

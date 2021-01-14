@@ -13,9 +13,9 @@ namespace Hoard.WebUI.ASP.Controllers
 {
     public class GameController : Controller
     {
-        private readonly IGameService _gameService;
+        private readonly IGameViewService _gameService;
 
-        public GameController(IGameService gameService)
+        public GameController(IGameViewService gameService)
         {
             _gameService = gameService;
         }
@@ -23,7 +23,7 @@ namespace Hoard.WebUI.ASP.Controllers
         // GET: Game
         public async Task<IActionResult> Index()
         {
-            return View(_gameService.GetGameIndex());
+            return View(await _gameService.GetGameIndex());
         }
 
         // GET: Game/Details/5

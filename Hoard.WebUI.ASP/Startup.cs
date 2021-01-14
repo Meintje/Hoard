@@ -38,7 +38,7 @@ namespace Hoard.WebUI.ASP
                 options.UseSqlServer(Configuration.GetConnectionString("HoardConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameViewService, GameViewService>();
             services.AddScoped<IGameDbService, GameDbService>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

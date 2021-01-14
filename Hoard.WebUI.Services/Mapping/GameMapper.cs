@@ -18,7 +18,7 @@ namespace Hoard.WebUI.Services.Mapping
             return vm;
         }
 
-        internal static GameIndexViewModel ToIndexViewModel(List<Game> games)
+        internal static GameIndexViewModel ToIndexViewModel(ICollection<Game> games)
         {
             var vm = new GameIndexViewModel
             {

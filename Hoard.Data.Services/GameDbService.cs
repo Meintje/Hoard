@@ -3,6 +3,8 @@ using Hoard.Data.Entities.Game;
 using Hoard.Data.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Hoard.Data.Services
 {
@@ -15,34 +17,46 @@ namespace Hoard.Data.Services
             _context = context;
         }
 
-        public List<Game> GetAllGames()
+        public async Task<ICollection<Game>> GetAllGames()
         {
-            return _context.Games.ToList();
+            var items = await _context.Games.ToListAsync();
+
+            return items;
         }
 
-        public Game GetGameByID(int id)
+        public async Task<Game> GetGameByID(int id)
         {
-            return _context.Games.Find(id);
+            var item = await _context.Games.FindAsync(id);
+
+            return item;
         }
 
-        public List<Game> GetGamesByTitle(string title)
+        public async Task<ICollection<Game>> GetGamesByTitle(string title)
         {
-            return _context.Games.Where(g => g.Title == title).ToList();
+            var items = await _context.Games.Where(g => g.Title == title).ToListAsync();
+
+            return items;
         }
 
-        public void CreateGame(Game game)
+        public async Task CreateGame(Game game)
         {
+            _context.Add(game);
 
+            await _context.SaveChangesAsync();
         }
 
-        public void EditGame(Game game)
+        public async Task UpdateGame(Game game)
         {
+            _context.Entry(game).State = EntityState.Modified;
 
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteGame(Game game)
+        public async Task DeleteGame(Game game)
         {
+            _context.Games.Remove(game);
 
+            await _context.SaveChangesAsync();
         }
     }
 }

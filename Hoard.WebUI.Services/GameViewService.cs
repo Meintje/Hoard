@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services
 {
-    public class GameService : IGameService
+    public class GameViewService : IGameViewService
     {
         private readonly IGameDbService _dbService;
 
-        public GameService(IGameDbService dbService)
+        public GameViewService(IGameDbService dbService)
         {
             _dbService = dbService;
         }
 
-        public GameIndexViewModel GetGameIndex()
+        public async Task<GameIndexViewModel> GetGameIndex()
         {
-            var games = _dbService.GetAllGames();
+            var games = await _dbService.GetAllGames();
 
             var vm = GameMapper.ToIndexViewModel(games);
 

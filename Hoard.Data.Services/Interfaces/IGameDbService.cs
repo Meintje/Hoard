@@ -6,11 +6,11 @@ namespace Hoard.Data.Services.Interfaces
 {
     public interface IGameDbService
     {
-        public List<Game> GetAllGames();
-        public Game GetGameByID(int id);
-        public List<Game> GetGamesByTitle(string title);
-        public void CreateGame(Game game);
-        public void EditGame(Game game);
-        public void DeleteGame(Game game);
+        public Task<ICollection<Game>> GetAllGames();
+        public Task<Game> GetGameByID(int id);
+        public Task<ICollection<Game>> GetGamesByTitle(string title);
+        public Task CreateGame(Game game);
+        public Task UpdateGame(Game game);
+        public Task DeleteGame(Game game);
     }
 }

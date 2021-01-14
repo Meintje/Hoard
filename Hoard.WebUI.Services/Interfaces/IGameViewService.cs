@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.Interfaces
 {
-    public interface IGameService
+    public interface IGameViewService
     {
-        public GameIndexViewModel GetGameIndex();
+        public Task<GameIndexViewModel> GetGameIndex();
     }
 }
