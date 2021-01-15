@@ -13,17 +13,17 @@ namespace Hoard.WebUI.ASP.Controllers
 {
     public class GameController : Controller
     {
-        private readonly IGameViewService _gameService;
+        private readonly IGameViewService _gameViewService;
 
         public GameController(IGameViewService gameService)
         {
-            _gameService = gameService;
+            _gameViewService = gameService;
         }
 
         // GET: Game
         public async Task<IActionResult> Index()
         {
-            return View(await _gameService.GetGameIndex());
+            return View(await _gameViewService.GetGameIndex());
         }
 
         // GET: Game/Details/5
@@ -34,20 +34,22 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = new GameCreateEditViewModel();
-            //var game = await _context.Games.FirstOrDefaultAsync(m => m.ID == id);
-            if (game == null)
+            var gameVM = await _gameViewService.GetGameDetails((int)id);
+
+            if (gameVM == null || gameVM.ID == 0)
             {
                 return NotFound();
             }
 
-            return View(game);
+            return View(gameVM);
         }
 
         // GET: Game/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var gameVM = await _gameViewService.GetGameCreateUpdateData(null);
+
+            return View(gameVM);
         }
 
         // POST: Game/Create
@@ -55,17 +57,16 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,ID")] GameCreateEditViewModel game)
+        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,Description")] GameCreateUpdateViewModel gcuVM)
         {
             if (ModelState.IsValid)
             {
-                game = new GameCreateEditViewModel();
+                await _gameViewService.CreateGame(gcuVM);
 
-                //_context.Add(game);
-                //await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
-            return View(game);
+
+            return View(gcuVM);
         }
 
         // GET: Game/Edit/5
@@ -76,7 +77,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = new GameCreateEditViewModel();
+            var game = new GameCreateUpdateViewModel();
             //var game = await _context.Games.FindAsync(id);
             if (game == null)
             {
@@ -90,7 +91,7 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,ReleaseDate,ID")] GameCreateEditViewModel game)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,ReleaseDate,ID")] GameCreateUpdateViewModel game)
         {
             if (id != game.ID)
             {
@@ -128,9 +129,9 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = new GameCreateEditViewModel();
+            var game = new GameCreateUpdateViewModel();
             //var game = await _context.Games.FirstOrDefaultAsync(m => m.ID == id);
-            if (game == null)
+            if (game == null || game.ID == 0)
             {
                 return NotFound();
             }
@@ -143,7 +144,7 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var game = new GameCreateEditViewModel();
+            var game = new GameCreateUpdateViewModel();
             //var game = await _context.Games.FindAsync(id);
             //_context.Games.Remove(game);
             //await _context.SaveChangesAsync();

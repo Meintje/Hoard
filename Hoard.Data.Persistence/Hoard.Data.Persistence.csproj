@@ -14,11 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hoard.Core.Constants\Hoard.Core.Constants.csproj" />
     <ProjectReference Include="..\Hoard.Data.Entities\Hoard.Data.Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

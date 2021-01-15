@@ -62,6 +62,7 @@ namespace Hoard.WebUI.ASP
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStatusCodePages();
 
             app.UseRouting();
 

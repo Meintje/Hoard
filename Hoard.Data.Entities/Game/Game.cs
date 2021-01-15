@@ -11,6 +11,5 @@ namespace Hoard.Data.Entities.Game
         public string Description { get; set; }
 
         public virtual ICollection<PlayData> PlayData { get; set; }
-
     }
 }

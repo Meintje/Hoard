@@ -8,6 +8,7 @@ namespace Hoard.Data.Persistence.DataAccess
     {
         public HoardDbContext(DbContextOptions<HoardDbContext> options) : base(options)
         {
+            
         }
 
         public DbSet<Game> Games { get; set; }

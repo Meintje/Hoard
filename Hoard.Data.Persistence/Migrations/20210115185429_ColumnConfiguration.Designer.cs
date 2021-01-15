@@ -4,14 +4,16 @@ using Hoard.Data.Persistence.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hoard.Data.Persistence.Migrations
 {
     [DbContext(typeof(HoardDbContext))]
-    partial class HoardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210115185429_ColumnConfiguration")]
+    partial class ColumnConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,8 +41,6 @@ namespace Hoard.Data.Persistence.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("ID");
-
-                    b.HasAlternateKey("Title", "ReleaseDate");
 
                     b.ToTable("Games");
 
@@ -94,7 +94,7 @@ namespace Hoard.Data.Persistence.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasAlternateKey("GameID", "PlayerID");
+                    b.HasIndex("GameID");
 
                     b.HasIndex("PlayerID");
 
@@ -168,10 +168,6 @@ namespace Hoard.Data.Persistence.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasAlternateKey("Name");
-
-                    b.HasAlternateKey("OrdinalNumber");
-
                     b.ToTable("PlayStatuses");
 
                     b.HasData(
@@ -214,8 +210,6 @@ namespace Hoard.Data.Persistence.Migrations
                         .HasColumnType("nvarchar(64)");
 
                     b.HasKey("ID");
-
-                    b.HasAlternateKey("Name");
 
                     b.ToTable("Players");
 

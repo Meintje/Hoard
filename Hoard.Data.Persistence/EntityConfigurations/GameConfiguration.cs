@@ -1,4 +1,5 @@
-﻿using Hoard.Data.Entities.Game;
+﻿using Hoard.Core.Constants;
+using Hoard.Data.Entities.Game;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,8 +10,17 @@ namespace Hoard.Data.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Game> builder)
         {
             builder.ToTable("Games");
-            builder.HasAlternateKey(g => new { g.Title, g.ReleaseDate }); // TODO: Add Platform once this entity has been added
-            builder.Property(g => g.ReleaseDate).HasColumnType("date");
+
+            builder.HasAlternateKey(g => new { g.Title, g.ReleaseDate }); // TODO: Add Platform to this AK once it exists
+
+            builder.Property(g => g.Title)
+                .IsRequired()
+                .HasMaxLength(EntityConstants.TitleMaximumLength);
+            builder.Property(g => g.ReleaseDate)
+                .IsRequired()
+                .HasColumnType("date");
+            builder.Property(g => g.Description)
+                .HasMaxLength(EntityConstants.NotesMaximumLength);
         }
     }
 }

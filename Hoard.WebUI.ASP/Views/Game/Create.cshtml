@@ -1,7 +1,7 @@
-﻿@model Hoard.Data.Entities.Game.Game
+﻿@model Hoard.WebUI.Services.ViewModels.GameCreateUpdateViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create game";
 }
 
 <h1>Create</h1>
@@ -19,8 +19,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="ReleaseDate" class="control-label"></label>
-                <input asp-for="ReleaseDate" class="form-control" />
+                <input asp-for="ReleaseDate" class="form-control" value="@DateTime.Now"/>
                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

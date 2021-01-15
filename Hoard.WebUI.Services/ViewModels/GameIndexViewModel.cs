@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.ViewModels
 {
     public class GameIndexViewModel
     {
-        public List<GameIndexItemViewModel> Games { get; set; }
+        public GameIndexViewModel()
+        {
+            Games = new List<GameIndexItemViewModel>();
+        }
+
+        public ICollection<GameIndexItemViewModel> Games { get; set; }
     }
 
     public class GameIndexItemViewModel
