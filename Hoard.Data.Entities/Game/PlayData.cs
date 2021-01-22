@@ -14,8 +14,7 @@ namespace Hoard.Data.Entities.Game
         public bool Dropped { get; set; }
         public bool CurrentlyPlaying { get; set; }
 
-        public string PlayNotes { get; set; }
-        public string GameNotes { get; set; }
+        public string Notes { get; set; }
 
         public virtual ICollection<Playthrough> Playthroughs { get; set; }
     }

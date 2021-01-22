@@ -13,6 +13,7 @@ namespace Hoard.Data.Entities.Game
         public DateTime? DateEnd { get; set; }
         public int PlaytimeMinutes { get; set; }
         public bool SideContentCompleted { get; set; }
+        public string Notes { get; set; }
 
         public virtual PlayStatus PlayStatus { get; set; }
         public virtual PlayData PlayData { get; set; }

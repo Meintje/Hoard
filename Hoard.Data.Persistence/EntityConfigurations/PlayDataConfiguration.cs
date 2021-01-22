@@ -13,9 +13,7 @@ namespace Hoard.Data.Persistence.EntityConfigurations
 
             builder.HasAlternateKey(pd => new { pd.GameID, pd.PlayerID });
 
-            builder.Property(pd => pd.PlayNotes)
-                .HasMaxLength(EntityConstants.NotesMaximumLength);
-            builder.Property(pd => pd.GameNotes)
+            builder.Property(pd => pd.Notes)
                 .HasMaxLength(EntityConstants.NotesMaximumLength);
         }
     }

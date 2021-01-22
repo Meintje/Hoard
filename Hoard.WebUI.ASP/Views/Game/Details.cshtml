@@ -51,12 +51,12 @@
                         }
                         else
                         {
-                            <ol>
+                            <ul>
                                 @foreach (var playthrough in item.Playthroughs)
                                 {
                                     <li>@playthrough.OrdinalNumber. @playthrough.PlayStatus, playtime: @playthrough.Playtime, @playthrough.SideContentCompleted</li>
                                 }
-                            </ol>
+                            </ul>
                         }
 
                     </dd>

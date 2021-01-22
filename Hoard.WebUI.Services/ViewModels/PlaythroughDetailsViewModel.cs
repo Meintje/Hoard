@@ -22,5 +22,7 @@ namespace Hoard.WebUI.Services.ViewModels
 
         [Display(Name = "Side content")]
         public string SideContentCompleted { get; set; }
+
+        public string Notes { get; set; }
     }
 }

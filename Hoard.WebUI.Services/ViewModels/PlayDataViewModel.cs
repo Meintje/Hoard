@@ -15,6 +15,7 @@ namespace Hoard.WebUI.Services.ViewModels
         public string Status { get; set; }
         [Display(Name = "Player name")]
         public string PlayerName { get; set; }
+        public string Notes { get; set; }
 
         public ICollection<PlaythroughDetailsViewModel> Playthroughs { get; set; }
     }

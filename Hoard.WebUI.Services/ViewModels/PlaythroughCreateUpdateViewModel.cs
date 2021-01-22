@@ -39,5 +39,7 @@ namespace Hoard.WebUI.Services.ViewModels
         public int PlaytimeMinutes { get; set; }
 
         public bool SideContentCompleted { get; set; }
+
+        public string Notes { get; set; }
     }
 }

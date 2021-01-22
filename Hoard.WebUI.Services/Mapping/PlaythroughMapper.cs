@@ -13,10 +13,11 @@ namespace Hoard.WebUI.Services.Mapping
             {
                 PlayDataID = playthrough.PlayDataID,
                 OrdinalNumber = playthrough.OrdinalNumber,
-                DateStart = playthrough.DateStart == null? "Unknown" : ((DateTime)playthrough.DateStart).ToString(EntityConstants.DateFormatString),
+                DateStart = playthrough.DateStart == null ? "Unknown" : ((DateTime)playthrough.DateStart).ToString(EntityConstants.DateFormatString),
                 DateEnd = playthrough.DateEnd == null ? "Unknown" : ((DateTime)playthrough.DateEnd).ToString(EntityConstants.DateFormatString),
                 PlayStatus = playthrough.PlayStatus.Name,
-                SideContentCompleted = playthrough.SideContentCompleted? "Completed" : "Not completed"
+                SideContentCompleted = playthrough.SideContentCompleted? "Completed" : "Not completed",
+                Notes = playthrough.Notes
             };
 
             var playtime = new TimeSpan(0, playthrough.PlaytimeMinutes, 0);
