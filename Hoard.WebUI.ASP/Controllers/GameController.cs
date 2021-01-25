@@ -47,9 +47,9 @@ namespace Hoard.WebUI.ASP.Controllers
         // GET: Game/Create
         public async Task<IActionResult> Create()
         {
-            var gameVM = await _gameViewService.GetGameCreateUpdateData(null);
+            var gcVM = await _gameViewService.GetGameCreateData();
 
-            return View(gameVM);
+            return View(gcVM);
         }
 
         // POST: Game/Create
@@ -57,16 +57,16 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,Description")] GameCreateUpdateViewModel gcuVM)
+        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,Description")] GameCreateViewModel gcVM)
         {
             if (ModelState.IsValid)
             {
-                await _gameViewService.CreateGame(gcuVM);
+                await _gameViewService.CreateGame(gcVM);
 
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(gcuVM);
+            return View(gcVM);
         }
 
         // GET: Game/Edit/5
@@ -77,13 +77,14 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = new GameCreateUpdateViewModel();
-            //var game = await _context.Games.FindAsync(id);
-            if (game == null)
+            var guVM = await _gameViewService.GetGameUpdateData((int)id);
+           
+            if (guVM == null)
             {
                 return NotFound();
             }
-            return View(game);
+
+            return View(guVM);
         }
 
         // POST: Game/Edit/5
@@ -91,9 +92,9 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,ReleaseDate,ID")] GameCreateUpdateViewModel game)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Description")] GameUpdateViewModel guVM)
         {
-            if (id != game.ID)
+            if (id != guVM.ID)
             {
                 return NotFound();
             }
@@ -102,12 +103,11 @@ namespace Hoard.WebUI.ASP.Controllers
             {
                 try
                 {
-                    //_context.Update(game);
-                    //await _context.SaveChangesAsync();
+                    await _gameViewService.UpdateGame(guVM);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GameExists(game.ID))
+                    if (!GameExists(guVM.ID))
                     {
                         return NotFound();
                     }
@@ -118,7 +118,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+            return View(guVM);
         }
 
         // GET: Game/Delete/5
@@ -129,7 +129,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var game = new GameCreateUpdateViewModel();
+            var game = new GameDetailsViewModel();
             //var game = await _context.Games.FirstOrDefaultAsync(m => m.ID == id);
             if (game == null || game.ID == 0)
             {
@@ -144,7 +144,7 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var game = new GameCreateUpdateViewModel();
+            var game = new GameCreateViewModel();
             //var game = await _context.Games.FindAsync(id);
             //_context.Games.Remove(game);
             //await _context.SaveChangesAsync();

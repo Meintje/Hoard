@@ -38,25 +38,30 @@ namespace Hoard.WebUI.Services
             return vm;
         }
 
-        public async Task<GameCreateUpdateViewModel> GetGameCreateUpdateData(int? id)
+        public async Task<GameCreateViewModel> GetGameCreateData()
         {
-            if (id == null)
-            {
-                return GameMapper.ToCreateViewModel();
-            }
-            else
-            {
-                var game = await _dbService.GetGameByID((int)id);
-
-                return GameMapper.ToCreateViewModel();
-            }
+            return GameMapper.ToCreateViewModel();
         }
 
-        public async Task CreateGame(GameCreateUpdateViewModel gcuVM)
+        public async Task<GameUpdateViewModel> GetGameUpdateData(int id)
         {
-            var game = GameMapper.ToNewEntity(gcuVM);
-            
+            var game = await _dbService.GetGameByID(id);
+
+            return GameMapper.ToUpdateViewModel(game);
+        }
+
+        public async Task CreateGame(GameCreateViewModel gcVM)
+        {
+            var game = GameMapper.ToNewGame(gcVM);
+
             await _dbService.CreateGame(game);
+        }
+
+        public async Task UpdateGame(GameUpdateViewModel guVM)
+        {
+            var game = GameMapper.ToExistingGame(guVM);
+
+            await _dbService.UpdateGame(game);
         }
 
         public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateUpdateData(int? pdID, int? ordinalNumber)

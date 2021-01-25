@@ -50,7 +50,7 @@ namespace Hoard.Data.Services
 
         public async Task UpdateGame(Game game)
         {
-            _context.Entry(game).State = EntityState.Modified;
+            _context.Update(game);
 
             await _context.SaveChangesAsync();
         }

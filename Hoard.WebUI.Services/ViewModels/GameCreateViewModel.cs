@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hoard.WebUI.Services.ViewModels
 {
-    public class GameCreateUpdateViewModel
+    public class GameCreateViewModel
     {
-        public int ID { get; set; }
-
         [Required(ErrorMessage = "A game needs a title.")]
         [MaxLength(EntityConstants.TitleMaximumLength, ErrorMessage = "Your title is too long.")]
         public string Title { get; set; }

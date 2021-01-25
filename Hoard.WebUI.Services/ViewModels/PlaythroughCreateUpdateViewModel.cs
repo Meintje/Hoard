@@ -29,12 +29,15 @@ namespace Hoard.WebUI.Services.ViewModels
         public DateTime? DateEnd { get; set; }
 
         [Required(ErrorMessage = "Please enter a value of 0 or above for days played.")]
+        [Display(Name = "day(s),")]
         [Range(0, int.MaxValue)]
         public int PlaytimeDays { get; set; }
         [Required(ErrorMessage = "Please enter a value of 0 or above for hours played.")]
+        [Display(Name = "hour(s),")]
         [Range(0, int.MaxValue)]
         public int PlaytimeHours { get; set; }
         [Required(ErrorMessage = "Please enter a value of 0 or above for minutes played.")]
+        [Display(Name = "minute(s)")]
         [Range(0, int.MaxValue)]
         public int PlaytimeMinutes { get; set; }
 

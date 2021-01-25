@@ -7,18 +7,6 @@ namespace Hoard.WebUI.Services.Mapping
 {
     internal static class GameMapper
     {
-        internal static GameIndexItemViewModel ToIndexItemViewModel(Game game)
-        {
-            GameIndexItemViewModel vm = new GameIndexItemViewModel
-            {
-                ID = game.ID,
-                Title = game.Title,
-                ReleaseDate = game.ReleaseDate.ToString(EntityConstants.DateFormatString)
-            };
-
-            return vm;
-        }
-
         internal static GameIndexViewModel ToIndexViewModel(ICollection<Game> games)
         {
             var vm = new GameIndexViewModel();
@@ -27,6 +15,18 @@ namespace Hoard.WebUI.Services.Mapping
             {
                 vm.Games.Add(ToIndexItemViewModel(g));
             }
+
+            return vm;
+        }
+
+        internal static GameIndexItemViewModel ToIndexItemViewModel(Game game)
+        {
+            GameIndexItemViewModel vm = new GameIndexItemViewModel
+            {
+                ID = game.ID,
+                Title = game.Title,
+                ReleaseDate = game.ReleaseDate.ToString(EntityConstants.DateFormatString)
+            };
 
             return vm;
         }
@@ -54,35 +54,47 @@ namespace Hoard.WebUI.Services.Mapping
             return vm;
         }
 
-        internal static GameCreateUpdateViewModel ToCreateViewModel()
+        internal static GameCreateViewModel ToCreateViewModel()
         {
-            var vm = new GameCreateUpdateViewModel();
+            var vm = new GameCreateViewModel();
 
             return vm;
         }
 
-        internal static GameCreateUpdateViewModel ToUpdateViewModel()
+        internal static GameUpdateViewModel ToUpdateViewModel(Game game)
         {
-            var vm = new GameCreateUpdateViewModel();
+            var vm = new GameUpdateViewModel
+            {
+                ID = game.ID,
+                Title = game.Title,
+                Description = game.Description,
+                ReleaseDate = game.ReleaseDate
+            };
 
             return vm;
         }
 
-        internal static Game ToNewEntity(GameCreateUpdateViewModel gcuVM)
+        internal static Game ToNewGame(GameCreateViewModel gcVM)
         {
             var game = new Game 
             { 
-                Title = gcuVM.Title,
-                ReleaseDate = gcuVM.ReleaseDate,
-                Description = gcuVM.Description
+                Title = gcVM.Title,
+                ReleaseDate = gcVM.ReleaseDate,
+                Description = gcVM.Description
             };
 
             return game;
         }
 
-        internal static Game ToExistingEntity(GameCreateUpdateViewModel gcuVM)
+        internal static Game ToExistingGame(GameUpdateViewModel guVM)
         {
-            var game = new Game();
+            var game = new Game
+            {
+                ID = guVM.ID,
+                Title = guVM.Title,
+                ReleaseDate = guVM.ReleaseDate,
+                Description = guVM.Description
+            };
 
             return game;
         }
