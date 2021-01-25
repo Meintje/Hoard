@@ -59,6 +59,8 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,ReleaseDate,Description")] GameCreateViewModel gcVM)
         {
+            // TODO: Show error message in view when trying to create duplicate game.
+
             if (ModelState.IsValid)
             {
                 await _gameViewService.CreateGame(gcVM);
@@ -94,6 +96,8 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Description")] GameUpdateViewModel guVM)
         {
+            // TODO: Show error message in view when this update would result in a duplicate game.
+
             if (id != guVM.ID)
             {
                 return NotFound();
