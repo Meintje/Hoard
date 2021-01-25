@@ -10,6 +10,9 @@ namespace Hoard.Data.Entities.Game
         public DateTime ReleaseDate { get; set; }
         public string Description { get; set; }
 
+        public int PlatformID { get; set; }
+
+        public virtual Platform Platform { get; set; }
         public virtual ICollection<PlayData> PlayData { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace Hoard.WebUI.Services
 
         public async Task<GameDetailsViewModel> GetGameDetails(int id)
         {
-            var game = await _dbService.GetGameByID(id);
+            var game = await _dbService.GetGameDetails(id);
 
             if (game == null)
             {
@@ -45,7 +45,7 @@ namespace Hoard.WebUI.Services
 
         public async Task<GameUpdateViewModel> GetGameUpdateData(int id)
         {
-            var game = await _dbService.GetGameByID(id);
+            var game = await _dbService.GetGameDetails(id);
 
             return GameMapper.ToUpdateViewModel(game);
         }

@@ -11,7 +11,7 @@ namespace Hoard.Data.Persistence.EntityConfigurations
         {
             builder.ToTable("Games");
 
-            builder.HasAlternateKey(g => new { g.Title, g.ReleaseDate }); // TODO: Add Platform to this AK once it exists
+            builder.HasAlternateKey(g => new { g.Title, g.ReleaseDate, g.PlatformID });
 
             builder.Property(g => g.Title)
                 .IsRequired()

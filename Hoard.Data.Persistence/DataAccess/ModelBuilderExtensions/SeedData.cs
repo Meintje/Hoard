@@ -9,9 +9,9 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
         internal static void SeedDatabase(this ModelBuilder builder)
         {
             builder.Entity<Game>().HasData(
-                new Game { ID = 1, Title = "The Legend of Heroes: Trails in the Sky FC Evolution", ReleaseDate = DateTime.Parse("2015-06-11") },
-                new Game { ID = 2, Title = "Monster Hunter World", ReleaseDate = DateTime.Parse("2018-08-09") },
-                new Game { ID = 3, Title = "Yoshi's Woolly World", ReleaseDate = DateTime.Parse("2015-06-26") }
+                new Game { ID = 1, Title = "The Legend of Heroes: Trails in the Sky FC Evolution", ReleaseDate = DateTime.Parse("2015-06-11"), PlatformID = 1 },
+                new Game { ID = 2, Title = "Monster Hunter World", ReleaseDate = DateTime.Parse("2018-08-09"), PlatformID = 2 },
+                new Game { ID = 3, Title = "Yoshi's Woolly World", ReleaseDate = DateTime.Parse("2015-06-26"), PlatformID = 3 }
                 );
 
             builder.Entity<Player>().HasData(
@@ -25,7 +25,7 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
                 new PlayStatus { ID = 3, Name = "Hiatus", OrdinalNumber = 3 },
                 new PlayStatus { ID = 4, Name = "Dropped", OrdinalNumber = 4 }
                 );
-            
+
             builder.Entity<PlayData>().HasData(
                 new PlayData { ID = 1, GameID = 1, PlayerID = 1, Dropped = false, CurrentlyPlaying = true },    // 1: Trails in the Sky, Meintje, not dropped, currently playing
                 new PlayData { ID = 2, GameID = 1, PlayerID = 2, Dropped = true, CurrentlyPlaying = false },    // 2: Trails in the Sky, Bram, dropped, not currently playing
@@ -43,6 +43,13 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
                 new Playthrough { PlayDataID = 5, OrdinalNumber = 2, PlayStatusID = 1, SideContentCompleted = false, DateStart = DateTime.Today, DateEnd = DateTime.Today, PlaytimeMinutes = 500 },
                 new Playthrough { PlayDataID = 6, OrdinalNumber = 1, PlayStatusID = 4, SideContentCompleted = false, DateStart = DateTime.Today, DateEnd = DateTime.Today, PlaytimeMinutes = 10 }
                 );
+
+            builder.Entity<Platform>().HasData(
+               new Platform { ID = 1, Name = "Sony Playstation Vita" },
+               new Platform { ID = 2, Name = "Steam" },
+               new Platform { ID = 3, Name = "Nintendo Switch" },
+               new Platform { ID = 4, Name = "Nintendo 3DS" }
+               );
         }
     }
 }

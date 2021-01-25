@@ -30,6 +30,9 @@ namespace Hoard.Data.Persistence.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
+                    b.Property<int>("PlatformID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
 
@@ -40,7 +43,9 @@ namespace Hoard.Data.Persistence.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasAlternateKey("Title", "ReleaseDate");
+                    b.HasAlternateKey("Title", "ReleaseDate", "PlatformID");
+
+                    b.HasIndex("PlatformID");
 
                     b.ToTable("Games");
 
@@ -48,20 +53,64 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 1,
+                            PlatformID = 1,
                             ReleaseDate = new DateTime(2015, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Legend of Heroes: Trails in the Sky FC Evolution"
                         },
                         new
                         {
                             ID = 2,
+                            PlatformID = 2,
                             ReleaseDate = new DateTime(2018, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Monster Hunter World"
                         },
                         new
                         {
                             ID = 3,
+                            PlatformID = 3,
                             ReleaseDate = new DateTime(2015, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Yoshi's Woolly World"
+                        });
+                });
+
+            modelBuilder.Entity("Hoard.Data.Entities.Game.Platform", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.HasKey("ID");
+
+                    b.HasAlternateKey("Name");
+
+                    b.ToTable("Platforms");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Sony Playstation Vita"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Steam"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Nintendo Switch"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "Nintendo 3DS"
                         });
                 });
 
@@ -319,6 +368,17 @@ namespace Hoard.Data.Persistence.Migrations
                             PlaytimeMinutes = 10,
                             SideContentCompleted = false
                         });
+                });
+
+            modelBuilder.Entity("Hoard.Data.Entities.Game.Game", b =>
+                {
+                    b.HasOne("Hoard.Data.Entities.Game.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Platform");
                 });
 
             modelBuilder.Entity("Hoard.Data.Entities.Game.PlayData", b =>

@@ -24,11 +24,12 @@ namespace Hoard.Data.Services
             return items;
         }
 
-        public async Task<Game> GetGameByID(int id)
+        public async Task<Game> GetGameDetails(int id)
         {
             var item = await _context.Games
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Player)
+                .Include(g => g.Platform)
                 .Where(g => g.ID == id).FirstOrDefaultAsync();
 
             return item;
