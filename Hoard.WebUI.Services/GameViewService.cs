@@ -69,25 +69,23 @@ namespace Hoard.WebUI.Services
             await _dbService.DeleteGame(id);
         }
 
-        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateUpdateData(int? pdID, int? ordinalNumber)
+        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateData()
         {
-            if (pdID == null || ordinalNumber == null)
+            return new PlaythroughCreateUpdateViewModel();
+        }
+
+        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateData(int pdID, int ordinalNumber)
+        {
+            var pt = await _dbService.GetPlaythroughByID(pdID, ordinalNumber);
+
+            if (pt == null)
             {
-                return new PlaythroughCreateUpdateViewModel();
+                return null;
             }
-            else
-            {
-                var pt = await _dbService.GetPlaythroughByID((int)pdID, (int)ordinalNumber);
 
-                if (pt == null)
-                {
-                    return null;
-                }
+            var ptcuVM = PlaythroughMapper.ToCreateUpdateViewModel(pt);
 
-                var ptcuVM = PlaythroughMapper.ToCreateUpdateViewModel(pt);
-
-                return ptcuVM;
-            }
+            return ptcuVM;
         }
     }
 }

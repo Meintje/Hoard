@@ -12,6 +12,8 @@ namespace Hoard.WebUI.Services.Interfaces
         public Task CreateGame(GameCreateViewModel gcVM);
         public Task UpdateGame(GameUpdateViewModel guVM);
         public Task DeleteGame(int id);
-        public Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateUpdateData(int? pdID, int? ordinalNumber);
+
+        public Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateData();
+        public Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateData(int pdID, int ordinalNumber);
     }
 }
