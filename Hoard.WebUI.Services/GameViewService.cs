@@ -64,6 +64,11 @@ namespace Hoard.WebUI.Services
             await _dbService.UpdateGame(game);
         }
 
+        public async Task DeleteGame(int id)
+        {
+            await _dbService.DeleteGame(id);
+        }
+
         public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateUpdateData(int? pdID, int? ordinalNumber)
         {
             if (pdID == null || ordinalNumber == null)

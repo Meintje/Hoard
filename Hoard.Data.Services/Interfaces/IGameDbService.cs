@@ -11,7 +11,7 @@ namespace Hoard.Data.Services.Interfaces
         public Task<ICollection<Game>> GetGamesByTitle(string title);
         public Task CreateGame(Game game);
         public Task UpdateGame(Game game);
-        public Task DeleteGame(Game game);
+        public Task DeleteGame(int id);
         public Task<Playthrough> GetPlaythroughByID(int pdID, int ordinalNumber);
     }
 }

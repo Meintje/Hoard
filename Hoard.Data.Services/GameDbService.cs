@@ -55,8 +55,10 @@ namespace Hoard.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteGame(Game game)
+        public async Task DeleteGame(int id)
         {
+            var game = await _context.Games.Where(g => g.ID == id).FirstOrDefaultAsync();
+
             _context.Games.Remove(game);
 
             await _context.SaveChangesAsync();

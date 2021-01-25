@@ -125,33 +125,13 @@ namespace Hoard.WebUI.ASP.Controllers
             return View(guVM);
         }
 
-        // GET: Game/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var game = new GameDetailsViewModel();
-            //var game = await _context.Games.FirstOrDefaultAsync(m => m.ID == id);
-            if (game == null || game.ID == 0)
-            {
-                return NotFound();
-            }
-
-            return View(game);
-        }
-
         // POST: Game/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var game = new GameCreateViewModel();
-            //var game = await _context.Games.FindAsync(id);
-            //_context.Games.Remove(game);
-            //await _context.SaveChangesAsync();
+            await _gameViewService.DeleteGame(id);
+
             return RedirectToAction(nameof(Index));
         }
 
