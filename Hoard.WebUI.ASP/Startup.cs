@@ -35,7 +35,7 @@ namespace Hoard.WebUI.ASP
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<HoardDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("HoardConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("HoardConnection")).EnableSensitiveDataLogging());
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<IGameViewService, GameViewService>();

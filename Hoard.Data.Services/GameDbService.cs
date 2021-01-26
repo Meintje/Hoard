@@ -35,6 +35,13 @@ namespace Hoard.Data.Services
             return item;
         }
 
+        public async Task<Game> GetGameBarebones(int id)
+        {
+            var item = await _context.Games.Where(g => g.ID == id).FirstOrDefaultAsync();
+
+            return item;
+        }
+
         public async Task<ICollection<Game>> GetGamesByTitle(string title)
         {
             var items = await _context.Games.Where(g => g.Title == title).ToListAsync();
@@ -52,7 +59,6 @@ namespace Hoard.Data.Services
         public async Task UpdateGame(Game game)
         {
             _context.Update(game);
-
             await _context.SaveChangesAsync();
         }
 
