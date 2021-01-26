@@ -57,7 +57,7 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,Description")] GameCreateViewModel gcVM)
+        public async Task<IActionResult> Create([Bind("Title,PlatformID,ReleaseDate,Description")] GameCreateViewModel gcVM)
         {
             // TODO: Show error message in view when trying to create duplicate game.
 
@@ -94,7 +94,7 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Description")] GameUpdateViewModel guVM)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,PlatformID,ReleaseDate,Description")] GameUpdateViewModel guVM)
         {
             // TODO: Show error message in view when this update would result in a duplicate game.
 

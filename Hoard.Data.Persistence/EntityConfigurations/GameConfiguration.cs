@@ -11,7 +11,7 @@ namespace Hoard.Data.Persistence.EntityConfigurations
         {
             builder.ToTable("Games");
 
-            builder.HasAlternateKey(g => new { g.Title, g.ReleaseDate, g.PlatformID });
+            builder.HasIndex(g => new { g.Title, g.ReleaseDate, g.PlatformID }).IsUnique();
 
             builder.Property(g => g.Title)
                 .IsRequired()

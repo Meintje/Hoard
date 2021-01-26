@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Hoard.Core.Constants\Hoard.Core.Constants.csproj" />
     <ProjectReference Include="..\Hoard.Data.Entities\Hoard.Data.Entities.csproj" />
     <ProjectReference Include="..\Hoard.Data.Persistence\Hoard.Data.Persistence.csproj" />

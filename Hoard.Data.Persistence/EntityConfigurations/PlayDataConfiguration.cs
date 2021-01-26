@@ -11,7 +11,7 @@ namespace Hoard.Data.Persistence.EntityConfigurations
         {
             builder.ToTable("PlayData");
 
-            builder.HasAlternateKey(pd => new { pd.GameID, pd.PlayerID });
+            builder.HasIndex(pd => new { pd.GameID, pd.PlayerID }).IsUnique();
 
             builder.Property(pd => pd.Notes)
                 .HasMaxLength(EntityConstants.NotesMaximumLength);

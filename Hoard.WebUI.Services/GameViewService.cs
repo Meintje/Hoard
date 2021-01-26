@@ -40,14 +40,17 @@ namespace Hoard.WebUI.Services
 
         public async Task<GameCreateViewModel> GetGameCreateData()
         {
-            return GameMapper.ToCreateViewModel();
+            var platformList = await _dbService.GetAllPlatforms();
+
+            return GameMapper.ToCreateViewModel(platformList);
         }
 
         public async Task<GameUpdateViewModel> GetGameUpdateData(int id)
         {
             var game = await _dbService.GetGameDetails(id);
+            var platformList = await _dbService.GetAllPlatforms();
 
-            return GameMapper.ToUpdateViewModel(game);
+            return GameMapper.ToUpdateViewModel(game, platformList);
         }
 
         public async Task CreateGame(GameCreateViewModel gcVM)
@@ -76,7 +79,7 @@ namespace Hoard.WebUI.Services
 
         public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateData(int pdID, int ordinalNumber)
         {
-            var pt = await _dbService.GetPlaythroughByID(pdID, ordinalNumber);
+            var pt = await _dbService.GetPlaythroughDetails(pdID, ordinalNumber);
 
             if (pt == null)
             {

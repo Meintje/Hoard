@@ -59,6 +59,7 @@ namespace Hoard.Data.Services
         public async Task UpdateGame(Game game)
         {
             _context.Update(game);
+
             await _context.SaveChangesAsync();
         }
 
@@ -71,7 +72,14 @@ namespace Hoard.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Playthrough> GetPlaythroughByID(int pdID, int ordinalNumber)
+        public async Task<ICollection<Platform>> GetAllPlatforms()
+        {
+            var items = await _context.Platforms.ToListAsync();
+
+            return items;
+        }
+
+        public async Task<Playthrough> GetPlaythroughDetails(int pdID, int ordinalNumber)
         {
             var item = await _context.Playthroughs
                 .Include(pt => pt.PlayStatus)

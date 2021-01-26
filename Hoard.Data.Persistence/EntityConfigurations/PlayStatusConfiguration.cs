@@ -11,8 +11,8 @@ namespace Hoard.Data.Persistence.EntityConfigurations
         {
             builder.ToTable("PlayStatuses");
 
-            builder.HasAlternateKey(ps => ps.Name);
-            builder.HasAlternateKey(ps => ps.OrdinalNumber);
+            builder.HasIndex(ps => ps.Name).IsUnique();
+            builder.HasIndex(ps => ps.OrdinalNumber).IsUnique();
 
             builder.Property(ps => ps.Name)
                 .IsRequired()

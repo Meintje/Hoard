@@ -12,6 +12,9 @@ namespace Hoard.Data.Services.Interfaces
         public Task CreateGame(Game game);
         public Task UpdateGame(Game game);
         public Task DeleteGame(int id);
-        public Task<Playthrough> GetPlaythroughByID(int pdID, int ordinalNumber);
+
+        public Task<ICollection<Platform>> GetAllPlatforms();
+
+        public Task<Playthrough> GetPlaythroughDetails(int pdID, int ordinalNumber);
     }
 }

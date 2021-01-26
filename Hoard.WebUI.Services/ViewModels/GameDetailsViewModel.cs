@@ -12,6 +12,7 @@ namespace Hoard.WebUI.Services.ViewModels
 
         public int ID { get; set; }
         public string Title { get; set; }
+        public string Platform { get; set; }
         public string Description { get; set; }
 
         [Display(Name = "Release date")]

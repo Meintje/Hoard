@@ -1,6 +1,7 @@
 ﻿using Hoard.Core.Constants;
 using Hoard.Data.Entities.Game;
 using Hoard.WebUI.Services.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace Hoard.WebUI.Services.Mapping
@@ -37,6 +38,7 @@ namespace Hoard.WebUI.Services.Mapping
             {
                 ID = game.ID,
                 Title = game.Title,
+                Platform = game.Platform.Name,
                 Description = game.Description,
                 ReleaseDate = game.ReleaseDate.ToString(EntityConstants.DateFormatString)
             };
@@ -54,22 +56,34 @@ namespace Hoard.WebUI.Services.Mapping
             return vm;
         }
 
-        internal static GameCreateViewModel ToCreateViewModel()
+        internal static GameCreateViewModel ToCreateViewModel(ICollection<Platform> platformList)
         {
             var vm = new GameCreateViewModel();
+
+            foreach(var item in platformList)
+            {
+                vm.PlatformSelectList.Add(new SelectListItem { Value = item.ID.ToString(), Text = item.Name });
+            }
 
             return vm;
         }
 
-        internal static GameUpdateViewModel ToUpdateViewModel(Game game)
+        internal static GameUpdateViewModel ToUpdateViewModel(Game game, ICollection<Platform> platformList)
         {
             var vm = new GameUpdateViewModel
             {
                 ID = game.ID,
                 Title = game.Title,
+                PlatformID = game.PlatformID,
                 Description = game.Description,
                 ReleaseDate = game.ReleaseDate
             };
+
+            // TODO: Extract this into a separate, private helper method?
+            foreach (var item in platformList)
+            {
+                vm.PlatformSelectList.Add(new SelectListItem { Value = item.ID.ToString(), Text = item.Name });
+            }
 
             return vm;
         }
@@ -79,6 +93,7 @@ namespace Hoard.WebUI.Services.Mapping
             var game = new Game 
             { 
                 Title = gcVM.Title,
+                PlatformID = gcVM.PlatformID,
                 ReleaseDate = gcVM.ReleaseDate,
                 Description = gcVM.Description
             };
@@ -92,6 +107,7 @@ namespace Hoard.WebUI.Services.Mapping
             {
                 ID = guVM.ID,
                 Title = guVM.Title,
+                PlatformID = guVM.PlatformID,
                 ReleaseDate = guVM.ReleaseDate,
                 Description = guVM.Description
             };
