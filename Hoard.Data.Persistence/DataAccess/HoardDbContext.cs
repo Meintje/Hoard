@@ -17,6 +17,8 @@ namespace Hoard.Data.Persistence.DataAccess
         public DbSet<Playthrough> Playthroughs { get; set; }
         public DbSet<PlayStatus> PlayStatuses { get; set; }
         public DbSet<Platform> Platforms { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<GameGenre> GameGenres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

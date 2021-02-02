@@ -4,14 +4,16 @@ using Hoard.Data.Persistence.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hoard.Data.Persistence.Migrations
 {
     [DbContext(typeof(HoardDbContext))]
-    partial class HoardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210126191048_AlternateKeysToIndexes")]
+    partial class AlternateKeysToIndexes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,85 +73,6 @@ namespace Hoard.Data.Persistence.Migrations
                             PlatformID = 3,
                             ReleaseDate = new DateTime(2015, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Yoshi's Woolly World"
-                        });
-                });
-
-            modelBuilder.Entity("Hoard.Data.Entities.Game.GameGenre", b =>
-                {
-                    b.Property<int>("GameID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenreID")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameID", "GenreID");
-
-                    b.HasIndex("GenreID");
-
-                    b.ToTable("GameGenres");
-
-                    b.HasData(
-                        new
-                        {
-                            GameID = 1,
-                            GenreID = 1
-                        },
-                        new
-                        {
-                            GameID = 1,
-                            GenreID = 4
-                        },
-                        new
-                        {
-                            GameID = 2,
-                            GenreID = 2
-                        },
-                        new
-                        {
-                            GameID = 3,
-                            GenreID = 3
-                        });
-                });
-
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Genre", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
-                    b.ToTable("Genres");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Name = "Turn-based RPG"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Name = "Action RPG"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Name = "Platform"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Name = "Visual novel"
                         });
                 });
 
@@ -466,25 +389,6 @@ namespace Hoard.Data.Persistence.Migrations
                     b.Navigation("Platform");
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.GameGenre", b =>
-                {
-                    b.HasOne("Hoard.Data.Entities.Game.Game", "Game")
-                        .WithMany("Genres")
-                        .HasForeignKey("GameID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Hoard.Data.Entities.Game.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Genre");
-                });
-
             modelBuilder.Entity("Hoard.Data.Entities.Game.PlayData", b =>
                 {
                     b.HasOne("Hoard.Data.Entities.Game.Game", "Game")
@@ -525,8 +429,6 @@ namespace Hoard.Data.Persistence.Migrations
 
             modelBuilder.Entity("Hoard.Data.Entities.Game.Game", b =>
                 {
-                    b.Navigation("Genres");
-
                     b.Navigation("PlayData");
                 });
 

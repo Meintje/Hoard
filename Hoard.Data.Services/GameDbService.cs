@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System;
 
 namespace Hoard.Data.Services
 {
@@ -30,14 +31,17 @@ namespace Hoard.Data.Services
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Player)
                 .Include(g => g.Platform)
+                .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
                 .Where(g => g.ID == id).FirstOrDefaultAsync();
 
             return item;
         }
 
-        public async Task<Game> GetGameBarebones(int id)
+        public async Task<Game> GetGameUpdateData(int id)
         {
-            var item = await _context.Games.Where(g => g.ID == id).FirstOrDefaultAsync();
+            var item = await _context.Games
+                .Include(g => g.Genres)
+                .Where(g => g.ID == id).FirstOrDefaultAsync();
 
             return item;
         }
@@ -49,18 +53,27 @@ namespace Hoard.Data.Services
             return items;
         }
 
-        public async Task CreateGame(Game game)
+        public async Task CreateGame(Game newGame)
         {
-            _context.Add(game);
+            _context.Add(newGame);
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateGame(Game game)
+        public async Task UpdateGame(Game updatedGame)
         {
-            _context.Update(game);
+            var oldGenres = _context.GameGenres.Where(gg => gg.GameID == updatedGame.ID).ToList();
+            UpdateManyToManyRelation(oldGenres, updatedGame.Genres);
+
+            _context.Update(updatedGame);
 
             await _context.SaveChangesAsync();
+        }
+
+        private void UpdateManyToManyRelation<T>(IEnumerable<T> oldItems, IEnumerable<T> newItems) where T : class
+        {
+            _context.RemoveRange(oldItems);
+            _context.AddRange(newItems);
         }
 
         public async Task DeleteGame(int id)
@@ -75,6 +88,13 @@ namespace Hoard.Data.Services
         public async Task<ICollection<Platform>> GetAllPlatforms()
         {
             var items = await _context.Platforms.ToListAsync();
+
+            return items;
+        }
+
+        public async Task<ICollection<Genre>> GetAllGenres()
+        {
+            var items = await _context.Genres.ToListAsync();
 
             return items;
         }

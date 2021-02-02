@@ -56,34 +56,41 @@ namespace Hoard.WebUI.Services.Mapping
             return vm;
         }
 
-        internal static GameCreateViewModel ToCreateViewModel(ICollection<Platform> platformList)
+        internal static GameCreateViewModel ToCreateViewModel(ICollection<Platform> platformList, ICollection<Genre> genreList)
         {
             var vm = new GameCreateViewModel();
 
-            foreach(var item in platformList)
-            {
-                vm.PlatformSelectList.Add(new SelectListItem { Value = item.ID.ToString(), Text = item.Name });
-            }
+            vm.PlatformSelectList = new SelectList(platformList, nameof(Platform.ID), nameof(Platform.Name));
+            vm.GenreSelectList = new SelectList(genreList, nameof(Genre.ID), nameof(Genre.Name));
 
             return vm;
         }
 
-        internal static GameUpdateViewModel ToUpdateViewModel(Game game, ICollection<Platform> platformList)
+        internal static GameUpdateViewModel ToUpdateViewModel(Game game, ICollection<Platform> platformList, ICollection<Genre> genreList)
         {
             var vm = new GameUpdateViewModel
             {
                 ID = game.ID,
                 Title = game.Title,
-                PlatformID = game.PlatformID,
+                ReleaseDate = game.ReleaseDate,
                 Description = game.Description,
-                ReleaseDate = game.ReleaseDate
+                PlatformID = game.PlatformID
             };
 
-            // TODO: Extract this into a separate, private helper method?
-            foreach (var item in platformList)
+            // TODO: Add reusable way to create the array of selected IDs.
+            if (game.Genres != null && game.Genres.Count > 0)
             {
-                vm.PlatformSelectList.Add(new SelectListItem { Value = item.ID.ToString(), Text = item.Name });
+                var SelectedGenres = new List<int>();
+                foreach (var genre in game.Genres)
+                {
+                    SelectedGenres.Add(genre.GenreID);
+                }
+                vm.GenreIDs = SelectedGenres.ToArray();
             }
+
+            // TODO: Add reusable way to populate SelectLists?
+            vm.PlatformSelectList = new SelectList(platformList, nameof(Platform.ID), nameof(Platform.Name));
+            vm.GenreSelectList = new SelectList(genreList, nameof(Genre.ID), nameof(Genre.Name));
 
             return vm;
         }
@@ -95,8 +102,17 @@ namespace Hoard.WebUI.Services.Mapping
                 Title = gcVM.Title,
                 PlatformID = gcVM.PlatformID,
                 ReleaseDate = gcVM.ReleaseDate,
-                Description = gcVM.Description
+                Description = gcVM.Description,
+                Genres = new List<GameGenre>()
             };
+
+            if (gcVM.GenreIDs != null && gcVM.GenreIDs.Length > 0)
+            {
+                foreach (var item in gcVM.GenreIDs)
+                {
+                    game.Genres.Add(new GameGenre { GenreID = item });
+                }
+            }
 
             return game;
         }
@@ -109,8 +125,17 @@ namespace Hoard.WebUI.Services.Mapping
                 Title = guVM.Title,
                 PlatformID = guVM.PlatformID,
                 ReleaseDate = guVM.ReleaseDate,
-                Description = guVM.Description
+                Description = guVM.Description,
+                Genres = new List<GameGenre>()
             };
+
+            if (guVM.GenreIDs != null && guVM.GenreIDs.Length > 0)
+            {
+                foreach (var item in guVM.GenreIDs)
+                {
+                    game.Genres.Add(new GameGenre { GameID = guVM.ID, GenreID = item });
+                }
+            }
 
             return game;
         }

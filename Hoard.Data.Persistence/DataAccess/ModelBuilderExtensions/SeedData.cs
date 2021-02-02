@@ -50,6 +50,20 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
                new Platform { ID = 3, Name = "Nintendo Switch" },
                new Platform { ID = 4, Name = "Nintendo 3DS" }
                );
+
+            builder.Entity<Genre>().HasData(
+               new Genre { ID = 1, Name = "Turn-based RPG" },
+               new Genre { ID = 2, Name = "Action RPG" },
+               new Genre { ID = 3, Name = "Platform" },
+               new Genre { ID = 4, Name = "Visual novel" }
+               );
+
+            builder.Entity<GameGenre>().HasData(
+                new GameGenre { GameID = 1, GenreID = 1 },
+                new GameGenre { GameID = 1, GenreID = 4 },
+                new GameGenre { GameID = 2, GenreID = 2 },
+                new GameGenre { GameID = 3, GenreID = 3 }
+                );
         }
     }
 }

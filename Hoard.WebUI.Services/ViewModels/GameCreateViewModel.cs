@@ -8,11 +8,6 @@ namespace Hoard.WebUI.Services.ViewModels
 {
     public class GameCreateViewModel
     {
-        public GameCreateViewModel()
-        {
-            PlatformSelectList = new List<SelectListItem>();
-        }
-
         [Required(ErrorMessage = "A game needs a title.")]
         [MaxLength(EntityConstants.TitleMaximumLength, ErrorMessage = "Your title is too long.")]
         public string Title { get; set; }
@@ -20,7 +15,11 @@ namespace Hoard.WebUI.Services.ViewModels
         [Display(Name = "Platform")]
         [Required(ErrorMessage = "Please select a platform.")]
         public int PlatformID { get; set; }
-        public ICollection<SelectListItem> PlatformSelectList { get; set; }
+        public SelectList PlatformSelectList { get; set; }
+
+        [Display(Name = "Genre(s)")]
+        public int[] GenreIDs { get; set; }
+        public SelectList GenreSelectList { get; set; }
 
         [Display(Name = "Release date")]
         [DataType(DataType.Date)]

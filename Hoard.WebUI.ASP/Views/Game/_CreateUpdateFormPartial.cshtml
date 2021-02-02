@@ -19,6 +19,11 @@
     <span asp-validation-for="ReleaseDate" class="text-danger"></span>
 </div>
 <div class="form-group">
+    <label asp-for="GenreIDs" class="control-label"></label>
+    <select asp-for="GenreIDs" asp-items="Model.GenreSelectList" multiple class="form-control"></select>
+    <span asp-validation-for="GenreIDs" class="text-danger"></span>
+</div>
+<div class="form-group">
     <label asp-for="Description" class="control-label"></label>
     <textarea asp-for="Description" class="form-control"></textarea>
     <span asp-validation-for="Description" class="text-danger"></span>
