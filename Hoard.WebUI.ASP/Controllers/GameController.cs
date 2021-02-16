@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.Services;
 using Hoard.WebUI.Services.ViewModels;
+using Hoard.WebUI.ASP.Attributes;
 
 namespace Hoard.WebUI.ASP.Controllers
 {
@@ -21,6 +22,7 @@ namespace Hoard.WebUI.ASP.Controllers
         }
 
         // GET: Game
+        [ViewLayout("Index")]
         public async Task<IActionResult> Index()
         {
             return View(await _gameViewService.GetGameIndex());
@@ -42,6 +44,16 @@ namespace Hoard.WebUI.ASP.Controllers
             }
 
             return View(gameVM);
+        }
+
+        // POST: Game/Details/5
+        [HttpPost, ActionName("Details")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _gameViewService.DeleteGame(id);
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Game/Create
@@ -111,34 +123,19 @@ namespace Hoard.WebUI.ASP.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GameExists(guVM.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //if (!GameExists(guVM.ID))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //    throw;
+                    //}
+                    return NotFound();
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(guVM);
-        }
-
-        // POST: Game/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            await _gameViewService.DeleteGame(id);
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool GameExists(int id)
-        {
-            return true;
-            //return _context.Games.Any(e => e.ID == id);
         }
     }
 }

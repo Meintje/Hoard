@@ -4,76 +4,130 @@
     ViewData["Title"] = "Game details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>@Html.DisplayFor(model => model.Title)</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Platform)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Platform)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PlayData)
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var item in Model.PlayData)
-            {
-                <dl class="row">
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(modelItem => item.PlayerName)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(modelItem => item.PlayerName)
-                    </dd>
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(modelItem => item.Status)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </dd>
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(modelItem => item.Playthroughs)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @if (item.Playthroughs == null || item.Playthroughs.Count == 0)
-                        {
-                            <p><i>No playthroughs found.</i></p>
-                        }
-                        else
-                        {
-                            <ul>
-                                @foreach (var playthrough in item.Playthroughs)
-                                {
-                                    <li>@playthrough.OrdinalNumber. @playthrough.PlayStatus, playtime: @playthrough.Playtime, @playthrough.SideContentCompleted</li>
-                                }
-                            </ul>
-                        }
-
-                    </dd>
-                </dl>
-            }
-        </dd>
-    </dl>
-
+<div class="row">
+    <div class="ml-0 mr-auto" style="margin-top: -20px;">
+        <a asp-action="Index" class="btn btn-success btn-lg">< Index</a>
+    </div>
+    <div class="ml-auto mr-0" style="margin-top: -20px;">
+        <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-lg">Edit</a>
+        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal" onclick="disableDeleteButton()">Delete</button>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="row" style="margin-top: 15px; margin-bottom: 10px;">
+    <div>
+        <h1 style="margin-bottom: 0px;">@Model.Title</h1>
+        <h2 class="text-muted">@Model.Title</h2>
+    </div>
 </div>
+
+<div class="row">
+    <div class="card col-sm-12">
+        <div class="card-body">
+            <dl class="row card-text">
+                <dt class="col-sm-2 card-text">
+                    @Html.DisplayNameFor(model => model.Platform)
+                </dt>
+                <dd class="col-sm-10 card-text">
+                    @Html.DisplayFor(model => model.Platform)
+                </dd>
+                <dt class="col-sm-2 card-text">
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </dt>
+                <dd class="col-sm-10 card-text">
+                    @Html.DisplayFor(model => model.ReleaseDate)
+                </dd>
+                <dt class="col-sm-2 card-text">
+                    @Html.DisplayNameFor(model => model.Genres)
+                </dt>
+                <dd class="col-sm-10 card-text">
+                    @Html.DisplayFor(model => model.Genres)
+                </dd>
+                <dt class="col-sm-2 card-text">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10 card-text">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<!--Negative margin so the outer sides of these cards will line up with the card above-->
+<div class="row" style="margin-left: -30px; margin-right: -30px;">
+    @foreach (var item in Model.PlayData)
+    {
+        <div class="col-lg-6" style="margin-top: 25px;">
+            <div class="card h-100">
+                <div class="card-header bg-dark">
+                    <div class="row">
+                        <img src="~/images/Save.svg" height="30" class="ml-3">
+                        <h4 class="mr-auto ml-1 card-text" style="margin: 0px 0px 0px 0px">@Html.DisplayFor(modelItem => item.PlayerName)</h4>
+                        <a href="" class="btn btn-warning btn-sm mr-3 ml-auto">Edit</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <dl class="row" style="margin-top: -5px;">
+                        <dt class="col-sm-3 card-text">
+                            @Html.DisplayNameFor(modelItem => item.Status)
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </dd>
+                    </dl>
+                    <hr />
+                    <h5>Playthroughs</h5>
+                    @if (item.Playthroughs == null || item.Playthroughs.Count == 0)
+                    {
+                        <p class="text-muted card-text"><i>No playthroughs found.</i></p>
+                    }
+                    else
+                    {
+                        @foreach (var playthrough in item.Playthroughs)
+                        {
+                            <p class="card-text">@playthrough.OrdinalNumber. <b>@playthrough.PlayStatus</b>, playtime: @playthrough.Playtime, @playthrough.SideContentCompleted</p>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warning!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Are you absolutely sure you wish to delete <b>@Model.Title</b>? <span class="text-danger"><b>This action cannot be undone!</b></span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Details">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <input id="deleteButton" type="submit" value="Delete" class="btn btn-danger" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function disableDeleteButton() {
+        document.getElementById("deleteButton").disabled = true;
+        setTimeout("enableDeleteButton()", 7000);
+    }
+
+    function enableDeleteButton() {
+        document.getElementById("deleteButton").disabled = false;
+    }
+</script>

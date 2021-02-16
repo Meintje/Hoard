@@ -12,7 +12,7 @@ namespace Hoard.WebUI.Services.Mapping
         {
             var vm = new GameIndexViewModel();
 
-            foreach(var g in games)
+            foreach (var g in games)
             {
                 vm.Games.Add(ToIndexItemViewModel(g));
             }
@@ -26,8 +26,18 @@ namespace Hoard.WebUI.Services.Mapping
             {
                 ID = game.ID,
                 Title = game.Title,
+                Platform = game.Platform.Name,
                 ReleaseDate = game.ReleaseDate.ToString(EntityConstants.DateFormatString)
             };
+
+            if (game.Genres != null && game.Genres.Count > 0)
+            {
+                foreach (var gg in game.Genres)
+                {
+                    vm.Genres += $"{gg.Genre.Name}, ";
+                }
+                vm.Genres = vm.Genres.Substring(0, vm.Genres.Length - 2);
+            }
 
             return vm;
         }
@@ -43,7 +53,16 @@ namespace Hoard.WebUI.Services.Mapping
                 ReleaseDate = game.ReleaseDate.ToString(EntityConstants.DateFormatString)
             };
 
-            if (game.PlayData != null && game.PlayData.Count != 0)
+            if (game.Genres != null && game.Genres.Count > 0)
+            {
+                foreach (var gg in game.Genres)
+                {
+                    vm.Genres += $"{gg.Genre.Name}, ";
+                }
+                vm.Genres = vm.Genres.Substring(0, vm.Genres.Length - 2);
+            }
+
+            if (game.PlayData != null && game.PlayData.Count > 0)
             {
                 foreach (var pd in game.PlayData)
                 {
@@ -77,7 +96,7 @@ namespace Hoard.WebUI.Services.Mapping
                 PlatformID = game.PlatformID
             };
 
-            // TODO: Add reusable way to create the array of selected IDs.
+            // TODO: Add better way to create the array of selected IDs.
             if (game.Genres != null && game.Genres.Count > 0)
             {
                 var SelectedGenres = new List<int>();
@@ -88,7 +107,6 @@ namespace Hoard.WebUI.Services.Mapping
                 vm.GenreIDs = SelectedGenres.ToArray();
             }
 
-            // TODO: Add reusable way to populate SelectLists?
             vm.PlatformSelectList = new SelectList(platformList, nameof(Platform.ID), nameof(Platform.Name));
             vm.GenreSelectList = new SelectList(genreList, nameof(Genre.ID), nameof(Genre.Name));
 
@@ -97,8 +115,8 @@ namespace Hoard.WebUI.Services.Mapping
 
         internal static Game ToNewGame(GameCreateViewModel gcVM)
         {
-            var game = new Game 
-            { 
+            var game = new Game
+            {
                 Title = gcVM.Title,
                 PlatformID = gcVM.PlatformID,
                 ReleaseDate = gcVM.ReleaseDate,

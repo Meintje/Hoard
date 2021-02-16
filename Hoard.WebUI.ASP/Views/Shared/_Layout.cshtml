@@ -6,23 +6,36 @@
     <title>@ViewData["Title"] | Hoard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow:400,700|Unica+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary box-shadow mb-3">
+        <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-primary box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Hoard</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/dragonwhite.svg" class="navbar-brand" style="height:50px; margin:-25px 0px -20px -5px" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-md-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Collections
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" style="font-size: 1rem;" asp-area="" asp-controller="Game" asp-action="Index">Games</a>
+                                <a class="dropdown-item" style="font-size: 1rem;" asp-area="" asp-controller="Game" asp-action="Index">Manga</a>
+                                <a class="dropdown-item" style="font-size: 1rem;" asp-area="" asp-controller="Game" asp-action="Index">Anime</a>
+                            </div>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Game" asp-action="Index">Games</a>
+                            <a class="nav-link" asp-area="" asp-controller="Game" asp-action="Index">Wishlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Game" asp-action="Index">Journal</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -30,17 +43,28 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    @if ((string)ViewData["Layout"] == "Index")
+    {
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    }
+    else
+    {
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
 
     <footer class="footer text-muted">
         <div class="container">
             This footer is useless.
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

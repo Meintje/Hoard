@@ -20,7 +20,10 @@ namespace Hoard.Data.Services
 
         public async Task<ICollection<Game>> GetAllGames()
         {
-            var items = await _context.Games.ToListAsync();
+            var items = await _context.Games
+                .Include(g => g.Platform)
+                .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
+                .ToListAsync();
 
             return items;
         }

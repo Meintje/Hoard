@@ -4,37 +4,57 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container">
+    <div class="row">
+        <div class="ml-auto mr-0" style="margin-top: -20px;">
+            <a asp-action="Create" class="btn btn-success btn-lg">New Game+</a>
+        </div>
+    </div>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">New Game+</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games.FirstOrDefault().ReleaseDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Games) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="row" style="margin-top: 15px; margin-bottom: 10px;">
+        <div>
+            <h1 style="margin-right: 15px; margin-bottom: 0px;">Index</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Platform)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Genres)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Games)
+            {
+                <tr onclick="window.location='@Url.Action("Details", "Game", new { id = item.ID })'" style="cursor: pointer;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Platform)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genres)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
