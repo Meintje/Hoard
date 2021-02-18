@@ -1,6 +1,6 @@
 ﻿using Hoard.Data.Persistence.DataAccess;
-using Hoard.Data.Entities.Game;
-using Hoard.Data.Services.Interfaces;
+using Hoard.Core.Entities.Game;
+using Hoard.Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 using Hoard.Data.Persistence.DataAccess;
 using Hoard.Data.Services;
-using Hoard.Data.Services.Interfaces;
+using Hoard.Core.Interfaces;
 using Hoard.WebUI.ASP.Data;
 using Hoard.WebUI.Services;
 using Hoard.WebUI.Services.Interfaces;
@@ -38,8 +38,8 @@ namespace Hoard.WebUI.ASP
                 options.UseSqlServer(Configuration.GetConnectionString("HoardConnection")).EnableSensitiveDataLogging());
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddScoped<IGameViewService, GameViewService>();
             services.AddScoped<IGameDbService, GameDbService>();
+            services.AddScoped<IGameViewService, GameViewService>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

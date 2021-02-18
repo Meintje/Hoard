@@ -86,3 +86,8 @@ a.nav-link {
 a {
     color: #29ABE0;
 }
+
+.dropdown-menu a {
+    font-size: 1.2rem !important;
+    font-family: "Unica One", "Arial Narrow", sans-serif !important;
+}

@@ -1,5 +1,5 @@
 ﻿using Hoard.Core.Constants;
-using Hoard.Data.Entities.Game;
+using Hoard.Core.Entities.Game;
 using Hoard.WebUI.Services.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;

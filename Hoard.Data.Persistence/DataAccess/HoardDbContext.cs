@@ -1,5 +1,5 @@
 ﻿using Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions;
-using Hoard.Data.Entities.Game;
+using Hoard.Core.Entities.Game;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hoard.Data.Persistence.DataAccess

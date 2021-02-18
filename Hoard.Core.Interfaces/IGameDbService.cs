@@ -1,8 +1,8 @@
-﻿using Hoard.Data.Entities.Game;
+﻿using Hoard.Core.Entities.Game;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Hoard.Data.Services.Interfaces
+namespace Hoard.Core.Interfaces
 {
     public interface IGameDbService
     {

@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hoard.Core.Constants\Hoard.Core.Constants.csproj" />
-    <ProjectReference Include="..\Hoard.Data.Entities\Hoard.Data.Entities.csproj" />
+    <ProjectReference Include="..\Hoard.Core.Entities\Hoard.Core.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

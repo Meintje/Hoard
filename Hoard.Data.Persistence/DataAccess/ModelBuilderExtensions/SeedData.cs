@@ -1,4 +1,4 @@
-﻿using Hoard.Data.Entities.Game;
+﻿using Hoard.Core.Entities.Game;
 using Microsoft.EntityFrameworkCore;
 using System;
 

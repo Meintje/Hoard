@@ -1,4 +1,4 @@
-﻿using Hoard.Data.Services.Interfaces;
+﻿using Hoard.Core.Interfaces;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.Services.Mapping;
 using Hoard.WebUI.Services.ViewModels;
