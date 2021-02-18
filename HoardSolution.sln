@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3EE8A3F9-CA2B-4990-91AB-BBB0BA031676}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{3EE8A3F9-CA2B-4990-91AB-BBB0BA031676}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{B61AFBB1-FD90-4728-91FC-F3F33E0C0055}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.WebUI.ASP", "Hoard.WebUI.ASP\Hoard.WebUI.ASP.csproj", "{37D29A9F-569D-4A59-8968-CE8FF15D0215}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Data.Persistence", "Hoard.Data.Persistence\Hoard.Data.Persistence.csproj", "{B68421AD-14DE-4ABD-B687-9C7045C64BA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Infrastructure.Persistence", "Hoard.Data.Persistence\Hoard.Infrastructure.Persistence.csproj", "{B68421AD-14DE-4ABD-B687-9C7045C64BA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Data.Services", "Hoard.Data.Services\Hoard.Data.Services.csproj", "{FBFD1FC6-9CC8-4B6C-A7FD-870C7D723CBD}"
 EndProject
@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1E2197D4-5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Core.Constants", "Hoard.Core.Constants\Hoard.Core.Constants.csproj", "{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.Core.Entities", "Hoard.Core.Entities\Hoard.Core.Entities.csproj", "{08ADE87D-3E32-434F-955C-D4B141B31DD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Core.Entities", "Hoard.Core.Entities\Hoard.Core.Entities.csproj", "{08ADE87D-3E32-434F-955C-D4B141B31DD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.Core.Interfaces", "Hoard.Core.Interfaces\Hoard.Core.Interfaces.csproj", "{6CD1505D-2114-4DB4-BDDA-AC9896BF1823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Core.Interfaces", "Hoard.Core.Interfaces\Hoard.Core.Interfaces.csproj", "{6CD1505D-2114-4DB4-BDDA-AC9896BF1823}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
