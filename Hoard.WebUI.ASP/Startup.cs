@@ -1,5 +1,4 @@
 using Hoard.Data.Persistence.DataAccess;
-using Hoard.Data.Services;
 using Hoard.Core.Interfaces;
 using Hoard.WebUI.ASP.Data;
 using Hoard.WebUI.Services;
@@ -17,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hoard.Infrastructure.Persistence.Services;
 
 namespace Hoard.WebUI.ASP
 {
@@ -39,6 +39,9 @@ namespace Hoard.WebUI.ASP
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<IGameDbService, GameDbService>();
+            services.AddScoped<IGenreDbService, GenreDbService>();
+            services.AddScoped<IPlatformDbService, PlatformDbService>();
+            services.AddScoped<IPlaythroughDbService, PlaythroughDbService>();
             services.AddScoped<IGameViewService, GameViewService>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

@@ -13,7 +13,6 @@
     <ProjectReference Include="..\Hoard.Core.Entities\Hoard.Core.Entities.csproj" />
     <ProjectReference Include="..\Hoard.Core.Interfaces\Hoard.Core.Interfaces.csproj" />
     <ProjectReference Include="..\Hoard.Data.Persistence\Hoard.Infrastructure.Persistence.csproj" />
-    <ProjectReference Include="..\Hoard.Data.Services\Hoard.Data.Services.csproj" />
   </ItemGroup>
 
 </Project>

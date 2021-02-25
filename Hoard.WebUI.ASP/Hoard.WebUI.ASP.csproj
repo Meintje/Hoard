@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hoard.Data.Persistence\Hoard.Infrastructure.Persistence.csproj" />
-    <ProjectReference Include="..\Hoard.Data.Services\Hoard.Data.Services.csproj" />
     <ProjectReference Include="..\Hoard.WebUI.Services\Hoard.WebUI.Services.csproj" />
   </ItemGroup>
 

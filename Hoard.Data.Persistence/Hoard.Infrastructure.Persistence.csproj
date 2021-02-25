@@ -16,11 +16,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Hoard.Core.Constants\Hoard.Core.Constants.csproj" />
     <ProjectReference Include="..\Hoard.Core.Entities\Hoard.Core.Entities.csproj" />
+    <ProjectReference Include="..\Hoard.Core.Interfaces\Hoard.Core.Interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

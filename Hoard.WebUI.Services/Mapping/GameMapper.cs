@@ -8,7 +8,7 @@ namespace Hoard.WebUI.Services.Mapping
 {
     internal static class GameMapper
     {
-        internal static GameIndexViewModel ToIndexViewModel(ICollection<Game> games)
+        internal static GameIndexViewModel ToIndexViewModel(IEnumerable<Game> games)
         {
             var vm = new GameIndexViewModel();
 
@@ -75,7 +75,7 @@ namespace Hoard.WebUI.Services.Mapping
             return vm;
         }
 
-        internal static GameCreateViewModel ToCreateViewModel(ICollection<Platform> platformList, ICollection<Genre> genreList)
+        internal static GameCreateViewModel ToCreateViewModel(IEnumerable<Platform> platformList, IEnumerable<Genre> genreList)
         {
             var vm = new GameCreateViewModel();
 
@@ -85,7 +85,7 @@ namespace Hoard.WebUI.Services.Mapping
             return vm;
         }
 
-        internal static GameUpdateViewModel ToUpdateViewModel(Game game, ICollection<Platform> platformList, ICollection<Genre> genreList)
+        internal static GameUpdateViewModel ToUpdateViewModel(Game game, IEnumerable<Platform> platformList, IEnumerable<Genre> genreList)
         {
             var vm = new GameUpdateViewModel
             {

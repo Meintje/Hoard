@@ -18,7 +18,7 @@ namespace Hoard.Data.Services
             _context = context;
         }
 
-        public async Task<ICollection<Game>> GetAllGames()
+        public async Task<ICollection<Game>> GetAllAsync()
         {
             var items = await _context.Games
                 .Include(g => g.Platform)
@@ -28,7 +28,7 @@ namespace Hoard.Data.Services
             return items;
         }
 
-        public async Task<Game> GetGameDetails(int id)
+        public async Task<Game> GetDetailsAsync(int id)
         {
             var item = await _context.Games
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
@@ -40,7 +40,7 @@ namespace Hoard.Data.Services
             return item;
         }
 
-        public async Task<Game> GetGameUpdateData(int id)
+        public async Task<Game> GetUpdateDataAsync(int id)
         {
             var item = await _context.Games
                 .Include(g => g.Genres)
@@ -49,23 +49,29 @@ namespace Hoard.Data.Services
             return item;
         }
 
-        public async Task<ICollection<Game>> GetGamesByTitle(string title)
+        public async Task<IEnumerable<Game>> FindGamesByTitleAsync(string title)
         {
             var items = await _context.Games.Where(g => g.Title == title).ToListAsync();
 
             return items;
         }
 
-        public async Task CreateGame(Game newGame)
+        public async Task AddAsync(Game newGame)
         {
             _context.Add(newGame);
+
+            newGame.PlayData = new List<PlayData>();
+            foreach (var user in _context.Players)
+            {
+                newGame.PlayData.Add(new PlayData { CurrentlyPlaying = false, Dropped = false, PlayerID = user.ID, GameID = newGame.ID });
+            }
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateGame(Game updatedGame)
+        public async Task UpdateAsync(Game updatedGame)
         {
-            var oldGenres = _context.GameGenres.Where(gg => gg.GameID == updatedGame.ID).ToList();
+            var oldGenres = await _context.GameGenres.Where(gg => gg.GameID == updatedGame.ID).ToListAsync();
             UpdateManyToManyRelation(oldGenres, updatedGame.Genres);
 
             _context.Update(updatedGame);
@@ -79,7 +85,7 @@ namespace Hoard.Data.Services
             _context.AddRange(newItems);
         }
 
-        public async Task DeleteGame(int id)
+        public async Task DeleteAsync(int id)
         {
             var game = await _context.Games.Where(g => g.ID == id).FirstOrDefaultAsync();
 
