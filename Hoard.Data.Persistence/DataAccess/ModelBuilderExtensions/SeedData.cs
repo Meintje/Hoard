@@ -21,18 +21,19 @@ namespace Hoard.Data.Persistence.DataAccess.ModelBuilderExtensions
 
             builder.Entity<PlayStatus>().HasData(
                 new PlayStatus { ID = 1, Name = "Playing", OrdinalNumber = 1 },
-                new PlayStatus { ID = 2, Name = "Finished", OrdinalNumber = 2 },
-                new PlayStatus { ID = 3, Name = "Hiatus", OrdinalNumber = 3 },
-                new PlayStatus { ID = 4, Name = "Dropped", OrdinalNumber = 4 }
+                new PlayStatus { ID = 2, Name = "Hiatus", OrdinalNumber = 2 },
+                new PlayStatus { ID = 3, Name = "Finished", OrdinalNumber = 3 },
+                new PlayStatus { ID = 4, Name = "Dropped", OrdinalNumber = 4 },
+                new PlayStatus { ID = 5, Name = "Endless", OrdinalNumber = 5 }
                 );
 
             builder.Entity<PlayData>().HasData(
-                new PlayData { ID = 1, GameID = 1, PlayerID = 1, Dropped = false, CurrentlyPlaying = true },    // 1: Trails in the Sky, Meintje, not dropped, currently playing
-                new PlayData { ID = 2, GameID = 1, PlayerID = 2, Dropped = true, CurrentlyPlaying = false },    // 2: Trails in the Sky, Bram, dropped, not currently playing
-                new PlayData { ID = 3, GameID = 2, PlayerID = 1, Dropped = false, CurrentlyPlaying = false },   // 3: Monster Hunter World, Meintje, not dropped, not currently playing
-                new PlayData { ID = 4, GameID = 2, PlayerID = 2, Dropped = false, CurrentlyPlaying = true },    // 4: Monster Hunter World, Bram, not dropped, currently playing
-                new PlayData { ID = 5, GameID = 3, PlayerID = 1, Dropped = false, CurrentlyPlaying = true },    // 5: Yoshi's Woolly World, Meintje, not dropped, currently playing
-                new PlayData { ID = 6, GameID = 3, PlayerID = 2, Dropped = true, CurrentlyPlaying = false }     // 6: Yoshi's Woolly World, Bram, dropped, not currently playing
+                new PlayData { ID = 1, GameID = 1, PlayerID = 1, Dropped = false },    // 1: Trails in the Sky, Meintje, not dropped
+                new PlayData { ID = 2, GameID = 1, PlayerID = 2, Dropped = true },    // 2: Trails in the Sky, Bram, dropped
+                new PlayData { ID = 3, GameID = 2, PlayerID = 1, Dropped = false },   // 3: Monster Hunter World, Meintje, not dropped
+                new PlayData { ID = 4, GameID = 2, PlayerID = 2, Dropped = false },    // 4: Monster Hunter World, Bram, not dropped
+                new PlayData { ID = 5, GameID = 3, PlayerID = 1, Dropped = false },    // 5: Yoshi's Woolly World, Meintje, not dropped
+                new PlayData { ID = 6, GameID = 3, PlayerID = 2, Dropped = true }     // 6: Yoshi's Woolly World, Bram, dropped
                 );
 
             builder.Entity<Playthrough>().HasData(

@@ -1,5 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.ViewModels
 {
@@ -13,12 +18,17 @@ namespace Hoard.WebUI.Services.ViewModels
         }
 
         public int PlayDataID { get; set; }
-        public int OrdinalNumber { get; set; }
 
+        [Display(Name = "#")]
+        [Required(ErrorMessage = "Please enter the number of this playthrough."), Range(1, 1000)]
+        public int? OrdinalNumber { get; set; }
+
+        [Display(Name = "Status")]
+        [Required(ErrorMessage = "Please select the status of this playthrough.")]
         public int PlayStatusID { get; set; }
-
-        public string Player { get; set; }
-        public string Game { get; set; }
+        public SelectList PlayStatusSelectList { get; set; }
+        [Display(Name = "Side content completed")]
+        public bool SideContentCompleted { get; set; }
 
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
@@ -29,19 +39,17 @@ namespace Hoard.WebUI.Services.ViewModels
         public DateTime? DateEnd { get; set; }
 
         [Required(ErrorMessage = "Please enter a value of 0 or above for days played.")]
-        [Display(Name = "day(s),")]
+        [Display(Name = "Days")]
         [Range(0, int.MaxValue)]
         public int PlaytimeDays { get; set; }
         [Required(ErrorMessage = "Please enter a value of 0 or above for hours played.")]
-        [Display(Name = "hour(s),")]
+        [Display(Name = "Hours")]
         [Range(0, int.MaxValue)]
         public int PlaytimeHours { get; set; }
         [Required(ErrorMessage = "Please enter a value of 0 or above for minutes played.")]
-        [Display(Name = "minute(s)")]
+        [Display(Name = "Minutes")]
         [Range(0, int.MaxValue)]
         public int PlaytimeMinutes { get; set; }
-
-        public bool SideContentCompleted { get; set; }
 
         public string Notes { get; set; }
     }

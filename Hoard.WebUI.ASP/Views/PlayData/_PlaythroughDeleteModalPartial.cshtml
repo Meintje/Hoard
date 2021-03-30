@@ -1,0 +1,25 @@
+﻿@model Hoard.WebUI.Services.ViewModels.PlaythroughDeleteViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">Warning!</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form asp-action="DeletePlaythrough">
+    <div class="modal-body">
+        <p>
+            Are you absolutely sure you wish to delete playthrough #@Model.OrdinalNumber?
+            <br />
+            <span class="text-danger"><b>This action cannot be undone!</b></span>
+        </p>
+        <input type="hidden" asp-for="OrdinalNumber" />
+        <input type="hidden" asp-for="PlayDataID" />
+    </div>
+    <div class="modal-footer">
+        <div class="form-group" style="margin-bottom: 0px;">
+            <input id="deleteButton" type="submit" value="Delete" class="btn btn-danger" />
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+</form>

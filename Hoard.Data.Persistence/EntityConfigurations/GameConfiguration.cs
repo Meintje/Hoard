@@ -11,7 +11,7 @@ namespace Hoard.Data.Persistence.EntityConfigurations
         {
             builder.ToTable("Games");
 
-            builder.HasIndex(g => new { g.Title, g.ReleaseDate, g.PlatformID }).IsUnique();
+            builder.HasIndex(g => new { g.Title, g.PlatformID, g.ReleaseDate }).IsUnique(); // TODO: Add LanguageID
 
             builder.Property(g => g.Title)
                 .IsRequired()

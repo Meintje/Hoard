@@ -1,0 +1,22 @@
+﻿@model Hoard.WebUI.Services.ViewModels.PlaythroughCreateUpdateViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">Editing playthrough #@Model.OrdinalNumber</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form asp-action="EditPlaythrough" class="modal-form">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <partial name="_PlaythroughCreateUpdateFormPartial" />
+        <input type="hidden" asp-for="PlayDataID" />
+        <input type="hidden" asp-for="OrdinalNumber" />
+    </div>
+    <div class="modal-footer">
+        <div class="form-group" style="margin-bottom: 0px;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-success" value="Save" />
+        </div>
+    </div>
+</form>

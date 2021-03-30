@@ -1,4 +1,5 @@
-﻿using Hoard.WebUI.ASP.Models;
+﻿using Hoard.WebUI.ASP.Attributes;
+using Hoard.WebUI.ASP.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,6 +19,7 @@ namespace Hoard.WebUI.ASP.Controllers
             _logger = logger;
         }
 
+        [ViewLayout("Index")]
         public IActionResult Index()
         {
             return View();

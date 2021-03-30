@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Hoard.Data.Persistence.Migrations
+namespace Hoard.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(HoardDbContext))]
     partial class HoardDbContextModelSnapshot : ModelSnapshot
@@ -17,9 +17,9 @@ namespace Hoard.Data.Persistence.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Game", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Game", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace Hoard.Data.Persistence.Migrations
 
                     b.HasIndex("PlatformID");
 
-                    b.HasIndex("Title", "ReleaseDate", "PlatformID")
+                    b.HasIndex("Title", "PlatformID", "ReleaseDate")
                         .IsUnique();
 
                     b.ToTable("Games");
@@ -74,7 +74,7 @@ namespace Hoard.Data.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.GameGenre", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.GameGenre", b =>
                 {
                     b.Property<int>("GameID")
                         .HasColumnType("int");
@@ -111,7 +111,7 @@ namespace Hoard.Data.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Genre", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Genre", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,7 @@ namespace Hoard.Data.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Platform", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Platform", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -195,15 +195,12 @@ namespace Hoard.Data.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.PlayData", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.PlayData", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-
-                    b.Property<bool>("CurrentlyPlaying")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("Dropped")
                         .HasColumnType("bit");
@@ -231,7 +228,6 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 1,
-                            CurrentlyPlaying = true,
                             Dropped = false,
                             GameID = 1,
                             PlayerID = 1
@@ -239,7 +235,6 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 2,
-                            CurrentlyPlaying = false,
                             Dropped = true,
                             GameID = 1,
                             PlayerID = 2
@@ -247,7 +242,6 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 3,
-                            CurrentlyPlaying = false,
                             Dropped = false,
                             GameID = 2,
                             PlayerID = 1
@@ -255,7 +249,6 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 4,
-                            CurrentlyPlaying = true,
                             Dropped = false,
                             GameID = 2,
                             PlayerID = 2
@@ -263,7 +256,6 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 5,
-                            CurrentlyPlaying = true,
                             Dropped = false,
                             GameID = 3,
                             PlayerID = 1
@@ -271,14 +263,13 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 6,
-                            CurrentlyPlaying = false,
                             Dropped = true,
                             GameID = 3,
                             PlayerID = 2
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.PlayStatus", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.PlayStatus", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -313,13 +304,13 @@ namespace Hoard.Data.Persistence.Migrations
                         new
                         {
                             ID = 2,
-                            Name = "Finished",
+                            Name = "Hiatus",
                             OrdinalNumber = 2
                         },
                         new
                         {
                             ID = 3,
-                            Name = "Hiatus",
+                            Name = "Finished",
                             OrdinalNumber = 3
                         },
                         new
@@ -327,10 +318,16 @@ namespace Hoard.Data.Persistence.Migrations
                             ID = 4,
                             Name = "Dropped",
                             OrdinalNumber = 4
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "Endless",
+                            OrdinalNumber = 5
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Player", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Player", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -362,7 +359,7 @@ namespace Hoard.Data.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Playthrough", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Playthrough", b =>
                 {
                     b.Property<int>("PlayDataID")
                         .HasColumnType("int");
@@ -399,8 +396,8 @@ namespace Hoard.Data.Persistence.Migrations
                         {
                             PlayDataID = 1,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeMinutes = 3000,
                             SideContentCompleted = false
@@ -417,8 +414,8 @@ namespace Hoard.Data.Persistence.Migrations
                         {
                             PlayDataID = 4,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeMinutes = 29000,
                             SideContentCompleted = false
@@ -427,8 +424,8 @@ namespace Hoard.Data.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 2,
                             PlaytimeMinutes = 1000,
                             SideContentCompleted = true
@@ -437,8 +434,8 @@ namespace Hoard.Data.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 2,
-                            DateEnd = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeMinutes = 500,
                             SideContentCompleted = false
@@ -447,17 +444,17 @@ namespace Hoard.Data.Persistence.Migrations
                         {
                             PlayDataID = 6,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 1, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 4,
                             PlaytimeMinutes = 10,
                             SideContentCompleted = false
                         });
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Game", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Game", b =>
                 {
-                    b.HasOne("Hoard.Data.Entities.Game.Platform", "Platform")
+                    b.HasOne("Hoard.Core.Entities.Game.Platform", "Platform")
                         .WithMany()
                         .HasForeignKey("PlatformID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -466,15 +463,15 @@ namespace Hoard.Data.Persistence.Migrations
                     b.Navigation("Platform");
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.GameGenre", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.GameGenre", b =>
                 {
-                    b.HasOne("Hoard.Data.Entities.Game.Game", "Game")
+                    b.HasOne("Hoard.Core.Entities.Game.Game", "Game")
                         .WithMany("Genres")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hoard.Data.Entities.Game.Genre", "Genre")
+                    b.HasOne("Hoard.Core.Entities.Game.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -485,15 +482,15 @@ namespace Hoard.Data.Persistence.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.PlayData", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.PlayData", b =>
                 {
-                    b.HasOne("Hoard.Data.Entities.Game.Game", "Game")
+                    b.HasOne("Hoard.Core.Entities.Game.Game", "Game")
                         .WithMany("PlayData")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hoard.Data.Entities.Game.Player", "Player")
+                    b.HasOne("Hoard.Core.Entities.Game.Player", "Player")
                         .WithMany("GameProgress")
                         .HasForeignKey("PlayerID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -504,15 +501,15 @@ namespace Hoard.Data.Persistence.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Playthrough", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Playthrough", b =>
                 {
-                    b.HasOne("Hoard.Data.Entities.Game.PlayData", "PlayData")
+                    b.HasOne("Hoard.Core.Entities.Game.PlayData", "PlayData")
                         .WithMany("Playthroughs")
                         .HasForeignKey("PlayDataID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hoard.Data.Entities.Game.PlayStatus", "PlayStatus")
+                    b.HasOne("Hoard.Core.Entities.Game.PlayStatus", "PlayStatus")
                         .WithMany()
                         .HasForeignKey("PlayStatusID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -523,19 +520,19 @@ namespace Hoard.Data.Persistence.Migrations
                     b.Navigation("PlayStatus");
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Game", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Game", b =>
                 {
                     b.Navigation("Genres");
 
                     b.Navigation("PlayData");
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.PlayData", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.PlayData", b =>
                 {
                     b.Navigation("Playthroughs");
                 });
 
-            modelBuilder.Entity("Hoard.Data.Entities.Game.Player", b =>
+            modelBuilder.Entity("Hoard.Core.Entities.Game.Player", b =>
                 {
                     b.Navigation("GameProgress");
                 });

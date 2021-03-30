@@ -41,8 +41,12 @@ namespace Hoard.WebUI.ASP
             services.AddScoped<IGameDbService, GameDbService>();
             services.AddScoped<IGenreDbService, GenreDbService>();
             services.AddScoped<IPlatformDbService, PlatformDbService>();
+            services.AddScoped<IPlayDataDbService, PlayDataDbService>();
             services.AddScoped<IPlaythroughDbService, PlaythroughDbService>();
+            services.AddScoped<IPlayStatusDbService, PlayStatusDbService>();
+
             services.AddScoped<IGameViewService, GameViewService>();
+            services.AddScoped<IPlayDataViewService, PlayDataViewService>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -65,7 +69,18 @@ namespace Hoard.WebUI.ASP
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseStatusCodePages();
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
+                {
+                    context.Request.Path = "/Error/404";
+                    await next();
+                }
+            });
+
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseRouting();
 

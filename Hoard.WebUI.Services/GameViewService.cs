@@ -55,6 +55,12 @@ namespace Hoard.WebUI.Services
         public async Task<GameUpdateViewModel> GetGameUpdateData(int id)
         {
             var game = await gameDbService.GetUpdateDataAsync(id);
+
+            if(game == null)
+            {
+                return null;
+            }
+
             var platformList = await platformDbService.GetAllAsync();
             var genreList = await genreDbService.GetAllAsync();
 
@@ -80,23 +86,14 @@ namespace Hoard.WebUI.Services
             await gameDbService.DeleteAsync(id);
         }
 
-        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateData()
+        public async Task<bool> CreateResultsInDuplicateEntry(GameCreateViewModel gameViewModel)
         {
-            return new PlaythroughCreateUpdateViewModel();
+            return await gameDbService.CreateResultsInDuplicateEntry(gameViewModel.Title, gameViewModel.PlatformID, gameViewModel.ReleaseDate);
         }
 
-        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateData(int pdID, int ordinalNumber)
+        public async Task<bool> UpdateResultsInDuplicateEntry(GameUpdateViewModel gameViewModel)
         {
-            var pt = await playthroughDbService.GetPlaythroughDetails(pdID, ordinalNumber);
-
-            if (pt == null)
-            {
-                return null;
-            }
-
-            var ptcuVM = PlaythroughMapper.ToCreateUpdateViewModel(pt);
-
-            return ptcuVM;
+            return await gameDbService.UpdateResultsInDuplicateEntry(gameViewModel.ID, gameViewModel.Title, gameViewModel.PlatformID, gameViewModel.ReleaseDate);
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model Hoard.WebUI.Services.ViewModels.PlayDataUpdateViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">Editing play data</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form asp-action="Edit" class="modal-form">
+    <div class="modal-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group form-check-inline col-lg-12">
+            <input class="form-check-input" asp-for="Dropped" />
+            <label class="form-check-label" asp-for="Dropped"></label>
+        </div>
+        <div class="form-group">
+            <label asp-for="Notes" class="control-label"></label>
+            <textarea asp-for="Notes" class="form-control" rows="10"></textarea>
+            <span asp-validation-for="Notes" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="GameID" />
+        <input type="hidden" asp-for="PlayerID" />
+    </div>
+    <div class="modal-footer">
+        <div class="form-group" style="margin-bottom: 0px;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-success" value="Save" />
+        </div>
+    </div>
+</form>

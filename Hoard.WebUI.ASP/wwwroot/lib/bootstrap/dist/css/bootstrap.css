@@ -3838,11 +3838,11 @@ input[type="button"].btn-block {
 
 .list-group-item-action {
   width: 100%;
-  color: #495159;
+  color: #CADBDF;
   text-align: inherit; }
   .list-group-item-action:hover, .list-group-item-action:focus {
     z-index: 1;
-    color: #495159;
+    color: #CADBDF;
     text-decoration: none;
     background-color: #252629; }
   .list-group-item-action:active {
@@ -3853,7 +3853,8 @@ input[type="button"].btn-block {
   position: relative;
   display: block;
   padding: 0.75rem 1.25rem;
-  background-color: rgba(14, 15, 17, 0.7);
+  color: #CADBDF;
+  background-color: #151618;
   border: 1px solid #000; }
   .list-group-item:first-child {
     border-top-left-radius: inherit;
@@ -3864,7 +3865,7 @@ input[type="button"].btn-block {
   .list-group-item.disabled, .list-group-item:disabled {
     color: #676E75;
     pointer-events: none;
-    background-color: rgba(14, 15, 17, 0.7); }
+    background-color: #151618; }
   .list-group-item.active {
     z-index: 2;
     color: #fff;

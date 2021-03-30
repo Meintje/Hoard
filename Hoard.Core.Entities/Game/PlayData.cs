@@ -12,7 +12,6 @@ namespace Hoard.Core.Entities.Game
         public virtual Player Player { get; set; }
 
         public bool Dropped { get; set; }
-        public bool CurrentlyPlaying { get; set; }
 
         public string Notes { get; set; }
 

@@ -24,9 +24,9 @@ namespace Hoard.Infrastructure.Persistence.Services
             context.Add(newGame);
 
             newGame.PlayData = new List<PlayData>();
-            foreach (var user in context.Players)
+            foreach (var user in context.Players.OrderBy(p => p.ID))
             {
-                newGame.PlayData.Add(new PlayData { CurrentlyPlaying = false, Dropped = false, PlayerID = user.ID, GameID = newGame.ID });
+                newGame.PlayData.Add(new PlayData { Dropped = false, PlayerID = user.ID, GameID = newGame.ID });
             }
 
             await context.SaveChangesAsync();
@@ -62,7 +62,7 @@ namespace Hoard.Infrastructure.Persistence.Services
             var items = await context.Games
                 .Include(g => g.Platform)
                 .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
-                .OrderBy(g => g.Platform.Name)
+                .OrderBy(g => g.Platform.Name).ThenBy(g => g.Title) // TODO: Order by Platform, then by series # or Title
                 .ToListAsync();
 
             return items;
@@ -85,16 +85,52 @@ namespace Hoard.Infrastructure.Persistence.Services
         {
             var item = await context.Games
                 .Include(g => g.Genres)
-                .Where(g => g.ID == id).FirstOrDefaultAsync();
+                .Where(g => g.ID == id)
+                .FirstOrDefaultAsync();
 
             return item;
         }
 
-        public async Task<IEnumerable<Game>> FindGamesByTitleAsync(string title)
+        public async Task<IEnumerable<Game>> FindByTitleAsync(string title)
         {
             var items = await context.Games.Where(g => g.Title == title).ToListAsync();
 
             return items;
+        }
+
+        public async Task<bool> CreateResultsInDuplicateEntry(string title, int platformID, DateTime releaseDate)
+        {
+            var item = await context.Games
+                .Where(g => 
+                    g.Title == title && 
+                    g.PlatformID == platformID && 
+                    g.ReleaseDate == releaseDate)
+                .FirstOrDefaultAsync();
+
+            if (item != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> UpdateResultsInDuplicateEntry(int id, string title, int platformID, DateTime releaseDate)
+        {
+            var item = await context.Games
+                .Where(g =>
+                    g.ID != id &&
+                    g.Title == title &&
+                    g.PlatformID == platformID &&
+                    g.ReleaseDate == releaseDate)
+                .FirstOrDefaultAsync();
+
+            if (item != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

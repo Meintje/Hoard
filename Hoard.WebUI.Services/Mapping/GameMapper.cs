@@ -66,7 +66,7 @@ namespace Hoard.WebUI.Services.Mapping
             {
                 foreach (var pd in game.PlayData)
                 {
-                    var pdVM = PlayDataMapper.ToViewModel(pd);
+                    var pdVM = PlayDataMapper.ToGameDetailsViewModel(pd);
 
                     vm.PlayData.Add(pdVM);
                 }

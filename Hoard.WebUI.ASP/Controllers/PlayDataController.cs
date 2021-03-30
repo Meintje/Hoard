@@ -6,17 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hoard.Core.Entities.Game;
-using Hoard.Data.Persistence.DataAccess;
+using Hoard.WebUI.Services.ViewModels;
+using Hoard.WebUI.Services.Interfaces;
 
 namespace Hoard.WebUI.ASP.Controllers
 {
     public class PlayDataController : Controller
     {
-        private readonly HoardDbContext _context;
+        private readonly IPlayDataViewService playDataViewService;
 
-        public PlayDataController(HoardDbContext context)
+        public PlayDataController(IPlayDataViewService playDataViewService)
         {
-            _context = context;
+            this.playDataViewService = playDataViewService;
         }
 
         // GET: PlayData/Details/5
@@ -27,16 +28,13 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var playData = await _context.PlayData
-                .Include(p => p.Game)
-                .Include(p => p.Player)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (playData == null)
+            var playDataViewModel = await playDataViewService.GetPlayDataDetails((int)id);
+            if (playDataViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(playData);
+            return View(playDataViewModel);
         }
 
         // GET: PlayData/Edit/5
@@ -47,14 +45,13 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var playData = await _context.PlayData.FindAsync(id);
-            if (playData == null)
+            var playDataViewModel = await playDataViewService.GetPlayDataUpdateData((int)id);
+            if (playDataViewModel == null)
             {
                 return NotFound();
             }
-            ViewData["GameID"] = new SelectList(_context.Games, "ID", "Title", playData.GameID);
-            ViewData["PlayerID"] = new SelectList(_context.Players, "ID", "Name", playData.PlayerID);
-            return View(playData);
+
+            return PartialView("_PlayDataUpdateModalPartial", playDataViewModel);
         }
 
         // POST: PlayData/Edit/5
@@ -62,23 +59,17 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GameID,PlayerID,Dropped,CurrentlyPlaying,Notes,ID")] PlayData playData)
+        public async Task<IActionResult> Edit([Bind("ID,GameID,PlayerID,Dropped,CurrentlyPlaying,Notes")] PlayDataUpdateViewModel playDataUpdateViewModel)
         {
-            if (id != playData.ID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(playData);
-                    await _context.SaveChangesAsync();
+                    await playDataViewService.UpdatePlayData(playDataUpdateViewModel);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlayDataExists(playData.ID))
+                    if (!PlayDataExists(playDataUpdateViewModel.ID))
                     {
                         return NotFound();
                     }
@@ -87,47 +78,95 @@ namespace Hoard.WebUI.ASP.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Details", "PlayData", new { id = playDataUpdateViewModel.ID });
             }
-            ViewData["GameID"] = new SelectList(_context.Games, "ID", "Title", playData.GameID);
-            ViewData["PlayerID"] = new SelectList(_context.Players, "ID", "Name", playData.PlayerID);
-            return View(playData);
+
+            return View(playDataUpdateViewModel);
         }
 
-        // GET: PlayData/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> CreatePlaythrough(int playDataId)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var playthroughCreateViewModel = await playDataViewService.GetPlaythroughCreateData(playDataId);
 
-            var playData = await _context.PlayData
-                .Include(p => p.Game)
-                .Include(p => p.Player)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (playData == null)
-            {
-                return NotFound();
-            }
-
-            return View(playData);
+            return PartialView("_PlaythroughCreateModalPartial", playthroughCreateViewModel);
         }
 
-        // POST: PlayData/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> CreatePlaythrough([Bind("PlayDataID,OrdinalNumber,PlayStatusID,DateStart,DateEnd,PlaytimeDays,PlaytimeHours,PlaytimeMinutes,SideContentCompleted,Notes")] PlaythroughCreateUpdateViewModel playthroughCreateViewModel)
         {
-            var playData = await _context.PlayData.FindAsync(id);
-            _context.PlayData.Remove(playData);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                await playDataViewService.CreatePlaythrough(playthroughCreateViewModel);
+
+                return RedirectToAction(nameof(Details), new { id = playthroughCreateViewModel.PlayDataID });
+            }
+
+            // TODO: If this point is reached, something went wrong while saving data. Redirect to related PlayData and show error message.
+            // Or reload the form and input data into the modal
+            return PartialView("_PlaythroughCreateModalPartial", playthroughCreateViewModel);
+        }
+
+        public async Task<IActionResult> EditPlaythrough(int playDataId, int ordinalNumber)
+        {
+            var playthroughUpdateViewModel = await playDataViewService.GetPlaythroughUpdateData(playDataId, ordinalNumber);
+
+            return PartialView("_PlaythroughUpdateModalPartial", playthroughUpdateViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPlaythrough(int playDataId, int ordinalNumber, [Bind("PlayDataID, OrdinalNumber, PlayStatusID, DateStart, DateEnd, PlaytimeDays, PlaytimeHours, PlayTimeMinutes, SideContentCompleted, Notes")] PlaythroughCreateUpdateViewModel playthroughUpdateViewModel)
+        {
+            if ((playDataId != playthroughUpdateViewModel.PlayDataID) ||
+                (ordinalNumber != playthroughUpdateViewModel.OrdinalNumber))
+            {
+                return NotFound();
+            }
+            
+            if (ModelState.IsValid)
+            {
+                await playDataViewService.UpdatePlaythrough(playthroughUpdateViewModel);
+
+                return RedirectToAction(nameof(Details), new { id = playthroughUpdateViewModel.PlayDataID });
+            }
+
+            // TODO: If this point is reached, something went wrong while saving data. Redirect to related PlayData and show error message.
+            // Or reload the form and input data into the modal
+            return PartialView("_PlaythroughUpdateModalPartial", playthroughUpdateViewModel);
+        }
+
+        public async Task<IActionResult> DeletePlaythrough(int? playDataID, int? ordinalNumber)
+        {
+            if (playDataID == null || ordinalNumber == null)
+            {
+                return NotFound();
+            }
+
+            var playthroughDeleteViewModel = await playDataViewService.GetPlaythroughDeleteData((int)playDataID, (int)ordinalNumber);
+            if (playthroughDeleteViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_PlaythroughDeleteModalPartial", playthroughDeleteViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePlaythrough(PlaythroughDeleteViewModel playthroughDetailsViewModel)
+        {
+            await playDataViewService.DeletePlaythrough(playthroughDetailsViewModel);
+            
+            // TODO: If the data couldn't be deleted, show error message in related PlayData page
+
+            return RedirectToAction(nameof(Details), new { id = playthroughDetailsViewModel.PlayDataID } );
         }
 
         private bool PlayDataExists(int id)
         {
-            return _context.PlayData.Any(e => e.ID == id);
+            return true;
         }
     }
 }

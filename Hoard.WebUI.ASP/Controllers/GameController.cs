@@ -40,7 +40,8 @@ namespace Hoard.WebUI.ASP.Controllers
 
             if (gameVM == null || gameVM.ID == 0)
             {
-                return NotFound();
+                throw new Exception();
+                //return NotFound();
             }
 
             return View(gameVM);
@@ -69,18 +70,22 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,PlatformID,GenreIDs,ReleaseDate,Description")] GameCreateViewModel gcVM)
+        public async Task<IActionResult> Create([Bind("Title,PlatformID,GenreIDs,ReleaseDate,Description")] GameCreateViewModel gameCreateViewModel)
         {
-            // TODO: Show error message in view when trying to create duplicate game.
-
             if (ModelState.IsValid)
             {
-                await _gameViewService.CreateGame(gcVM);
+                if (await _gameViewService.CreateResultsInDuplicateEntry(gameCreateViewModel))
+                {
+                    ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
+                    return View(gameCreateViewModel); // TODO: Refill SelectLists
+                }
+
+                await _gameViewService.CreateGame(gameCreateViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(gcVM);
+            return View(gameCreateViewModel); // TODO: Refill SelectLists
         }
 
         // GET: Game/Edit/5
@@ -106,36 +111,26 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,PlatformID,GenreIDs,ReleaseDate,Description")] GameUpdateViewModel guVM)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,PlatformID,GenreIDs,ReleaseDate,Description")] GameUpdateViewModel gameUpdateViewModel)
         {
-            // TODO: Show error message in view when this update would result in a duplicate game.
-
-            if (id != guVM.ID)
+            if (id != gameUpdateViewModel.ID)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                if (await _gameViewService.UpdateResultsInDuplicateEntry(gameUpdateViewModel))
                 {
-                    await _gameViewService.UpdateGame(guVM);
+                    ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
+                    return View(gameUpdateViewModel); // TODO: Refill SelectLists
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    //if (!GameExists(guVM.ID))
-                    //{
-                    //    return NotFound();
-                    //}
-                    //else
-                    //{
-                    //    throw;
-                    //}
-                    return NotFound();
-                }
+
+                await _gameViewService.UpdateGame(gameUpdateViewModel);
+                
                 return RedirectToAction(nameof(Index));
             }
-            return View(guVM);
+            return View(gameUpdateViewModel); // TODO: Refill SelectLists
         }
     }
 }

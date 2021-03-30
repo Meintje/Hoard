@@ -7,7 +7,7 @@ namespace Hoard.WebUI.Services.ViewModels
     {
         public GameDetailsViewModel()
         {
-            PlayData = new List<PlayDataViewModel>();
+            PlayData = new List<GamePlayDataDetailsViewModel>();
         }
 
         public int ID { get; set; }
@@ -22,6 +22,6 @@ namespace Hoard.WebUI.Services.ViewModels
         public string ReleaseDate { get; set; }
 
         [Display(Name = "Play data")]
-        public ICollection<PlayDataViewModel> PlayData { get; set; }
+        public ICollection<GamePlayDataDetailsViewModel> PlayData { get; set; }
     }
 }

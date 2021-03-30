@@ -2,7 +2,187 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div style="margin-top: -15px; padding-top: 10vh; padding-bottom: 10vh; background: url('../images/JumbotronBG.png'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="jumbotron" style="margin: 0px; background: rgba(15, 16, 18, 0.7); padding: 30px;">
+            <div class="row">
+                <img src="~/images/Gamepad.svg" height="61" class="ml-3" style="margin-top: 2px">
+                <h1 class="display-4 ml-3">Now playing</h1>
+            </div>
+            <br />
+            <table class="table table-sm table-hover table-white-border" style="background-color: rgba(14, 15, 17, 0);">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Platform</th>
+                        <th>Notes</th>
+                        <th style="width: 1%;"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr style="border-top-color: white; border-bottom-color: white;">
+                        <td>Monster Hunter World</td>
+                        <td>PC</td>
+                        <td>Don't forget to thank your cartbearer.</td>
+                        <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="1" class="btn btn-warning btn-sm table-button align-middle">Edit</a></td>
+                    </tr>
+                    <tr style="border-top-color: white;">
+                        <td>Pokémon Alpha Sapphire</td>
+                        <td>Nintendo 3DS</td>
+                        <td>Don't forget to water your berries.</td>
+                        <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="1" class="btn btn-warning btn-sm table-button">Edit</a></td>
+                    </tr>
+                    <tr style="border-top-color: white;">
+                        <td>Gloomhaven</td>
+                        <td>PC</td>
+                        <td>Don't forget to ignore team tactics, and burn all your cards.</td>
+                        <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="1" class="btn btn-warning btn-sm table-button">Edit</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row card-row">
+        <div class="col-xl-8" style="margin-top: 25px;">
+            <div class="card h-100">
+                <div class="card-header dark-card-header">
+                    <div class="row">
+                        <img src="~/images/Save.svg" height="30" class="ml-3">
+                        <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Player statistics</h4>
+                    </div>
+                </div>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <dl class="row card-text">
+                            <dt class="col-sm-3 card-text">
+                                Total games:
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                999
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Total playtime:
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                9999 day(s), 9 hour(s), 9 minute(s)
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Wishlist items:
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                99
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="list-group-item bg-primary">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h4 style="margin: 0px;">Completion</h4>
+                            </div>
+                            <div class="col-sm-8 mt-auto mb-auto">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Finished</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 34%" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100">Played</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Unplayed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item list-group-item-compact">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Overall progress
+                            </div>
+                            <div class="col-sm-8 mt-auto mb-auto">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100">5%</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">44%</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item bg-primary" style="padding: 5px 0px 0px 0px;"></div>
+                    <div class="list-group-item list-group-item-compact">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Nintendo Switch (30)
+                            </div>
+                            <div class="col-sm-8 mt-auto mb-auto">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item list-group-item-compact">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Nintendo 3DS (124)
+                            </div>
+                            <div class="col-sm-8 mt-auto mb-auto">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item list-group-item-compact">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Nintendo DS (156)
+                            </div>
+                            <div class="col-sm-8 mt-auto mb-auto">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item list-group-item-compact">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                Nintendo Gameboy Advance (26)
+                            </div>
+                            <div class="col-sm-8 mt-auto mb-auto">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4" style="margin-top: 25px;">
+            <div class="card h-100">
+                <div class="card-header dark-card-header">
+                    <div class="row">
+                        <img src="~/images/Save.svg" height="30" class="ml-3">
+                        <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Recent events</h4>
+                    </div>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">15/03/2021</div> <div><b>Journal:</b> Magikarp ate my starter</div></a>
+                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">13/03/2021</div> <div><b>Started:</b> Pokémon Alpha Sapphire</div></a>
+                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">01/03/2021</div> <div><b>Started:</b> Pokémon Let's Go Eevee!</div></a>
+                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">23/02/2021</div> <div><b>Finished:</b> Legend of Heroes: Trails in the Sky SC Evo</div></a>
+                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">07/02/2021</div> <div><b>Started:</b> Final Fantasy: Crystal Chronicles Remastered</div></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

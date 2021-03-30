@@ -1,10 +1,10 @@
 ﻿@model Hoard.WebUI.Services.ViewModels.GameDetailsViewModel
 
 @{
-    ViewData["Title"] = "Game details";
+    ViewData["Title"] = Model.Title;
 }
 
-<div class="row">
+<div class="row mb-3">
     <div class="ml-0 mr-auto" style="margin-top: -20px;">
         <a asp-action="Index" class="btn btn-success btn-lg">< Index</a>
     </div>
@@ -14,57 +14,58 @@
     </div>
 </div>
 
-<div class="row" style="margin-top: 15px; margin-bottom: 10px;">
+<div class="row mb-2">
     <div>
         <h1 style="margin-bottom: 0px;">@Model.Title</h1>
         <h2 class="text-muted">@Model.Title</h2>
     </div>
 </div>
 
-<div class="row">
-    <div class="card col-sm-12">
-        <div class="card-body">
-            <dl class="row card-text">
-                <dt class="col-sm-2 card-text">
-                    @Html.DisplayNameFor(model => model.Platform)
-                </dt>
-                <dd class="col-sm-10 card-text">
-                    @Html.DisplayFor(model => model.Platform)
-                </dd>
-                <dt class="col-sm-2 card-text">
-                    @Html.DisplayNameFor(model => model.ReleaseDate)
-                </dt>
-                <dd class="col-sm-10 card-text">
-                    @Html.DisplayFor(model => model.ReleaseDate)
-                </dd>
-                <dt class="col-sm-2 card-text">
-                    @Html.DisplayNameFor(model => model.Genres)
-                </dt>
-                <dd class="col-sm-10 card-text">
-                    @Html.DisplayFor(model => model.Genres)
-                </dd>
-                <dt class="col-sm-2 card-text">
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-                <dd class="col-sm-10 card-text">
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-            </dl>
+<div class="row card-row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row card-text">
+                    <dt class="col-sm-2 card-text">
+                        @Html.DisplayNameFor(model => model.Platform)
+                    </dt>
+                    <dd class="col-sm-10 card-text">
+                        @Html.DisplayFor(model => model.Platform)
+                    </dd>
+                    <dt class="col-sm-2 card-text">
+                        @Html.DisplayNameFor(model => model.ReleaseDate)
+                    </dt>
+                    <dd class="col-sm-10 card-text">
+                        @Html.DisplayFor(model => model.ReleaseDate)
+                    </dd>
+                    <dt class="col-sm-2 card-text">
+                        @Html.DisplayNameFor(model => model.Genres)
+                    </dt>
+                    <dd class="col-sm-10 card-text">
+                        @Html.DisplayFor(model => model.Genres)
+                    </dd>
+                    <dt class="col-sm-2 card-text">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-10 card-text">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </dl>
+            </div>
         </div>
     </div>
 </div>
 
-<!--Negative margin so the outer sides of these cards will line up with the card above-->
-<div class="row" style="margin-left: -30px; margin-right: -30px;">
+<div class="row card-row">
     @foreach (var item in Model.PlayData)
     {
-        <div class="col-lg-6" style="margin-top: 25px;">
+        <div class="col-xl-6" style="margin-top: 25px;">
             <div class="card h-100">
-                <div class="card-header bg-dark">
+                <div class="card-header dark-card-header">
                     <div class="row">
                         <img src="~/images/Save.svg" height="30" class="ml-3">
-                        <h4 class="mr-auto ml-1 card-text" style="margin: 0px 0px 0px 0px">@Html.DisplayFor(modelItem => item.PlayerName)</h4>
-                        <a href="" class="btn btn-warning btn-sm mr-3 ml-auto">Edit</a>
+                        <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">@Html.DisplayFor(modelItem => item.PlayerName)</h4>
+                        <a asp-controller="PlayData" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success btn-sm mr-3 ml-auto">Details</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -75,10 +76,35 @@
                         <dd class="col-sm-9 card-text">
                             @Html.DisplayFor(modelItem => item.Status)
                         </dd>
+                        <dt class="col-sm-3 card-text">
+                            @Html.DisplayNameFor(modelItem => item.Rating)
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </dd>
+                        <dt class="col-sm-3 card-text">
+                            @Html.DisplayNameFor(modelItem => item.Priority)
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            @Html.DisplayFor(modelItem => item.Priority)
+                        </dd>
+                        <dt class="col-sm-3 card-text">
+                            @Html.DisplayNameFor(modelItem => item.TotalPlaytime)
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            @Html.DisplayFor(modelItem => item.TotalPlaytime)
+                        </dd>
+                        <dt class="col-sm-12 card-text">
+                            @Html.DisplayNameFor(modelItem => item.Notes)
+                        </dt>
+                        <dd class="col-sm-12 card-text">
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </dd>
                     </dl>
                     <hr />
                     <h5>Playthroughs</h5>
-                    @if (item.Playthroughs == null || item.Playthroughs.Count == 0)
+                    <hr />
+                    @if (item.Playthroughs == null || item.Playthroughs.Count() == 0)
                     {
                         <p class="text-muted card-text"><i>No playthroughs found.</i></p>
                     }
@@ -86,7 +112,11 @@
                     {
                         @foreach (var playthrough in item.Playthroughs)
                         {
-                            <p class="card-text">@playthrough.OrdinalNumber. <b>@playthrough.PlayStatus</b>, playtime: @playthrough.Playtime, @playthrough.SideContentCompleted</p>
+                            <p class="card-text">
+                                @playthrough.OrdinalNumber. <b>@playthrough.Status</b><br />
+                                Played for @playthrough.Playtime,@playthrough.PlayDates<br />
+                                Notes: @playthrough.Notes
+                            </p>
                         }
                     }
                 </div>
@@ -95,7 +125,7 @@
     }
 </div>
 
-<div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -107,7 +137,7 @@
             <div class="modal-body">
                 <p>
                     Are you absolutely sure you wish to delete <b>@Model.Title</b>?
-                    <br/>
+                    <br />
                     <span class="text-danger"><b>This action cannot be undone!</b></span>
                 </p>
             </div>

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{3EE8A3F9-CA2B-4990-91AB-BBB0BA031676}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 Infrastructure", "10 Infrastructure", "{3EE8A3F9-CA2B-4990-91AB-BBB0BA031676}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{B61AFBB1-FD90-4728-91FC-F3F33E0C0055}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20 Presentation", "20 Presentation", "{B61AFBB1-FD90-4728-91FC-F3F33E0C0055}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.WebUI.ASP", "Hoard.WebUI.ASP\Hoard.WebUI.ASP.csproj", "{37D29A9F-569D-4A59-8968-CE8FF15D0215}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Infrastructure.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.WebUI.Services", "Hoard.WebUI.Services\Hoard.WebUI.Services.csproj", "{04699D69-A424-4250-840F-A1ABAB224C43}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1E2197D4-5B1D-4E5D-BB6B-64EC73B44582}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 Core", "00 Core", "{1E2197D4-5B1D-4E5D-BB6B-64EC73B44582}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Core.Constants", "Hoard.Core.Constants\Hoard.Core.Constants.csproj", "{2C0E2D4D-A8FF-4FBC-9E9D-2E9A9C212A6D}"
 EndProject
