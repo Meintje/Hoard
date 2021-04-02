@@ -1,6 +1,5 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
+﻿// Applies red outline around form inputs that failed client-side validation,
+// removes red outline once validation succeeds
 $(document).ready(function () {
     jQuery.validator.setDefaults({
         errorElement: 'span',

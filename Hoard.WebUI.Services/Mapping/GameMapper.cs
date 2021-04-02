@@ -96,7 +96,7 @@ namespace Hoard.WebUI.Services.Mapping
                 PlatformID = game.PlatformID
             };
 
-            // TODO: Add better way to create the array of selected IDs.
+            // TODO: Add better way to create the array of selected IDs. (Make a method that uses BaseEntity)
             if (game.Genres != null && game.Genres.Count > 0)
             {
                 var SelectedGenres = new List<int>();
