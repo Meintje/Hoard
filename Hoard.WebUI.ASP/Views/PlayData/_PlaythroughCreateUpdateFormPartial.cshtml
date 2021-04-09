@@ -1,42 +1,48 @@
 ﻿@model Hoard.WebUI.Services.ViewModels.PlaythroughCreateUpdateViewModel
 
-<div class="form-group">
-    <label asp-for="PlayStatusID" class="control-label"></label>
-    <select asp-for="PlayStatusID" asp-items="Model.PlayStatusSelectList" class="form-control">
-        <option value="">Select a status</option>
-    </select>
-    <span asp-validation-for="PlayStatusID" class="text-danger"></span>
+<div class="form-row">
+    <div class="form-group col-lg-4">
+        <label asp-for="PlayStatusID" class="control-label"></label>
+        <select asp-for="PlayStatusID" asp-items="Model.PlayStatusSelectList" class="form-control">
+            <option value="">Select a status</option>
+        </select>
+        <span asp-validation-for="PlayStatusID" class="text-danger"></span>
+        <div class="form-check-inline">
+            <input asp-for="SideContentCompleted" class="form-check-input" />
+            <label asp-for="SideContentCompleted" class="form-check-label"></label>
+        </div>
+    </div>
+    <div class="form-group col-lg-4">
+        <label asp-for="DateStart" class="control-label"></label>
+        <input asp-for="DateStart" class="form-control" />
+        <span asp-validation-for="DateStart" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-4">
+        <label asp-for="DateEnd" class="control-label"></label>
+        <input asp-for="DateEnd" class="form-control" />
+        <span asp-validation-for="DateEnd" class="text-danger"></span>
+    </div>
 </div>
-<div class="form-group form-check-inline">
-    <input asp-for="SideContentCompleted" class="form-check-input" />
-    <label asp-for="SideContentCompleted" class="form-check-label"></label>
-</div>
-<div class="form-group">
-    <label asp-for="DateStart" class="control-label"></label>
-    <input asp-for="DateStart" class="form-control" />
-    <span asp-validation-for="DateStart" class="text-danger"></span>
-</div>
-<div class="form-group">
-    <label asp-for="DateEnd" class="control-label"></label>
-    <input asp-for="DateEnd" class="form-control" />
-    <span asp-validation-for="DateEnd" class="text-danger"></span>
-</div>
+
 <label>Playtime</label>
-<div class="form-group">
-    <label asp-for="PlaytimeDays" class="control-label"></label>
-    <input asp-for="PlaytimeDays" class="form-control" step="1"/>
-    <span asp-validation-for="PlaytimeDays" class="text-danger"></span>
+<div class="form-row">
+    <div class="form-group col-sm-4">
+        <label asp-for="PlaytimeDays" class="control-label"></label>
+        <input asp-for="PlaytimeDays" class="form-control" step="1" />
+        <span asp-validation-for="PlaytimeDays" class="text-danger"></span>
+    </div>
+    <div class="form-group col-sm-4">
+        <label asp-for="PlaytimeHours" class="control-label"></label>
+        <input asp-for="PlaytimeHours" class="form-control" step="1" />
+        <span asp-validation-for="PlaytimeHours" class="text-danger"></span>
+    </div>
+    <div class="form-group col-sm-4">
+        <label asp-for="PlaytimeMinutes" class="control-label"></label>
+        <input asp-for="PlaytimeMinutes" class="form-control" step="1" />
+        <span asp-validation-for="PlaytimeMinutes" class="text-danger"></span>
+    </div>
 </div>
-<div class="form-group">
-    <label asp-for="PlaytimeHours" class="control-label"></label>
-    <input asp-for="PlaytimeHours" class="form-control" step="1"/>
-    <span asp-validation-for="PlaytimeHours" class="text-danger"></span>
-</div>
-<div class="form-group">
-    <label asp-for="PlaytimeMinutes" class="control-label"></label>
-    <input asp-for="PlaytimeMinutes" class="form-control" step="1"/>
-    <span asp-validation-for="PlaytimeMinutes" class="text-danger"></span>
-</div>
+
 <div class="form-group">
     <label asp-for="Notes" class="control-label"></label>
     <textarea asp-for="Notes" class="form-control" rows="5"></textarea>

@@ -27,17 +27,9 @@ namespace Hoard.WebUI.Services.Mapping
                 ID = game.ID,
                 Title = game.Title,
                 Platform = game.Platform.Name,
+                Genres = game.FullGenres,
                 ReleaseDate = game.ReleaseDate.ToString(EntityConstants.DateFormatString)
             };
-
-            if (game.Genres != null && game.Genres.Count > 0)
-            {
-                foreach (var gg in game.Genres)
-                {
-                    vm.Genres += $"{gg.Genre.Name}, ";
-                }
-                vm.Genres = vm.Genres.Substring(0, vm.Genres.Length - 2);
-            }
 
             return vm;
         }
@@ -49,18 +41,10 @@ namespace Hoard.WebUI.Services.Mapping
                 ID = game.ID,
                 Title = game.Title,
                 Platform = game.Platform.Name,
+                Genres = game.FullGenres,
                 Description = game.Description,
                 ReleaseDate = game.ReleaseDate.ToString(EntityConstants.DateFormatString)
             };
-
-            if (game.Genres != null && game.Genres.Count > 0)
-            {
-                foreach (var gg in game.Genres)
-                {
-                    vm.Genres += $"{gg.Genre.Name}, ";
-                }
-                vm.Genres = vm.Genres.Substring(0, vm.Genres.Length - 2);
-            }
 
             if (game.PlayData != null && game.PlayData.Count > 0)
             {

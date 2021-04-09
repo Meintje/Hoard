@@ -21,6 +21,8 @@ namespace Hoard.Data.Persistence.EntityConfigurations
                 .HasColumnType("date");
             builder.Property(g => g.Description)
                 .HasMaxLength(EntityConstants.NotesMaximumLength);
+
+            builder.Ignore(g => g.FullGenres);
         }
     }
 }

@@ -9,9 +9,63 @@
 <form asp-action="Edit" class="modal-form">
     <div class="modal-body">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group form-check-inline col-lg-12">
-            <input class="form-check-input" asp-for="Dropped" />
-            <label class="form-check-label" asp-for="Dropped"></label>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="OwnershipStatusID" class="control-label"></label>
+                <select asp-for="OwnershipStatusID" class="form-control">
+                    <option value="">Select a status</option>
+                    <option value="1">Owned</option>
+                    <option value="2">Household</option>
+                    <option value="3">Borrowed</option>
+                    <option value="4">Subscription</option>
+                    <option value="5">Formerly owned</option>
+                    <option value="6">Other</option>
+                </select>
+                <span asp-validation-for="OwnershipStatusID" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="PriorityID" class="control-label"></label>
+                <select asp-for="PriorityID" class="form-control">
+                    <option value="">Select a priority</option>
+                    <option value="1">Highest</option>
+                    <option value="2">High</option>
+                    <option value="3">Medium</option>
+                    <option value="4">Low</option>
+                </select>
+                <span asp-validation-for="PriorityID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-lg-6">
+                <div class="form-check-inline">
+                    <input class="form-check-input" asp-for="Dropped" />
+                    <label class="form-check-label" asp-for="Dropped"></label>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <div class="form-check-inline">
+                    <input class="form-check-input" asp-for="AchievementsCompleted" />
+                    <label class="form-check-label" asp-for="AchievementsCompleted"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Rating" class="control-label"></label>
+            <select asp-for="Rating" class="form-control">
+                <option value="">Select a rating</option>
+                <option value="10">10. Perfect, all-time favourite</option>
+                <option value="9">9. Almost perfect, one or two minor flaws that are easily ignored</option>
+                <option value="8">8. Great, several minor flaws</option>
+                <option value="7">7. Good, several annoyances</option>
+                <option value="6">6. Enjoyable, major flaws that don't quite ruin the experience</option>
+                <option value="5">5. Neutral, not enjoyable but not bad either</option>
+                <option value="4">4. Unenjoyable, but it gets some points for interesting elements</option>
+                <option value="3">3. Bad, if you try really hard you might find some fun parts</option>
+                <option value="2">2. Very bad, with one or two interesting bits</option>
+                <option value="1">1. Trash, no redeeming qualities</option>
+                <option value="0">0. Irredeemable garbage, unplayable</option>
+            </select>
+            <span class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Notes" class="control-label"></label>

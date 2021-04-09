@@ -117,7 +117,7 @@ namespace Hoard.WebUI.ASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPlaythrough(int playDataId, int ordinalNumber, [Bind("PlayDataID, OrdinalNumber, PlayStatusID, DateStart, DateEnd, PlaytimeDays, PlaytimeHours, PlayTimeMinutes, SideContentCompleted, Notes")] PlaythroughCreateUpdateViewModel playthroughUpdateViewModel)
+        public async Task<IActionResult> EditPlaythrough(int playDataId, int ordinalNumber, [Bind("PlayDataID, OrdinalNumber, PlayStatusID, DateStart, DateEnd, PlaytimeDays, PlaytimeHours, PlaytimeMinutes, SideContentCompleted, Notes")] PlaythroughCreateUpdateViewModel playthroughUpdateViewModel)
         {
             if ((playDataId != playthroughUpdateViewModel.PlayDataID) ||
                 (ordinalNumber != playthroughUpdateViewModel.OrdinalNumber))

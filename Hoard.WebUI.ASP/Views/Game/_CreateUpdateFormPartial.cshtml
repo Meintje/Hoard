@@ -1,28 +1,61 @@
 ﻿@model Hoard.WebUI.Services.ViewModels.GameCreateViewModel
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<div class="form-group">
-    <label asp-for="Title" class="control-label"></label>
-    <input asp-for="Title" class="form-control" />
-    <span asp-validation-for="Title" class="text-danger"></span>
+<div class="form-row">
+    <div class="form-group col-lg-6">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-6">
+        <label class="control-label">Alternate title</label>
+        <input class="form-control" />
+        <span class="text-danger"></span>
+    </div>
 </div>
-<div class="form-group">
-    <label asp-for="PlatformID" class="control-label"></label>
-    <select asp-for="PlatformID" asp-items="Model.PlatformSelectList" class="form-control">
-        <option value="">Select a platform</option>
-    </select>
-    <span asp-validation-for="PlatformID" class="text-danger"></span>
+
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <label asp-for="PlatformID" class="control-label"></label>
+        <select asp-for="PlatformID" asp-items="Model.PlatformSelectList" class="form-control">
+            <option value="">Select a platform</option>
+        </select>
+        <span asp-validation-for="PlatformID" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="ReleaseDate" class="control-label"></label>
+        <input asp-for="ReleaseDate" class="form-control" />
+        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label class="control-label">Language</label>
+        <select class="form-control">
+            <option value="">Select a language</option>
+            <option value="1">English</option>
+            <option value="2">Japanese</option>
+        </select>
+        <span class="text-danger"></span>
+    </div>
 </div>
-<div class="form-group">
-    <label asp-for="ReleaseDate" class="control-label"></label>
-    <input asp-for="ReleaseDate" class="form-control"/>
-    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+
+<div class="form-row">
+    <div class="form-group col-lg-6">
+        <label asp-for="GenreIDs" class="control-label"></label>
+        <select asp-for="GenreIDs" asp-items="Model.GenreSelectList" multiple class="form-control"></select>
+        <span asp-validation-for="GenreIDs" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-6">
+        <label class="control-label">Game modes</label>
+        <select multiple class="form-control">
+            <option value="1">Single-player</option>
+            <option value="2">Cooperative multiplayer</option>
+            <option value="3">Competitive multiplayer</option>
+            <option value="4">MMO</option>
+        </select>
+        <span class="text-danger"></span>
+    </div>
 </div>
-<div class="form-group">
-    <label asp-for="GenreIDs" class="control-label"></label>
-    <select asp-for="GenreIDs" asp-items="Model.GenreSelectList" multiple class="form-control"></select>
-    <span asp-validation-for="GenreIDs" class="text-danger"></span>
-</div>
+
 <div class="form-group">
     <label asp-for="Description" class="control-label"></label>
     <textarea asp-for="Description" class="form-control" rows="10"></textarea>

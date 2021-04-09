@@ -25,29 +25,75 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6" style="min-height: 200px;">
+                        <div class="h-100" style="background-image: url('/images/NoCover.png'); background-position:center; background-size: contain; background-repeat: no-repeat;"></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <dl class="row card-text">
+                            <dt class="col-sm-3 card-text">
+                                @Html.DisplayNameFor(model => model.Platform)
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                @Html.DisplayFor(model => model.Platform)
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                @Html.DisplayNameFor(model => model.ReleaseDate)
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                @Html.DisplayFor(model => model.ReleaseDate)
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                @Html.DisplayNameFor(model => model.Genres)
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                @Html.DisplayFor(model => model.Genres)
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Game mode(s)
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                DummyMode
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Series
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                DummySeries
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Developer(s)
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                DummyDev
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Publisher(s)
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                DummyPublisher
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Media type
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                DummyMediaType
+                            </dd>
+                            <dt class="col-sm-3 card-text">
+                                Language
+                            </dt>
+                            <dd class="col-sm-9 card-text">
+                                DummyLanguage
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <hr />
                 <dl class="row card-text">
-                    <dt class="col-sm-2 card-text">
-                        @Html.DisplayNameFor(model => model.Platform)
-                    </dt>
-                    <dd class="col-sm-10 card-text">
-                        @Html.DisplayFor(model => model.Platform)
-                    </dd>
-                    <dt class="col-sm-2 card-text">
-                        @Html.DisplayNameFor(model => model.ReleaseDate)
-                    </dt>
-                    <dd class="col-sm-10 card-text">
-                        @Html.DisplayFor(model => model.ReleaseDate)
-                    </dd>
-                    <dt class="col-sm-2 card-text">
-                        @Html.DisplayNameFor(model => model.Genres)
-                    </dt>
-                    <dd class="col-sm-10 card-text">
-                        @Html.DisplayFor(model => model.Genres)
-                    </dd>
-                    <dt class="col-sm-2 card-text">
+                    <dt class="col-sm-12 card-text">
                         @Html.DisplayNameFor(model => model.Description)
                     </dt>
-                    <dd class="col-sm-10 card-text">
+                    <dd class="col-sm-12 card-text">
                         @Html.DisplayFor(model => model.Description)
                     </dd>
                 </dl>
@@ -101,6 +147,7 @@
                             @Html.DisplayFor(modelItem => item.Notes)
                         </dd>
                     </dl>
+
                     <hr />
                     <h5>Playthroughs</h5>
                     <hr />
@@ -114,7 +161,7 @@
                         {
                             <p class="card-text">
                                 @playthrough.OrdinalNumber. <b>@playthrough.Status</b><br />
-                                Played for @playthrough.Playtime,@playthrough.PlayDates<br />
+                                Played for @playthrough.Playtime, @playthrough.PlayDates<br />
                                 Notes: @playthrough.Notes
                             </p>
                         }

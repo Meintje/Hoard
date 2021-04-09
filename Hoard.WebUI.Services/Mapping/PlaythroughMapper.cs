@@ -4,6 +4,7 @@ using Hoard.WebUI.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Hoard.WebUI.Services.Mapping.Helpers;
 
 namespace Hoard.WebUI.Services.Mapping
 {
@@ -17,9 +18,9 @@ namespace Hoard.WebUI.Services.Mapping
             {
                 PlayDataID = playthrough.PlayDataID,
                 OrdinalNumber = playthrough.OrdinalNumber,
-                PlayDates = DeterminePlayDates(playthrough),
+                PlayDates = PlayDatesHelper.GetPlayDatesString(playthrough.DateStart, playthrough.DateEnd),
                 Status = playthrough.PlayStatus.Name,
-                Playtime = $"{playtime.Days} day(s), {playtime.Hours} hour(s), {playtime.Minutes} minute(s)",
+                Playtime = PlaytimeHelper.GetLongPlaytimeString(playtime),
                 Notes = playthrough.Notes
             };
 
@@ -46,7 +47,7 @@ namespace Hoard.WebUI.Services.Mapping
                 DateStart = playthrough.DateStart == null ? "Unknown" : ((DateTime)playthrough.DateStart).ToString(EntityConstants.DateFormatString),
                 DateEnd = playthrough.DateEnd == null ? "Unknown" : ((DateTime)playthrough.DateEnd).ToString(EntityConstants.DateFormatString),
                 Status = playthrough.PlayStatus.Name,
-                Playtime = $"{playtime.Days} day(s), {playtime.Hours} hour(s), {playtime.Minutes} minute(s)",
+                Playtime = PlaytimeHelper.GetLongPlaytimeString(playtime),
                 Notes = playthrough.Notes
             };
 
@@ -125,27 +126,6 @@ namespace Hoard.WebUI.Services.Mapping
             };
 
             return playthrough;
-        }
-
-        private static string DeterminePlayDates(Playthrough playthrough)
-        {
-            string playDates = " dates unknown";
-
-            if (playthrough.DateStart != null)
-            {
-                playDates = $" from {((DateTime)playthrough.DateStart).ToString(EntityConstants.DateFormatString)}";
-            }
-
-            if (playthrough.DateStart != null && playthrough.DateEnd != null)
-            {
-                playDates += $" til {((DateTime)playthrough.DateEnd).ToString(EntityConstants.DateFormatString)}";
-            }
-            else if (playthrough.DateEnd != null)
-            {
-                playDates = $" til {((DateTime)playthrough.DateEnd).ToString(EntityConstants.DateFormatString)}";
-            }
-
-            return playDates;
         }
     }
 }
