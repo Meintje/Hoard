@@ -1,5 +1,6 @@
 ﻿using Hoard.WebUI.ASP.Attributes;
 using Hoard.WebUI.ASP.Models;
+using Hoard.WebUI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,17 +13,17 @@ namespace Hoard.WebUI.ASP.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUserDashboardViewService _userDashboardViewService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUserDashboardViewService userDashboardViewService)
         {
-            _logger = logger;
+            _userDashboardViewService = userDashboardViewService;
         }
 
         [ViewLayout("Index")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _userDashboardViewService.GetUserDashboard(1));
         }
 
         public IActionResult Privacy()

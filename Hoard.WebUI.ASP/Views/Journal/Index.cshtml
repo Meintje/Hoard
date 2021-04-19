@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Journal";
+}
+
+<div class="row mb-3">
+    <div class="ml-auto mr-0" style="margin-top: -20px;">
+        <a asp-action="Create" class="btn btn-success btn-lg">Add journal entry</a>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div>
+        <h1 style="margin-right: 15px; margin-bottom: 0px;">Journal</h1>
+    </div>
+</div>
+
+<div class="row card-row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header dark-card-header">
+                <div class="row">
+                    <img src="~/images/Save.svg" height="30" class="ml-3">
+                    <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Journal title</h4>
+                </div>
+            </div>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                    <dl class="row card-text">
+                        <dt class="col-sm-3 card-text">
+                            Total games:
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            999
+                        </dd>
+                        <dt class="col-sm-3 card-text">
+                            Total playtime:
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            9999 day(s), 9 hour(s), 9 minute(s)
+                        </dd>
+                        <dt class="col-sm-3 card-text">
+                            Wishlist items:
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            99
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hoard.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(HoardDbContext))]
-    [Migration("20210329083700_Init")]
-    partial class Init
+    [Migration("20210415132219_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -398,8 +398,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 1,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeMinutes = 3000,
                             SideContentCompleted = false
@@ -416,8 +416,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 4,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeMinutes = 29000,
                             SideContentCompleted = false
@@ -426,8 +426,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 2,
                             PlaytimeMinutes = 1000,
                             SideContentCompleted = true
@@ -436,8 +436,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 2,
-                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeMinutes = 500,
                             SideContentCompleted = false
@@ -446,8 +446,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 6,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 4,
                             PlaytimeMinutes = 10,
                             SideContentCompleted = false

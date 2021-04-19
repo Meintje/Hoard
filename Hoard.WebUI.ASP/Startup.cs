@@ -47,6 +47,8 @@ namespace Hoard.WebUI.ASP
 
             services.AddScoped<IGameViewService, GameViewService>();
             services.AddScoped<IPlayDataViewService, PlayDataViewService>();
+            services.AddScoped<IUserDashboardViewService, UserDashboardViewService>();
+
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Hoard.WebUI.Services.ViewModels.UserDashboard.UserDashboardViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -21,24 +23,15 @@
                 </thead>
 
                 <tbody>
-                    <tr style="border-top-color: white; border-bottom-color: white;">
-                        <td>Monster Hunter World</td>
-                        <td>PC</td>
-                        <td>Don't forget to thank your cartbearer.</td>
-                        <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="1" class="btn btn-warning btn-sm table-button align-middle">Edit</a></td>
-                    </tr>
-                    <tr style="border-top-color: white;">
-                        <td>Pokémon Alpha Sapphire</td>
-                        <td>Nintendo 3DS</td>
-                        <td>Don't forget to water your berries.</td>
-                        <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="1" class="btn btn-warning btn-sm table-button">Edit</a></td>
-                    </tr>
-                    <tr style="border-top-color: white;">
-                        <td>Gloomhaven</td>
-                        <td>PC</td>
-                        <td>Don't forget to ignore team tactics, and burn all your cards.</td>
-                        <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="1" class="btn btn-warning btn-sm table-button">Edit</a></td>
-                    </tr>
+                    @foreach (var game in Model.CurrentGames)
+                    {
+                        <tr style="cursor: pointer;" onclick="window.location='@Url.Action("Details", "Game", new { id = game.GameID })'">
+                            <td>@game.GameTitle</td>
+                            <td>@game.GamePlatform</td>
+                            <td>@game.PlaythroughNotes</td>
+                            <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="@game.PlayDataID" class="btn btn-warning btn-sm table-button align-middle">Edit</a></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
@@ -176,11 +169,10 @@
                     </div>
                 </div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">15/03/2021</div> <div><b>Journal:</b> Magikarp ate my starter</div></a>
-                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">13/03/2021</div> <div><b>Started:</b> Pokémon Alpha Sapphire</div></a>
-                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">01/03/2021</div> <div><b>Started:</b> Pokémon Let's Go Eevee!</div></a>
-                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">23/02/2021</div> <div><b>Finished:</b> Legend of Heroes: Trails in the Sky SC Evo</div></a>
-                    <a class="list-group-item list-group-item-action" href="#"><div class="small text-muted ml-auto">07/02/2021</div> <div><b>Started:</b> Final Fantasy: Crystal Chronicles Remastered</div></a>
+                    @foreach (var item in Model.RecentEvents)
+                    {
+                        <a class="list-group-item list-group-item-action" href="@item.URL"><div class="small text-muted ml-auto">@item.DateString</div> <div><b>@item.Type:</b> @item.Title</div></a>
+                    }
                 </div>
             </div>
         </div>

@@ -60,5 +60,41 @@ namespace Hoard.Infrastructure.Persistence.Services
 
             await context.SaveChangesAsync();
         }
+
+        public async Task<List<Playthrough>> GetRecentlyStartedPlaythroughs(int userID)
+        {
+            var items = await context.Playthroughs
+                .Where(pt => pt.PlayData.PlayerID == userID && pt.DateStart != null)
+                .OrderByDescending(pt => pt.DateStart)
+                .Include(pt => pt.PlayData)
+                .ThenInclude(pd => pd.Game)
+                .Take(10)
+                .ToListAsync();
+
+            return items;
+        }
+
+        public async Task<List<Playthrough>> GetRecentlyFinishedPlaythroughs(int userID)
+        {
+            var items = await context.Playthroughs
+                .Where(pt => pt.PlayData.PlayerID == userID && pt.DateEnd != null)
+                .OrderByDescending(pt => pt.DateEnd)
+                .Include(pt => pt.PlayData)
+                .ThenInclude(pd => pd.Game)
+                .Take(10)
+                .ToListAsync();
+
+            return items;
+        }
+
+        public async Task<List<Playthrough>> GetCurrentPlaythroughs(int userID)
+        {
+            var items = await context.Playthroughs
+                .Where(pt => pt.PlayData.PlayerID == userID && pt.PlayStatus.OrdinalNumber == 1)
+                .Include(pt => pt.PlayData).ThenInclude(pd => pd.Game).ThenInclude(g => g.Platform)
+                .ToListAsync();
+
+            return items;
+        }
     }
 }

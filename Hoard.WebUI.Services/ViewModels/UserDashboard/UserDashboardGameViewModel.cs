@@ -8,11 +8,12 @@ namespace Hoard.WebUI.Services.ViewModels.UserDashboard
 {
     public class UserDashboardGameViewModel
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string Platform { get; set; }
-
+        public int PlayDataID { get; set; }
+        public int OrdinalNumber { get; set; }
         public string PlaythroughNotes { get; set; }
-        public string PlaythroughURL { get; set; }
+
+        public int GameID { get; set; }
+        public string GameTitle { get; set; }
+        public string GamePlatform { get; set; }
     }
 }

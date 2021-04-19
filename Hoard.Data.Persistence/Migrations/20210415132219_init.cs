@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Hoard.Infrastructure.Persistence.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -251,12 +251,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "OrdinalNumber", "PlayDataID", "DateEnd", "DateStart", "Notes", "PlayStatusID", "PlaytimeMinutes", "SideContentCompleted" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 3000, false },
+                    { 1, 1, new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 3000, false },
                     { 1, 3, null, null, null, 3, 30000, false },
-                    { 1, 4, new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 29000, false },
-                    { 1, 5, new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), null, 2, 1000, true },
-                    { 2, 5, new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 500, false },
-                    { 1, 6, new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 3, 29, 0, 0, 0, 0, DateTimeKind.Local), null, 4, 10, false }
+                    { 1, 4, new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 29000, false },
+                    { 1, 5, new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), null, 2, 1000, true },
+                    { 2, 5, new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 500, false },
+                    { 1, 6, new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 4, 15, 0, 0, 0, 0, DateTimeKind.Local), null, 4, 10, false }
                 });
 
             migrationBuilder.CreateIndex(
