@@ -1,7 +1,9 @@
 ﻿using Hoard.Core.Interfaces;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.Services.Mapping;
-using Hoard.WebUI.Services.ViewModels;
+using Hoard.WebUI.Services.ViewModels.Game.GameCreateUpdate;
+using Hoard.WebUI.Services.ViewModels.Game.GameDetails;
+using Hoard.WebUI.Services.ViewModels.Game.GameIndex;
 using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services

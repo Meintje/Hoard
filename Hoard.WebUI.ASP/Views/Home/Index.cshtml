@@ -4,11 +4,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div style="margin-top: -15px; padding-top: 10vh; padding-bottom: 10vh; background: url('../images/JumbotronBG.png'); background-size: cover; background-position: center;">
+<div style="margin-top: -15px; padding-top: 10vh; padding-bottom: 10vh; background: url('../images/backgrounds/JumbotronBG.png'); background-size: cover; background-position: center;">
     <div class="container">
         <div class="jumbotron" style="margin: 0px; background: rgba(15, 16, 18, 0.7); padding: 30px;">
             <div class="row">
-                <img src="~/images/Gamepad.svg" height="61" class="ml-3" style="margin-top: 2px">
+                <img src="~/images/icons/Gamepad.svg" height="61" class="ml-3" style="margin-top: 2px">
                 <h1 class="display-4 ml-3">Now playing</h1>
             </div>
             <br />
@@ -29,7 +29,7 @@
                             <td>@game.GameTitle</td>
                             <td>@game.GamePlatform</td>
                             <td>@game.PlaythroughNotes</td>
-                            <td><a asp-controller="PlayData" asp-action="Details" asp-route-id="@game.PlayDataID" class="btn btn-warning btn-sm table-button align-middle">Edit</a></td>
+                            <td style="vertical-align: middle;"><a asp-controller="PlayData" asp-action="Details" asp-route-id="@game.PlayDataID" class="btn btn-warning btn-sm table-button">Edit</a></td>
                         </tr>
                     }
                 </tbody>
@@ -41,18 +41,18 @@
 <div class="container">
     <div class="row card-row">
         <div class="col-xl-8" style="margin-top: 25px;">
-            <div class="card h-100">
+            <div class="card h-100" style="max-height: 800px;">
                 <div class="card-header dark-card-header">
                     <div class="row">
-                        <img src="~/images/Save.svg" height="30" class="ml-3">
-                        <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Player statistics</h4>
+                        <img src="~/images/icons/Save.svg" height="30" class="ml-3">
+                        <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Statistics</h4>
                     </div>
                 </div>
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
                         <dl class="row card-text">
                             <dt class="col-sm-3 card-text">
-                                Total games:
+                                Total games owned:
                             </dt>
                             <dd class="col-sm-9 card-text">
                                 999
@@ -85,6 +85,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="list-group list-group-flush" style="overflow-y: scroll;">
                     <div class="list-group-item list-group-item-compact">
                         <div class="row">
                             <div class="col-md-4">
@@ -92,83 +94,44 @@
                             </div>
                             <div class="col-md-8 mt-auto mb-auto">
                                 <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100">5%</div>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">44%</div>
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
                                     <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="list-group-item bg-primary" style="padding: 5px 0px 0px 0px;"></div>
-                    <div class="list-group-item list-group-item-compact">
-                        <div class="row">
-                            <div class="col-md-4">
-                                Nintendo Switch (30)
-                            </div>
-                            <div class="col-md-8 mt-auto mb-auto">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                    @for (int i = 0; i < 20; i++)
+                    {
+                        <div class="list-group-item list-group-item-compact">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    DummyConsole (77)
+                                </div>
+                                <div class="col-md-8 mt-auto mb-auto">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="list-group-item list-group-item-compact">
-                        <div class="row">
-                            <div class="col-md-4">
-                                Nintendo 3DS (124)
-                            </div>
-                            <div class="col-md-8 mt-auto mb-auto">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item list-group-item-compact">
-                        <div class="row">
-                            <div class="col-md-4">
-                                Nintendo DS (156)
-                            </div>
-                            <div class="col-md-8 mt-auto mb-auto">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item list-group-item-compact">
-                        <div class="row">
-                            <div class="col-md-4">
-                                Nintendo Gameboy Advance (26)
-                            </div>
-                            <div class="col-md-8 mt-auto mb-auto">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
 
         <div class="col-xl-4" style="margin-top: 25px;">
-            <div class="card h-100">
+            <div class="card h-100" style="max-height: 800px;">
                 <div class="card-header dark-card-header">
                     <div class="row">
-                        <img src="~/images/Save.svg" height="30" class="ml-3">
+                        <img src="~/images/icons/Scroll.svg" height="30" class="ml-3">
                         <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Recent events</h4>
                     </div>
                 </div>
-                <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush" style="overflow-y: scroll;">
                     @foreach (var item in Model.RecentEvents)
                     {
                         <a class="list-group-item list-group-item-action" href="@item.URL"><div class="small text-muted ml-auto">@item.DateString</div> <div><b>@item.Type:</b> @item.Title</div></a>

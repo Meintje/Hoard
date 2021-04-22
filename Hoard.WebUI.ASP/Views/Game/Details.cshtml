@@ -1,4 +1,4 @@
-﻿@model Hoard.WebUI.Services.ViewModels.GameDetailsViewModel
+﻿@model Hoard.WebUI.Services.ViewModels.Game.GameDetails.GameDetailsViewModel
 
 @{
     ViewData["Title"] = Model.Title;
@@ -109,7 +109,7 @@
             <div class="card h-100">
                 <div class="card-header dark-card-header">
                     <div class="row">
-                        <img src="~/images/Save.svg" height="30" class="ml-3">
+                        <img src="~/images/icons/Save.svg" height="30" class="ml-3">
                         <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">@Html.DisplayFor(modelItem => item.PlayerName)</h4>
                         <a asp-controller="PlayData" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success btn-sm mr-3 ml-auto">Details</a>
                     </div>

@@ -3,10 +3,8 @@ using Hoard.Core.Interfaces;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.Services.Mapping;
 using Hoard.WebUI.Services.ViewModels.UserDashboard;
-using System;
+using Hoard.WebUI.Services.ViewModels.UserDashboard.InnerModels;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services
@@ -61,9 +59,9 @@ namespace Hoard.WebUI.Services
             recentEvents.Sort((a, b) => a.Date.CompareTo(b.Date));
             recentEvents.Reverse();
 
-            if (recentEvents.Count > 5)
+            if (recentEvents.Count > 15)
             {
-                recentEvents.RemoveRange(5, recentEvents.Count - 5);
+                recentEvents.RemoveRange(15, recentEvents.Count - 15);
             }
 
             return recentEvents;

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Hoard.WebUI.Services.ViewModels
+namespace Hoard.WebUI.Services.ViewModels.Game.GameCreateUpdate
 {
     public class GameCreateViewModel
     {

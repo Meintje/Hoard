@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hoard.WebUI.ASP.Attributes;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Hoard.WebUI.ASP.Controllers
 {
     public class WishlistController : Controller
     {
+        [ViewLayout("Index")]
         public IActionResult Index()
         {
             return View();

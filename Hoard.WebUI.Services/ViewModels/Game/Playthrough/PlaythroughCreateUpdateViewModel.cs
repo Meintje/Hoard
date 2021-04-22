@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Hoard.WebUI.Services.ViewModels
+namespace Hoard.WebUI.Services.ViewModels.Game.Playthrough
 {
     public class PlaythroughCreateUpdateViewModel
     {

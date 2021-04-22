@@ -15,4 +15,9 @@
     <ProjectReference Include="..\Hoard.Data.Persistence\Hoard.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Journal\" />
+    <Folder Include="ViewModels\Wishlist\" />
+  </ItemGroup>
+
 </Project>

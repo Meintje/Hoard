@@ -48,5 +48,31 @@ namespace Hoard.Infrastructure.Persistence.Services
             context.Update(playData);
             await context.SaveChangesAsync();
         }
+
+        public async Task<int> CountUserGames(int userID)
+        {
+            var userGames = await context.PlayData
+                .Where(pd => pd.PlayerID == userID && pd.Dropped == false) // TODO: Check OwnershipStatus
+                .CountAsync();
+
+            return userGames;
+        }
+
+        public async Task<TimeSpan> CountUserTotalPlaytime(int userID)
+        {
+            var totalPlaytime = new TimeSpan();
+
+            var playData = await context.PlayData
+                .Where(pd => pd.PlayerID == userID)
+                .Include(pd => pd.Playthroughs)
+                .ToListAsync();
+
+            foreach(var pd in playData)
+            {
+                totalPlaytime.Add(pd.TotalPlaytime);
+            }
+
+            return totalPlaytime;
+        }
     }
 }

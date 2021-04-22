@@ -1,8 +1,6 @@
-﻿using Hoard.WebUI.Services.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Hoard.WebUI.Services.ViewModels.Game.PlayDataDetails;
+using Hoard.WebUI.Services.ViewModels.Game.PlayDataUpdate;
+using Hoard.WebUI.Services.ViewModels.Game.Playthrough;
 using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.Interfaces

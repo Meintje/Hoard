@@ -1,11 +1,7 @@
 ﻿using Hoard.Core.Constants;
 using Hoard.Core.Entities.Game;
-using Hoard.WebUI.Services.ViewModels.UserDashboard;
+using Hoard.WebUI.Services.ViewModels.UserDashboard.InnerModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.Mapping
 {

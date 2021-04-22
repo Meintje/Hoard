@@ -1,8 +1,10 @@
 ﻿using Hoard.Core.Entities.Game;
 using Hoard.Core.Constants;
-using Hoard.WebUI.Services.ViewModels;
 using System;
 using Hoard.WebUI.Services.Mapping.Helpers;
+using Hoard.WebUI.Services.ViewModels.Game.PlayDataUpdate;
+using Hoard.WebUI.Services.ViewModels.Game.PlayDataDetails;
+using Hoard.WebUI.Services.ViewModels.Game.GameDetails.InnerModels;
 
 namespace Hoard.WebUI.Services.Mapping
 {

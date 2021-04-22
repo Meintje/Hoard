@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Hoard.Core.Entities.Game;
 using Hoard.WebUI.Services.ViewModels;
 using Hoard.WebUI.Services.Interfaces;
+using Hoard.WebUI.Services.ViewModels.Game.Playthrough;
+using Hoard.WebUI.Services.ViewModels.Game.PlayDataUpdate;
 
 namespace Hoard.WebUI.ASP.Controllers
 {

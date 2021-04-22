@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Hoard.WebUI.Services.ViewModels
+namespace Hoard.WebUI.Services.ViewModels.Game.GameDetails.InnerModels
 {
     public class GamePlayDataDetailsViewModel
     {

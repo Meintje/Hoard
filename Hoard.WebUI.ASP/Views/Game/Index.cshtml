@@ -1,7 +1,7 @@
-﻿@model Hoard.WebUI.Services.ViewModels.GameIndexViewModel
+﻿@model Hoard.WebUI.Services.ViewModels.Game.GameIndex.GameIndexViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Games";
 }
 
 <div class="container">
@@ -20,41 +20,67 @@
 
 
 <div class="container-fluid">
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Platform)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().ReleaseDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Genres)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Games)
-            {
-                <tr onclick="window.location='@Url.Action("Details", "Game", new { id = item.ID })'" style="cursor: pointer;">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Platform)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReleaseDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Genres)
-                    </td>
+    <div class="table-responsive-xl">
+        <table class="table table-hover table-striped" style="min-width: 1100px;">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Platform)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().ReleaseDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Genres)
+                    </th>
+                    <th>
+                        Developer(s)
+                    </th>
+                    <th>
+                        Mode(s)
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Priority
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Games)
+                {
+                    <tr onclick="window.location='@Url.Action("Details", "Game", new { id = item.ID })'" style="cursor: pointer;">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Platform)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReleaseDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genres)
+                        </td>
+                        <td>
+                            DummyDev1, DummyDev2
+                        </td>
+                        <td>
+                            DummyMode1, DummyMode2
+                        </td>
+                        <td>
+                            DummyStatus
+                        </td>
+                        <td>
+                            DummyPriority
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

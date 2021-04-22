@@ -1,10 +1,12 @@
 ﻿using Hoard.Core.Entities.Game;
 using Hoard.Core.Constants;
-using Hoard.WebUI.Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Hoard.WebUI.Services.Mapping.Helpers;
+using Hoard.WebUI.Services.ViewModels.Game.Playthrough;
+using Hoard.WebUI.Services.ViewModels.Game.GameDetails.InnerModels;
+using Hoard.WebUI.Services.ViewModels.Game.PlayDataDetails.InnerModels;
 
 namespace Hoard.WebUI.Services.Mapping
 {

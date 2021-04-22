@@ -1,4 +1,4 @@
-﻿@model Hoard.WebUI.Services.ViewModels.PlayDataDetailsViewModel
+﻿@model Hoard.WebUI.Services.ViewModels.Game.PlayDataDetails.PlayDataDetailsViewModel
 
 @{
     ViewData["Title"] = Model.GameTitle + " - " + Model.PlayerName;
@@ -91,7 +91,7 @@
             <div class="card">
                 <div class="card-header dark-card-header">
                     <div class="row">
-                        <img src="~/images/Save.svg" height="30" class="ml-3">
+                        <img src="~/images/icons/Save.svg" height="30" class="ml-3">
                         <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Playthrough #@Html.DisplayFor(modelItem => item.OrdinalNumber)</h4>
                         <button type="button" class="btn btn-warning btn-sm mr-1 ml-auto modal-toggle" data-toggle="modal" data-target="#form-modal"
                                 data-url="@Url.Action("EditPlaythrough", "PlayData", new { playDataId = Model.ID, ordinalNumber = item.OrdinalNumber })">

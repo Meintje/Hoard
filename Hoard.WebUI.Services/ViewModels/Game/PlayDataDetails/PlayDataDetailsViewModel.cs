@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Hoard.WebUI.Services.ViewModels.Game.PlayDataDetails.InnerModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Hoard.WebUI.Services.ViewModels
+namespace Hoard.WebUI.Services.ViewModels.Game.PlayDataDetails
 {
     public class PlayDataDetailsViewModel
     {

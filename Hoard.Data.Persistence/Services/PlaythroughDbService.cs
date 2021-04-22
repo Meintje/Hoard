@@ -68,7 +68,7 @@ namespace Hoard.Infrastructure.Persistence.Services
                 .OrderByDescending(pt => pt.DateStart)
                 .Include(pt => pt.PlayData)
                 .ThenInclude(pd => pd.Game)
-                .Take(10)
+                .Take(15)
                 .ToListAsync();
 
             return items;
@@ -81,7 +81,7 @@ namespace Hoard.Infrastructure.Persistence.Services
                 .OrderByDescending(pt => pt.DateEnd)
                 .Include(pt => pt.PlayData)
                 .ThenInclude(pd => pd.Game)
-                .Take(10)
+                .Take(15)
                 .ToListAsync();
 
             return items;

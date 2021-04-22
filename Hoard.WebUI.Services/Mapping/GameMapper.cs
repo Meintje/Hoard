@@ -1,6 +1,9 @@
 ﻿using Hoard.Core.Constants;
 using Hoard.Core.Entities.Game;
-using Hoard.WebUI.Services.ViewModels;
+using Hoard.WebUI.Services.ViewModels.Game.GameCreateUpdate;
+using Hoard.WebUI.Services.ViewModels.Game.GameDetails;
+using Hoard.WebUI.Services.ViewModels.Game.GameIndex;
+using Hoard.WebUI.Services.ViewModels.Game.GameIndex.InnerModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
