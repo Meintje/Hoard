@@ -2,6 +2,7 @@
 using Hoard.Core.Interfaces;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.Services.Mapping;
+using Hoard.WebUI.Services.Mapping.Helpers;
 using Hoard.WebUI.Services.ViewModels.UserDashboard;
 using Hoard.WebUI.Services.ViewModels.UserDashboard.InnerModels;
 using System.Collections.Generic;
@@ -27,10 +28,13 @@ namespace Hoard.WebUI.Services
 
             var recentEvents = CreateRecentEventsList(recentlyStartedPlaythroughs, recentlyFinishedPlaythroughs);
 
+            var totalNumberOfGames = await playDataDbService.CountUserGames(playerID);
+            var totalPlayTime = await playDataDbService.CountUserTotalPlaytime(playerID);
+
             var userDashboardVM = new UserDashboardViewModel
             {
-                TotalNumberOfGames = "9999",
-                TotalPlaytime = "9999 days, 99 hours, 99 minutes",
+                TotalNumberOfGames = totalNumberOfGames.ToString(),
+                TotalPlaytime = PlaytimeHelper.GetLongPlaytimeString(totalPlayTime),
                 RecentEvents = recentEvents
             };
 

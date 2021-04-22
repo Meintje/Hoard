@@ -52,7 +52,7 @@ namespace Hoard.Infrastructure.Persistence.Services
         public async Task<int> CountUserGames(int userID)
         {
             var userGames = await context.PlayData
-                .Where(pd => pd.PlayerID == userID && pd.Dropped == false) // TODO: Check OwnershipStatus
+                .Where(pd => pd.PlayerID == userID && pd.Dropped == false) // TODO: Check OwnershipStatus instead
                 .CountAsync();
 
             return userGames;
@@ -69,7 +69,7 @@ namespace Hoard.Infrastructure.Persistence.Services
 
             foreach(var pd in playData)
             {
-                totalPlaytime.Add(pd.TotalPlaytime);
+                totalPlaytime = totalPlaytime.Add(pd.TotalPlaytime);
             }
 
             return totalPlaytime;
