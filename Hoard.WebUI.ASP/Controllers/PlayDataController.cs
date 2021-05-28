@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Hoard.Core.Entities.Game;
+using Hoard.Core.Entities.Games;
 using Hoard.WebUI.Services.ViewModels;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.Services.ViewModels.Game.Playthrough;
@@ -61,7 +61,7 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("ID,GameID,PlayerID,Dropped,CurrentlyPlaying,Notes")] PlayDataUpdateViewModel playDataUpdateViewModel)
+        public async Task<IActionResult> Edit([Bind("ID,GameID,HoarderID,PriorityID,OwnershipStatusID,Dropped,AchievementsCompleted,Rating,Notes")] PlayDataUpdateViewModel playDataUpdateViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -81,10 +81,10 @@ namespace Hoard.WebUI.ASP.Controllers
                     }
                 }
 
-                return RedirectToAction("Details", "PlayData", new { id = playDataUpdateViewModel.ID });
+                return RedirectToAction(nameof(Details), new { id = playDataUpdateViewModel.ID });
             }
 
-            return View(playDataUpdateViewModel);
+            return RedirectToAction(nameof(Details), new { id = playDataUpdateViewModel.ID });
         }
 
         public async Task<IActionResult> CreatePlaythrough(int playDataId)

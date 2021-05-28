@@ -6,13 +6,17 @@
     <title>@ViewData["Title"] | Hoard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow:400,700|Unica+One&display=swap" rel="stylesheet">
+    @if ((string)ViewData["Layout"] == "Journal")
+    {
+        <link rel="stylesheet" href="~/css/journal.css" />
+    }
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Narrow:400,700|Unica+One&display=swap">
 </head>
-<body>
+<body style="padding-bottom: 55px;">
     <header>
         <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-primary box-shadow sticky-top mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/icons/dragonwhite.svg" class="navbar-brand" style="height:50px; margin:-25px 0px -20px -5px" /></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo/HoardLogoWhite.svg" class="navbar-brand" style="height:50px; margin:-25px 0px -20px -5px" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -60,8 +64,8 @@
     }
 
     <footer class="footer text-muted">
-        <div class="container">
-            This footer is useless.
+        <div class="container" style="text-align: center;">
+            <img src="~/images/logo/HoardLogoWhite.svg" style="height:100px; margin: 15px" />
         </div>
     </footer>
 

@@ -7,7 +7,7 @@ namespace Hoard.WebUI.Services.Interfaces
 {
     public interface IGameViewService
     {
-        public Task<GameIndexViewModel> GetGameIndex();
+        public Task<GameIndexViewModel> GetGameIndex(int hoarderID);
         public Task<GameDetailsViewModel> GetGameDetails(int id);
         public Task<GameCreateViewModel> GetGameCreateData();
         public Task<GameUpdateViewModel> GetGameUpdateData(int id);

@@ -23,10 +23,12 @@ namespace Hoard.WebUI.ASP.Controllers
         [ViewLayout("Index")]
         public async Task<IActionResult> Index()
         {
+            // TODO: Redirect to Welcome if user is not logged in
+
             return View(await _userDashboardViewService.GetUserDashboard(1));
         }
 
-        public IActionResult Privacy()
+        public IActionResult Welcome()
         {
             return View();
         }

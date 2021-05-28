@@ -9,18 +9,23 @@ namespace Hoard.WebUI.ASP.Controllers
 {
     public class GameController : Controller
     {
-        private readonly IGameViewService _gameViewService;
+        private readonly IGameViewService gameViewService;
 
         public GameController(IGameViewService gameService)
         {
-            _gameViewService = gameService;
+            gameViewService = gameService;
         }
 
         // GET: Game
         [ViewLayout("Index")]
         public async Task<IActionResult> Index()
         {
-            return View(await _gameViewService.GetGameIndex());
+            // TODO: Get HoarderID from ASP User
+            int hoarderID = 1;
+
+            var vm = await gameViewService.GetGameIndex(hoarderID);
+
+            return View(vm);
         }
 
         // GET: Game/Details/5
@@ -31,12 +36,12 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var gameVM = await _gameViewService.GetGameDetails((int)id);
+            var gameVM = await gameViewService.GetGameDetails((int)id);
 
             if (gameVM == null || gameVM.ID == 0)
             {
-                throw new Exception();
-                //return NotFound();
+                //throw new Exception();
+                return NotFound();
             }
 
             return View(gameVM);
@@ -47,7 +52,7 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _gameViewService.DeleteGame(id);
+            await gameViewService.DeleteGame(id);
 
             return RedirectToAction(nameof(Index));
         }
@@ -55,27 +60,26 @@ namespace Hoard.WebUI.ASP.Controllers
         // GET: Game/Create
         public async Task<IActionResult> Create()
         {
-            var gcVM = await _gameViewService.GetGameCreateData();
+            var gcVM = await gameViewService.GetGameCreateData();
 
             return View(gcVM);
         }
 
         // POST: Game/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,PlatformID,GenreIDs,ReleaseDate,Description")] GameCreateViewModel gameCreateViewModel)
+        public async Task<IActionResult> Create([Bind("Title,AlternateTitle,PlatformID,LanguageID,MediaTypeID,GenreIDs,SeriesIDs,ModeIDs,DeveloperIDs,PublisherIDs,ReleaseDate,Description")]
+                                                GameCreateViewModel gameCreateViewModel)
         {
             if (ModelState.IsValid)
             {
-                if (await _gameViewService.CreateResultsInDuplicateEntry(gameCreateViewModel))
+                if (await gameViewService.CreateResultsInDuplicateEntry(gameCreateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
                     return View(gameCreateViewModel); // TODO: Refill SelectLists
                 }
 
-                await _gameViewService.CreateGame(gameCreateViewModel);
+                await gameViewService.CreateGame(gameCreateViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -91,8 +95,8 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var guVM = await _gameViewService.GetGameUpdateData((int)id);
-           
+            var guVM = await gameViewService.GetGameUpdateData((int)id);
+
             if (guVM == null)
             {
                 return NotFound();
@@ -106,7 +110,8 @@ namespace Hoard.WebUI.ASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,PlatformID,GenreIDs,ReleaseDate,Description")] GameUpdateViewModel gameUpdateViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,AlternateTitle,PlatformID,LanguageID,MediaTypeID,GenreIDs,SeriesIDs,ModeIDs,DeveloperIDs,PublisherIDs,ReleaseDate,Description")]
+                                              GameUpdateViewModel gameUpdateViewModel)
         {
             if (id != gameUpdateViewModel.ID)
             {
@@ -115,15 +120,15 @@ namespace Hoard.WebUI.ASP.Controllers
 
             if (ModelState.IsValid)
             {
-                if (await _gameViewService.UpdateResultsInDuplicateEntry(gameUpdateViewModel))
+                if (await gameViewService.UpdateResultsInDuplicateEntry(gameUpdateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
                     return View(gameUpdateViewModel); // TODO: Refill SelectLists
                 }
 
-                await _gameViewService.UpdateGame(gameUpdateViewModel);
-                
-                return RedirectToAction(nameof(Index));
+                await gameViewService.UpdateGame(gameUpdateViewModel);
+
+                return RedirectToAction(nameof(Details), new { id = id });
             }
             return View(gameUpdateViewModel); // TODO: Refill SelectLists
         }

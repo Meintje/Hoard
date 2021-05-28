@@ -18,5 +18,6 @@ namespace Hoard.WebUI.Services.ViewModels.UserDashboard
 
         public string TotalPlaytime { get; set; }
         public string TotalNumberOfGames { get; set; }
+        public string NumberOfWishlistItems { get; set; }
     }
 }

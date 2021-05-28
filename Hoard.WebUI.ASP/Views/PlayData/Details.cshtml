@@ -44,7 +44,20 @@
                             @Html.DisplayNameFor(model => model.Rating)
                         </dt>
                         <dd class="col-sm-9 card-text">
-                            @Html.DisplayFor(model => model.Rating)
+                            @if (Model.Rating == "")
+                            {
+                                <i class="text-muted">None</i>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => model.Rating)
+                            }
+                        </dd>
+                        <dt class="col-sm-3 card-text">
+                            @Html.DisplayNameFor(model => model.OwnershipStatus)
+                        </dt>
+                        <dd class="col-sm-9 card-text">
+                            @Html.DisplayFor(model => model.OwnershipStatus)
                         </dd>
                     </dl>
                     <dl class="col-lg-6 row card-text">
@@ -75,7 +88,14 @@
                             @Html.DisplayNameFor(model => model.Notes)
                         </dt>
                         <dd class="col-12 card-text">
-                            @Html.DisplayFor(model => model.Notes)
+                            @if (Model.Notes != null && Model.Notes != "")
+                            {
+                                @Html.Raw(System.Net.WebUtility.HtmlEncode(Model.Notes).Replace("\r\n\n", "<br /><br />").Replace("\r\n", "<br />"))
+                            }
+                            else
+                            {
+                                <i class="text-muted">User hasn't made any notes.</i>
+                            }
                         </dd>
                     </dl>
                 </div>
@@ -141,7 +161,14 @@
                                 @Html.DisplayNameFor(modelItem => item.Notes)
                             </dt>
                             <dd class="col-sm-12 card-text">
-                                @Html.DisplayFor(modelItem => item.Notes)
+                                @if (item.Notes != null && item.Notes != "")
+                                {
+                                    @Html.Raw(System.Net.WebUtility.HtmlEncode(item.Notes).Replace("\r\n\n", "<br /><br />").Replace("\r\n", "<br />"))
+                                }
+                                else
+                                {
+                                    <i class="text-muted">User hasn't made any notes.</i>
+                                }
                             </dd>
                         </dl>
                     </div>

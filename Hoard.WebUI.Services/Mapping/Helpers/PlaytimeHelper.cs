@@ -6,72 +6,111 @@ using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.Mapping.Helpers
 {
-    public static class PlaytimeHelper
+    internal static class PlaytimeHelper
     {
-        public static string GetLongPlaytimeString(TimeSpan timespan)
+        internal static string GetLongPlaytimeString(TimeSpan timespan)
         {
             string playtime = "";
             int days = timespan.Days;
             int hours = timespan.Hours;
             int minutes = timespan.Minutes;
 
-            if (days > 1)
+            if (days == 0 && hours == 0 && minutes == 0)
             {
-                playtime += $"{days} days, ";
-            }
-            else if (days == 1)
-            {
-                playtime += $"{days} day, ";
+                return "n/a";
             }
 
+            string daysString;
+            if (days == 1)
+            {
+                daysString = $"{days} day, ";
+            }
+            else
+            {
+                daysString = $"{days} days, ";
+            }
+
+            string hoursString;
             if (hours == 1)
             {
-                playtime += $"{hours} hour, ";
+                hoursString = $"{hours} hour, ";
             }
             else
             {
-                playtime += $"{hours} hours, ";
+                hoursString = $"{hours} hours, ";
             }
 
+            string minutesString;
             if (minutes == 1)
             {
-                playtime += $"{minutes} minute";
+                minutesString = $"{minutes} minute";
             }
             else
             {
-                playtime += $"{minutes} minutes";
+                minutesString = $"{minutes} minutes";
             }
+
+            if (days > 0)
+            {
+                playtime += daysString;
+                playtime += hoursString;
+            }
+            else if (hours > 0)
+            {
+                playtime += hoursString;
+            }
+            playtime += minutesString;
 
             return playtime;
         }
 
-        public static string GetShortPlaytimeString(TimeSpan timespan)
+        internal static string GetShortPlaytimeString(TimeSpan timespan)
         {
             string playtime = "";
+            int days = timespan.Days;
+            int hours = timespan.Hours;
+            int minutes = timespan.Minutes;
 
-            if (timespan.Days > 0)
+            if (days == 0 && hours == 0 && minutes == 0)
             {
-                playtime += $"{timespan.Days}.";
+                return "n/a";
             }
 
-            playtime += timespan.ToString(@"hh\:mm");
+            if (days > 0)
+            {
+                playtime += $"{days}d {hours}h ";
+            }
+            else if (hours > 0)
+            {
+                playtime += $"{hours}h ";
+            }
+
+            playtime += $"{minutes}m";
 
             return playtime;
         }
 
-        public static string GetPlaytimeStringInHours(TimeSpan timespan)
+        internal static string GetPlaytimeStringInHours(TimeSpan timespan)
         {
             string playtime = "";
             int hours = (int)timespan.TotalHours;
             int minutes = timespan.Minutes;
 
-            if (hours == 1)
+            if (hours == 0 && minutes == 0)
             {
-                playtime += $"{hours} hour, ";
+                return "n/a";
             }
-            else
+
+            if (hours > 0)
             {
-                playtime += $"{hours} hours, ";
+                if (hours == 1)
+                {
+                    playtime += $"{hours} hour, ";
+                }
+                else
+                {
+                    playtime += $"{hours} hours, ";
+                }
             }
 
             if (minutes == 1)

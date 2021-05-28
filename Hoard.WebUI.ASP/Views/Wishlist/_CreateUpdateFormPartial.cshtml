@@ -1,0 +1,53 @@
+﻿@model Hoard.WebUI.Services.ViewModels.Wishlist.CreateUpdate.WishlistCreateViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-row">
+    <div class="form-group col-lg-8">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-4">
+        <label asp-for="WishlistItemTypeID" class="control-label"></label>
+        <select asp-for="WishlistItemTypeID" asp-items="Model.WishlistItemTypeSelectList" class="form-control">
+            <option value="">Select a type</option>
+        </select>
+        <span asp-validation-for="WishlistItemTypeID" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <label asp-for="ReleaseDate" class="control-label"></label>
+        <input asp-for="ReleaseDate" class="form-control" />
+        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="PriorityID" class="control-label"></label>
+        <select asp-for="PriorityID" asp-items="Model.PrioritySelectList" class="form-control">
+            <option value="">Select a priority</option>
+        </select>
+        <span asp-validation-for="PriorityID" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="LanguageID" class="control-label"></label>
+        <select asp-for="LanguageID" asp-items="Model.LanguageSelectList" class="form-control">
+            <option value="">Select a language</option>
+        </select>
+        <span asp-validation-for="LanguageID" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="form-group">
+    <label asp-for="StoreURL" class="control-label"></label>
+    <input asp-for="StoreURL" class="form-control" />
+    <span asp-validation-for="StoreURL" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Notes" class="control-label"></label>
+    <textarea asp-for="Notes" class="form-control" rows="10"></textarea>
+    <span asp-validation-for="Notes" class="text-danger"></span>
+</div>
+
+<input type="hidden" asp-for="HoarderID" />

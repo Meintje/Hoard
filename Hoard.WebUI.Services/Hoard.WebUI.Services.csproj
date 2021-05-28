@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -13,11 +13,6 @@
     <ProjectReference Include="..\Hoard.Core.Entities\Hoard.Core.Entities.csproj" />
     <ProjectReference Include="..\Hoard.Core.Interfaces\Hoard.Core.Interfaces.csproj" />
     <ProjectReference Include="..\Hoard.Data.Persistence\Hoard.Infrastructure.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Journal\" />
-    <Folder Include="ViewModels\Wishlist\" />
   </ItemGroup>
 
 </Project>

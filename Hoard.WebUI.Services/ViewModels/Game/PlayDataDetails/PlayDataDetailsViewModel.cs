@@ -20,6 +20,8 @@ namespace Hoard.WebUI.Services.ViewModels.Game.PlayDataDetails
         public string Status { get; set; }
         public string Priority { get; set; }
         public string Rating { get; set; }
+        [Display(Name = "Ownership status")]
+        public string OwnershipStatus { get; set; }
 
         [Display(Name = "Total playtime")]
         public string TotalPlaytime { get; set; }

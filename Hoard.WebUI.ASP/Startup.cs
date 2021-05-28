@@ -1,5 +1,6 @@
-using Hoard.Data.Persistence.DataAccess;
-using Hoard.Core.Interfaces;
+using Hoard.Infrastructure.Persistence.DataAccess;
+using Hoard.Core.Interfaces.Games;
+using Hoard.Core.Interfaces.Wishlist;
 using Hoard.WebUI.ASP.Data;
 using Hoard.WebUI.Services;
 using Hoard.WebUI.Services.Interfaces;
@@ -17,6 +18,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hoard.Infrastructure.Persistence.Services;
+using Hoard.Infrastructure.Persistence.Services.Games;
+using Hoard.Infrastructure.Persistence.Services.Wishlist;
+using Hoard.WebUI.Services.Converters;
+using System.Globalization;
+using Hoard.WebUI.Services.Services;
+using Hoard.Infrastructure.Persistence.Services.Journal;
+using Hoard.Core.Interfaces.Journal;
 
 namespace Hoard.WebUI.ASP
 {
@@ -44,13 +52,34 @@ namespace Hoard.WebUI.ASP
             services.AddScoped<IPlayDataDbService, PlayDataDbService>();
             services.AddScoped<IPlaythroughDbService, PlaythroughDbService>();
             services.AddScoped<IPlayStatusDbService, PlayStatusDbService>();
+            services.AddScoped<IPriorityDbService, PriorityDbService>();
+            services.AddScoped<IOwnershipStatusDbService, OwnershipStatusDbService>();
+            services.AddScoped<ILanguageDbService, LanguageDbService>();
+            services.AddScoped<IMediaTypeDbService, MediaTypeDbService>();
+            services.AddScoped<ISeriesDbService, SeriesDbService>();
+            services.AddScoped<IModeDbService, ModeDbService>();
+            services.AddScoped<IDeveloperDbService, DeveloperDbService>();
+            services.AddScoped<IPublisherDbService, PublisherDbService>();
+
+            services.AddScoped<IWishlistDbService, WishlistDbService>();
+            services.AddScoped<IWishlistItemTypeDbService, WishlistItemTypeDbService>();
+
+            services.AddScoped<IJournalDbService, JournalDbService>();
+            services.AddScoped<ITagDbService, TagDbService>();
+
 
             services.AddScoped<IGameViewService, GameViewService>();
             services.AddScoped<IPlayDataViewService, PlayDataViewService>();
             services.AddScoped<IUserDashboardViewService, UserDashboardViewService>();
 
+            services.AddScoped<IWishlistViewService, WishlistViewService>();
+
+            services.AddScoped<IJournalViewService, JournalViewService>();
+
+            services.AddScoped<IConverter, HTMLConverter>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }
@@ -72,6 +101,15 @@ namespace Hoard.WebUI.ASP
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            string defaultCulture = "en-UK";
+            var cultureInfo = new CultureInfo(defaultCulture);
+            cultureInfo.NumberFormat.CurrencySymbol = "€";
+            cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+            cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             app.Use(async (context, next) =>
             {
                 await next();
@@ -88,6 +126,8 @@ namespace Hoard.WebUI.ASP
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // TODO: Add middleware that inserts a different DbContext is the user is a Guest
 
             app.UseEndpoints(endpoints =>
             {

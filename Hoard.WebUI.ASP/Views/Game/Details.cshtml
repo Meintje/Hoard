@@ -17,7 +17,10 @@
 <div class="row mb-2">
     <div>
         <h1 style="margin-bottom: 0px;">@Model.Title</h1>
-        <h2 class="text-muted">@Model.Title</h2>
+        @if (Model.AlternateTitle != null && Model.AlternateTitle != "")
+        {
+            <h2 class="text-muted">@Model.AlternateTitle</h2>
+        }
     </div>
 </div>
 
@@ -27,7 +30,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-6" style="min-height: 200px;">
-                        <div class="h-100" style="background-image: url('/images/NoCover.png'); background-position:center; background-size: contain; background-repeat: no-repeat;"></div>
+                        <div class="h-100" style="background-image: url('/images/cover/NoCover.png'); background-position:center; background-size: contain; background-repeat: no-repeat;"></div>
                     </div>
                     <div class="col-lg-6">
                         <dl class="row card-text">
@@ -50,40 +53,40 @@
                                 @Html.DisplayFor(model => model.Genres)
                             </dd>
                             <dt class="col-sm-3 card-text">
-                                Game mode(s)
+                                @Html.DisplayNameFor(model => model.Modes)
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                DummyMode
+                                @Html.DisplayFor(model => model.Modes)
                             </dd>
                             <dt class="col-sm-3 card-text">
-                                Series
+                                @Html.DisplayNameFor(model => model.Series)
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                DummySeries
+                                @Html.DisplayFor(model => model.Series)
                             </dd>
                             <dt class="col-sm-3 card-text">
-                                Developer(s)
+                                @Html.DisplayNameFor(model => model.Developers)
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                DummyDev
+                                @Html.DisplayFor(model => model.Developers)
                             </dd>
                             <dt class="col-sm-3 card-text">
-                                Publisher(s)
+                                @Html.DisplayNameFor(model => model.Publishers)
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                DummyPublisher
+                                @Html.DisplayFor(model => model.Publishers)
                             </dd>
                             <dt class="col-sm-3 card-text">
-                                Media type
+                                @Html.DisplayNameFor(model => model.MediaType)
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                DummyMediaType
+                                @Html.DisplayFor(model => model.MediaType)
                             </dd>
                             <dt class="col-sm-3 card-text">
-                                Language
+                                @Html.DisplayNameFor(model => model.Language)
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                DummyLanguage
+                                @Html.DisplayFor(model => model.Language)
                             </dd>
                         </dl>
                     </div>
@@ -94,7 +97,14 @@
                         @Html.DisplayNameFor(model => model.Description)
                     </dt>
                     <dd class="col-sm-12 card-text">
-                        @Html.DisplayFor(model => model.Description)
+                        @if (Model.Description != null && Model.Description != "")
+                        {
+                            @Html.Raw(System.Net.WebUtility.HtmlEncode(Model.Description).Replace("\r\n\n", "<br /><br />").Replace("\r\n", "<br />"))
+                        }
+                        else
+                        {
+                            <i class="text-muted">Description not available.</i>
+                        }
                     </dd>
                 </dl>
             </div>
@@ -126,7 +136,14 @@
                             @Html.DisplayNameFor(modelItem => item.Rating)
                         </dt>
                         <dd class="col-sm-9 card-text">
-                            @Html.DisplayFor(modelItem => item.Rating)
+                            @if (item.Rating == "")
+                            {
+                                <i class="text-muted">None</i>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Rating)
+                            }
                         </dd>
                         <dt class="col-sm-3 card-text">
                             @Html.DisplayNameFor(modelItem => item.Priority)
@@ -144,7 +161,14 @@
                             @Html.DisplayNameFor(modelItem => item.Notes)
                         </dt>
                         <dd class="col-sm-12 card-text">
-                            @Html.DisplayFor(modelItem => item.Notes)
+                            @if (item.Notes != null && item.Notes != "")
+                            {
+                                @Html.Raw(System.Net.WebUtility.HtmlEncode(item.Notes).Replace("\r\n\n", "<br /><br />").Replace("\r\n", "<br />"))
+                            }
+                            else
+                            {
+                                <i class="text-muted">User hasn't made any notes.</i>
+                            }
                         </dd>
                     </dl>
 
@@ -161,8 +185,11 @@
                         {
                             <p class="card-text">
                                 @playthrough.OrdinalNumber. <b>@playthrough.Status</b><br />
-                                Played for @playthrough.Playtime, @playthrough.PlayDates<br />
-                                Notes: @playthrough.Notes
+                                <b>Played:</b> @playthrough.Playtime, @playthrough.PlayDates<br />
+                                @if (playthrough.Notes != null && playthrough.Notes != "")
+                                {
+                                    @Html.Raw("<b>Notes:</b> " + System.Net.WebUtility.HtmlEncode(playthrough.Notes).Replace("\r\n\n", "<br /><br />").Replace("\r\n", "<br />"))
+                                }
                             </p>
                         }
                     }
@@ -185,7 +212,7 @@
                 <p>
                     Are you absolutely sure you wish to delete <b>@Model.Title</b>?
                     <br />
-                    <span class="text-danger"><b>This action cannot be undone!</b></span>
+                    <span class="text-danger"><b>This action cannot be undone! Related play data will also be deleted!</b></span>
                 </p>
             </div>
             <div class="modal-footer">

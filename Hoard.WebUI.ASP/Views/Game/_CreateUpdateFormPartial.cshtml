@@ -8,9 +8,9 @@
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group col-lg-6">
-        <label class="control-label">Alternate title</label>
-        <input class="form-control" />
-        <span class="text-danger"></span>
+        <label asp-for="AlternateTitle" class="control-label"></label>
+        <input asp-for="AlternateTitle" class="form-control" />
+        <span asp-validation-for="AlternateTitle" class="text-danger"></span>
     </div>
 </div>
 
@@ -28,13 +28,11 @@
         <span asp-validation-for="ReleaseDate" class="text-danger"></span>
     </div>
     <div class="form-group col-md-4">
-        <label class="control-label">Language</label>
-        <select class="form-control">
+        <label asp-for="LanguageID" class="control-label"></label>
+        <select asp-for="LanguageID" asp-items="Model.LanguageSelectList" class="form-control">
             <option value="">Select a language</option>
-            <option value="1">English</option>
-            <option value="2">Japanese</option>
         </select>
-        <span class="text-danger"></span>
+        <span asp-validation-for="LanguageID" class="text-danger"></span>
     </div>
 </div>
 
@@ -45,14 +43,37 @@
         <span asp-validation-for="GenreIDs" class="text-danger"></span>
     </div>
     <div class="form-group col-lg-6">
-        <label class="control-label">Game modes</label>
-        <select multiple class="form-control">
-            <option value="1">Single-player</option>
-            <option value="2">Cooperative multiplayer</option>
-            <option value="3">Competitive multiplayer</option>
-            <option value="4">MMO</option>
+        <label  asp-for="SeriesIDs" class="control-label"></label>
+        <select asp-for="SeriesIDs" asp-items="Model.SeriesSelectList" multiple class="form-control"></select>
+        <span asp-validation-for="SeriesIDs" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col-lg-6">
+        <label asp-for="ModeIDs" class="control-label"></label>
+        <select asp-for="ModeIDs" asp-items="Model.ModeSelectList" multiple class="form-control"></select>
+        <span asp-validation-for="ModeIDs" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-6">
+        <label asp-for="MediaTypeID" class="control-label"></label>
+        <select asp-for="MediaTypeID" asp-items="Model.MediaTypeSelectList" class="form-control">
+            <option value="">Select a type</option>
         </select>
-        <span class="text-danger"></span>
+        <span asp-validation-for="MediaTypeID" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col-lg-6">
+        <label asp-for="DeveloperIDs" class="control-label"></label>
+        <select asp-for="DeveloperIDs" asp-items="Model.DeveloperSelectList" multiple class="form-control"></select>
+        <span asp-validation-for="DeveloperIDs" class="text-danger"></span>
+    </div>
+    <div class="form-group col-lg-6">
+        <label asp-for="PublisherIDs" class="control-label"></label>
+        <select asp-for="PublisherIDs" asp-items="Model.PublisherSelectList" multiple class="form-control"></select>
+        <span asp-validation-for="PublisherIDs" class="text-danger"></span>
     </div>
 </div>
 

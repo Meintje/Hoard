@@ -24,16 +24,14 @@
                     <partial name="_CreateUpdateFormPartial" />
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-success" />
+                        <input type="submit" value="Create and go to play data" class="btn btn-success" />
+                        <input type="submit" value="Create and add another game" class="btn btn-success" />
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById("ReleaseDate").value = "@DateTime.Today";
-</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

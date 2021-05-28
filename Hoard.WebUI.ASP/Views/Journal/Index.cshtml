@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Hoard.WebUI.Services.ViewModels.Journal.Index.JournalIndexViewModel
+
+@{
     ViewData["Title"] = "Journal";
 }
 
@@ -15,51 +17,37 @@
 </div>
 
 <div class="row card-row">
-    @for (int i = 0; i < 35; i++)
+    @foreach (var item in Model.JournalEntries)
     {
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header dark-card-header">
                     <div class="row">
                         <img src="~/images/icons/Scroll.svg" height="30" class="ml-3">
-                        <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">01/01/0001</h4>
+                        <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">@Html.DisplayFor(modelItem => item.Date)</h4>
+                        <a asp-controller="Journal" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-sm mr-3 ml-auto">Edit</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Does a Journal entry even need a title?</h5>
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                     <p class="card-text">
-                        Adol Christin was one of the most well-traveled adventurers in recorded history.<br />
-                        His journals contain meticulous details regarding the many places he’s been, the people he’s met, and the various things he’s accomplished along the way.
-                        The journals include full transcriptions of every discussion he experienced in various languages, including Roonic, the ancient language of Ys.<br />
-                    </p>
-                    <p class="card-text">
-                        Very little of Adol's own legendary eloquence survives, as the man was generally too modest to quote himself.
-                        His journals have been numbered by scholars in accordance with the order in which they were found,
-                        though this does not represent the order in which Adol experienced them.<br />
-                        A single, more ancient book is often included as part of Adol’s travelogue despite having been written seven centuries before his birth,
-                        since it contains a direct personal connection to him in the events that it chronicles.
+                        @Html.Raw(System.Net.WebUtility.HtmlEncode(item.Content).Replace("\r\n\n", "<br /><br />").Replace("\r\n", "<br />"))
                     </p>
                 </div>
                 <div class="list-group list-group-flush">
                     <div class="list-group-item">
                         <dl class="row card-text">
-                            <dt class="col-sm-3 card-text">
-                                Games played:
+                            <dt class="col-sm-3 col-lg-2 card-text">
+                                @Html.DisplayNameFor(modelItem => item.Games)
                             </dt>
-                            <dd class="col-sm-9 card-text">
-                                OneGame, TwoGame, Threegame
-                            </dd>
-                            <dt class="col-sm-3 card-text">
-                                Manga read:
-                            </dt>
-                            <dd class="col-sm-9 card-text">
-                                OneManga, TwoManga, ThreeManga
+                            <dd class="col-sm-9 col-lg-10 card-text">
+                                @Html.DisplayFor(modelItem => item.Games)
                             </dd>
                         </dl>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">TagOne, TagTwo, TagThree</p>
+                    <p class="card-text text-muted">@Html.DisplayFor(modelItem => item.Tags)</p>
                 </div>
             </div>
         </div>

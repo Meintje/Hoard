@@ -1,11 +1,13 @@
-﻿@{
+﻿@model Hoard.WebUI.Services.ViewModels.Wishlist.Index.WishlistIndexViewModel
+
+@{
     ViewData["Title"] = "Wishlist";
 }
 
 <div class="container">
     <div class="row mb-3">
         <div class="ml-auto mr-0" style="margin-top: -20px;">
-            <a href="#" class="btn btn-success btn-lg">New item+</a>
+            <a asp-action="Create" class="btn btn-success btn-lg">New item+</a>
         </div>
     </div>
 
@@ -23,28 +25,31 @@
             <thead>
                 <tr>
                     <th>
-                        Type
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().ItemType)
                     </th>
                     <th>
-                        Title
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Title)
                     </th>
                     <th>
-                        Added
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().AddDate)
                     </th>
                     <th>
-                        Release
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().ReleaseDate)
                     </th>
                     <th>
-                        Priority
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Priority)
                     </th>
                     <th>
-                        Notes
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().URL)
                     </th>
                     <th>
-                        URL
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Notes)
                     </th>
                     <th>
-                        Language
+                        @Html.DisplayNameFor(model => model.Items.FirstOrDefault().Language)
+                    </th>
+                    <th style="width: 1%">
+
                     </th>
                     <th style="width: 1%">
 
@@ -52,35 +57,45 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < 35; i++)
+                @foreach (var item in Model.Items)
                 {
-                    <tr style="cursor: pointer;" onclick="window.location='@Url.Action("Index", "Wishlist")'">
+                    <tr>
                         <td>
-                            Game
+                            @Html.DisplayFor(modelItem => item.ItemType)
                         </td>
                         <td>
-                            DummyTitle
+                            @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
-                            01/01/0001
+                            @Html.DisplayFor(modelItem => item.AddDate)
                         </td>
                         <td>
-                            02/01/0001
+                            @Html.DisplayFor(modelItem => item.ReleaseDate)
                         </td>
                         <td>
-                            DummyPriority
+                            @Html.DisplayFor(modelItem => item.Priority)
                         </td>
                         <td>
-                            A fairly long example of some dummy notes relating to a wishlist entry. I want this to wrap around to see how it looks. It needs to be even longer.
+                            @if (item.URL != null && item.URL != "")
+                            {
+                                <a href="@Html.DisplayFor(modelItem => item.URL)">Link</a>
+                            }
+                            else
+                            {
+                                <span>n/a</span>
+                            }
                         </td>
                         <td>
-                            DummyLink
+                            @Html.DisplayFor(modelItem => item.Notes)
                         </td>
                         <td>
-                            DummyLanguage
+                            @Html.DisplayFor(modelItem => item.Language)
                         </td>
                         <td style="vertical-align: middle;">
-                            <a href="#" class="btn btn-danger btn-sm table-button">Remove</a>
+                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-sm table-button">Edit</a>
+                        </td>
+                        <td style="vertical-align: middle;">
+                            <a href="#" class="btn btn-danger btn-sm table-button">Delete</a>
                         </td>
                     </tr>
                 }

@@ -11,28 +11,18 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label asp-for="OwnershipStatusID" class="control-label"></label>
-                <select asp-for="OwnershipStatusID" class="form-control">
-                    <option value="">Select a status</option>
-                    <option value="1">Owned</option>
-                    <option value="2">Household</option>
-                    <option value="3">Borrowed</option>
-                    <option value="4">Subscription</option>
-                    <option value="5">Formerly owned</option>
-                    <option value="6">Other</option>
-                </select>
-                <span asp-validation-for="OwnershipStatusID" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-6">
                 <label asp-for="PriorityID" class="control-label"></label>
-                <select asp-for="PriorityID" class="form-control">
+                <select asp-for="PriorityID" asp-items="Model.PrioritySelectList" class="form-control">
                     <option value="">Select a priority</option>
-                    <option value="1">Highest</option>
-                    <option value="2">High</option>
-                    <option value="3">Medium</option>
-                    <option value="4">Low</option>
                 </select>
                 <span asp-validation-for="PriorityID" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="OwnershipStatusID" class="control-label"></label>
+                <select asp-for="OwnershipStatusID" asp-items="Model.OwnershipStatusSelectList" class="form-control">
+                    <option value="">Select a status</option>
+                </select>
+                <span asp-validation-for="OwnershipStatusID" class="text-danger"></span>
             </div>
         </div>
         <div class="form-row">
@@ -51,21 +41,27 @@
         </div>
         <div class="form-group">
             <label asp-for="Rating" class="control-label"></label>
-            <select asp-for="Rating" class="form-control">
-                <option value="">Select a rating</option>
-                <option value="10">10. Perfect, all-time favourite</option>
-                <option value="9">9. Almost perfect, one or two minor flaws that are easily ignored</option>
-                <option value="8">8. Great, several minor flaws</option>
-                <option value="7">7. Good, several annoyances</option>
-                <option value="6">6. Enjoyable, major flaws that don't quite ruin the experience</option>
-                <option value="5">5. Neutral, not enjoyable but not bad either</option>
-                <option value="4">4. Unenjoyable, but it gets some points for interesting elements</option>
-                <option value="3">3. Bad, if you try really hard you might find some fun parts</option>
-                <option value="2">2. Very bad, with one or two interesting bits</option>
-                <option value="1">1. Trash, no redeeming qualities</option>
-                <option value="0">0. Irredeemable garbage, unplayable</option>
-            </select>
-            <span class="text-danger"></span>
+            <input asp-for="Rating" class="form-control" step="0.5" />
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <p class="row">
+                <span class="col-lg-6">
+                    <b>0. Irredeemable garbage,</b> unplayable <br />
+                    <b>1. Trash,</b> no redeeming qualities <br />
+                    <b>2. Very bad,</b> with maybe one or two interesting bits <br />
+                    <b>3. Bad,</b> if you try really hard you might find some fun parts <br />
+                    <b>4. Playable,</b> not fun but it has some interesting elements <br />
+                    <b>5. Neutral,</b> not enjoyable but not horrible either <br />
+                </span>
+                <span class="col-lg-6">
+                    <b>6. Enjoyable,</b> major flaws that don't quite ruin the experience <br />
+                    <b>7. Good,</b> several annoyances <br />
+                    <b>8. Great,</b> several minor flaws <br />
+                    <b>9. Almost perfect,</b> one or two easily ignorable flaws <br />
+                    <b>10. Flawless,</b> all-time favourite <br />
+                </span>
+            </p>
         </div>
         <div class="form-group">
             <label asp-for="Notes" class="control-label"></label>
@@ -74,7 +70,7 @@
         </div>
         <input type="hidden" asp-for="ID" />
         <input type="hidden" asp-for="GameID" />
-        <input type="hidden" asp-for="PlayerID" />
+        <input type="hidden" asp-for="HoarderID" />
     </div>
     <div class="modal-footer">
         <div class="form-group" style="margin-bottom: 0px;">

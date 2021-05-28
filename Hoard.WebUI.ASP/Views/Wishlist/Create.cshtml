@@ -1,0 +1,38 @@
+﻿@model Hoard.WebUI.Services.ViewModels.Wishlist.CreateUpdate.WishlistCreateViewModel
+
+@{
+    ViewData["Title"] = "Wishlist item+";
+}
+
+<div class="row mb-3">
+    <div class="ml-0 mr-auto" style="margin-top: -20px;">
+        <a asp-action="Index" class="btn btn-success btn-lg">< Index</a>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div>
+        <h1>Wishlist item+</h1>
+    </div>
+</div>
+
+<div class="row card-row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create" autocomplete="off">
+                    <partial name="_CreateUpdateFormPartial" />
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-success" />
+                        <input type="submit" value="Create and add another" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

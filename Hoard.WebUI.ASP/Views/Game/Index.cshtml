@@ -37,23 +37,26 @@
                         @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Genres)
                     </th>
                     <th>
-                        Developer(s)
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Developers)
                     </th>
                     <th>
-                        Mode(s)
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Publishers)
                     </th>
                     <th>
-                        Status
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Modes)
                     </th>
                     <th>
-                        Priority
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Games.FirstOrDefault().Priority)
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Games)
                 {
-                    <tr onclick="window.location='@Url.Action("Details", "Game", new { id = item.ID })'" style="cursor: pointer;">
+                    <tr onclick="window.open('@Url.Action("Details", "Game", new { id = item.ID })', '_blank')" style="cursor: pointer;">
                         <td>
                             @Html.DisplayFor(modelItem => item.Platform)
                         </td>
@@ -67,16 +70,19 @@
                             @Html.DisplayFor(modelItem => item.Genres)
                         </td>
                         <td>
-                            DummyDev1, DummyDev2
+                            @Html.DisplayFor(modelItem => item.Developers)
                         </td>
                         <td>
-                            DummyMode1, DummyMode2
+                            @Html.DisplayFor(modelItem => item.Publishers)
                         </td>
                         <td>
-                            DummyStatus
+                            @Html.DisplayFor(modelItem => item.Modes)
                         </td>
                         <td>
-                            DummyPriority
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Priority)
                         </td>
                     </tr>
                 }

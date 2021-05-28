@@ -15,8 +15,8 @@
             <table class="table table-sm table-hover table-white-border" style="background-color: rgba(14, 15, 17, 0);">
                 <thead>
                     <tr>
-                        <th>Title</th>
                         <th>Platform</th>
+                        <th>Title</th>
                         <th>Notes</th>
                         <th style="width: 1%;"></th>
                     </tr>
@@ -26,8 +26,8 @@
                     @foreach (var game in Model.CurrentGames)
                     {
                         <tr style="cursor: pointer;" onclick="window.location='@Url.Action("Details", "Game", new { id = game.GameID })'">
-                            <td>@game.GameTitle</td>
                             <td>@game.GamePlatform</td>
+                            <td>@game.GameTitle</td>
                             <td>@game.PlaythroughNotes</td>
                             <td style="vertical-align: middle;"><a asp-controller="PlayData" asp-action="Details" asp-route-id="@game.PlayDataID" class="btn btn-warning btn-sm table-button">Edit</a></td>
                         </tr>
@@ -52,7 +52,7 @@
                     <div class="list-group-item">
                         <dl class="row card-text">
                             <dt class="col-sm-3 card-text">
-                                Total games owned:
+                                Owned games:
                             </dt>
                             <dd class="col-sm-9 card-text">
                                 @Model.TotalNumberOfGames
@@ -67,7 +67,7 @@
                                 Wishlist items:
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                99
+                                @Model.NumberOfWishlistItems
                             </dd>
                         </dl>
                     </div>

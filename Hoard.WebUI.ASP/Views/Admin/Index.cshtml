@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Admin tools";
+}
+
+<h1>Administrator tools</h1>
+<hr />
+
+<h2>User management</h2>
+<a asp-controller="Admin" asp-action="ExportData" class="btn btn-success admin-btn">Add user</a>
+<a asp-controller="Admin" asp-action="ExportData" class="btn btn-primary admin-btn">Manage users</a>
+<a asp-controller="Admin" asp-action="ExportData" class="btn btn-primary admin-btn">Manage own account</a>
+<a asp-controller="Admin" asp-action="ExportData" class="btn btn-danger admin-btn">Log out</a>
+<hr />
+<br />
+
+<h2>Game data management</h2>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-success admin-btn">Add new publisher, developer, etc.</a>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-primary admin-btn">Manage publishers</a>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-primary admin-btn">Manage developers</a>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-primary admin-btn">Manage series</a>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-primary admin-btn">Manage platforms</a>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-primary admin-btn">Manage modes</a>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-primary admin-btn">Manage genres</a>
+<a asp-controller="Admin" asp-action="AddAllTheThings" class="btn btn-primary admin-btn">Manage languages</a>
+<hr />
+<br />
+
+<h2>Export data</h2>
+<a asp-controller="Admin" asp-action="ExportGameData" class="btn btn-success admin-btn">Convert and export game data</a>
+<hr />

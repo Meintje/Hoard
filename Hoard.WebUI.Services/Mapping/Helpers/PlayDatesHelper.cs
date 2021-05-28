@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Hoard.WebUI.Services.Mapping.Helpers
 {
-    public static class PlayDatesHelper
+    internal static class PlayDatesHelper
     {
-        public static string GetPlayDatesString(DateTime? startDate, DateTime? endDate)
+        internal static string GetPlayDatesString(DateTime? startDate, DateTime? endDate)
         {
             string playDates = "dates unknown";
 
