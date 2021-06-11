@@ -63,6 +63,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
                 .Where(j => j.HoarderID == hoarderID)
                 .Include(j => j.Tags).ThenInclude(jt => jt.Tag)
                 .Include(j => j.Games).ThenInclude(jg => jg.Game)
+                .OrderByDescending(j => j.Date)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

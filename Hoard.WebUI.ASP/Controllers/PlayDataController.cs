@@ -136,7 +136,7 @@ namespace Hoard.WebUI.ASP.Controllers
 
             // TODO: If this point is reached, something went wrong while saving data. Redirect to related PlayData and show error message.
             // Or reload the form and input data into the modal
-            return PartialView("_PlaythroughUpdateModalPartial", playthroughUpdateViewModel);
+            return RedirectToAction(nameof(Details), new { id = playthroughUpdateViewModel.PlayDataID });
         }
 
         public async Task<IActionResult> DeletePlaythrough(int? playDataID, int? ordinalNumber)

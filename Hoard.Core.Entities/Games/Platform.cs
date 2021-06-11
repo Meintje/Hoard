@@ -1,4 +1,5 @@
 ﻿using Hoard.Core.Entities.Base;
+using System.Collections.Generic;
 
 namespace Hoard.Core.Entities.Games
 {
@@ -6,5 +7,7 @@ namespace Hoard.Core.Entities.Games
     {
         public string Name { get; set; }
         public string ShortName { get; set; }
+
+        public virtual ICollection<Game> Games { get; set; }
     }
 }

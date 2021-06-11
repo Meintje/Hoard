@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hoard.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(HoardDbContext))]
-    [Migration("20210514080158_init")]
+    [Migration("20210528080029_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -945,8 +945,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 1,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 3000,
                             SideContentCompleted = false
@@ -963,8 +963,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 4,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 29000,
                             SideContentCompleted = false
@@ -973,8 +973,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 2,
                             PlaytimeInMinutes = 1000,
                             SideContentCompleted = true
@@ -983,8 +983,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 2,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 500,
                             SideContentCompleted = false
@@ -993,8 +993,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 6,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 4,
                             PlaytimeInMinutes = 10,
                             SideContentCompleted = false
@@ -1138,6 +1138,269 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.JoinEntities.JournalGame", b =>
+                {
+                    b.Property<int>("JournalEntryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameID")
+                        .HasColumnType("int");
+
+                    b.HasKey("JournalEntryID", "GameID");
+
+                    b.HasIndex("GameID");
+
+                    b.ToTable("JournalGames");
+
+                    b.HasData(
+                        new
+                        {
+                            JournalEntryID = 1,
+                            GameID = 1
+                        },
+                        new
+                        {
+                            JournalEntryID = 1,
+                            GameID = 2
+                        },
+                        new
+                        {
+                            JournalEntryID = 1,
+                            GameID = 3
+                        },
+                        new
+                        {
+                            JournalEntryID = 2,
+                            GameID = 1
+                        },
+                        new
+                        {
+                            JournalEntryID = 5,
+                            GameID = 1
+                        },
+                        new
+                        {
+                            JournalEntryID = 5,
+                            GameID = 2
+                        },
+                        new
+                        {
+                            JournalEntryID = 5,
+                            GameID = 3
+                        },
+                        new
+                        {
+                            JournalEntryID = 3,
+                            GameID = 1
+                        });
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.JoinEntities.JournalTag", b =>
+                {
+                    b.Property<int>("JournalEntryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagID")
+                        .HasColumnType("int");
+
+                    b.HasKey("JournalEntryID", "TagID");
+
+                    b.HasIndex("TagID");
+
+                    b.ToTable("JournalTags");
+
+                    b.HasData(
+                        new
+                        {
+                            JournalEntryID = 1,
+                            TagID = 1
+                        },
+                        new
+                        {
+                            JournalEntryID = 1,
+                            TagID = 2
+                        },
+                        new
+                        {
+                            JournalEntryID = 2,
+                            TagID = 5
+                        },
+                        new
+                        {
+                            JournalEntryID = 5,
+                            TagID = 6
+                        },
+                        new
+                        {
+                            JournalEntryID = 5,
+                            TagID = 7
+                        },
+                        new
+                        {
+                            JournalEntryID = 3,
+                            TagID = 3
+                        });
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.JournalEntry", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(8000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("HoarderID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("HoarderID", "Date")
+                        .IsUnique();
+
+                    b.ToTable("JournalEntries");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Content = "It was turtles all the way down.",
+                            Date = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 1,
+                            Title = "Once upon a time"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Content = "Owari.",
+                            Date = new DateTime(2021, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 1,
+                            Title = "Mukashi mukashi"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Content = "En ze leefden nog lang en gelukkig.",
+                            Date = new DateTime(2021, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 1,
+                            Title = "Er was eens"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Content = "Kan ik niet. Te laat!",
+                            Date = new DateTime(2021, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 1,
+                            Title = "Vlieg!"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Content = "Insert cat ipsum here.",
+                            Date = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 2,
+                            Title = "Ambiguous frog"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Content = "Kitty scratches couch bad kitty. Good morning sunshine. Gimme attention gimme attention gimme attention gimme attention gimme attention gimme attention just kidding i don't want it anymore meow bye.",
+                            Date = new DateTime(2021, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 2,
+                            Title = "Frantic apple"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            Content = "Scratch the furniture groom yourself 4 hours - checked, have your beauty sleep 18 hours - checked, be fabulous for the rest of the day - checked, or pet my belly, you know you want to; seize the hand and shred it!",
+                            Date = new DateTime(2021, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 2,
+                            Title = "Da-da-da-DAAAAAA"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            Content = "I like frogs and 0 gravity love or humans,humans, humans oh how much they love us felines we are the center of attention they feed, they clean yet if it fits, i sits, so the door is opening!",
+                            Date = new DateTime(2021, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HoarderID = 2,
+                            Title = "Something interesting"
+                        });
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.Tag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Finished a game"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Started a game"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Multiplayer chaos"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "Big haul"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "Analog day"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Name = "Sleepy day"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            Name = "Special event"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            Name = "Family/friends"
+                        });
+                });
+
             modelBuilder.Entity("Hoard.Core.Entities.Wishlist.WishlistItem", b =>
                 {
                     b.Property<int>("ID")
@@ -1195,12 +1458,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 1,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 1,
                             Notes = "Maybe wait for PS7 version?",
                             PriorityID = 1,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.budgetgaming.nl/",
                             Title = "Persona 6 Royal",
                             WishlistItemTypeID = 1
@@ -1208,12 +1471,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 2,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Check out other works by this artist, too.",
                             PriorityID = 2,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Oresama Teacher",
                             WishlistItemTypeID = 2
@@ -1221,12 +1484,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 3,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Hide this from Bram.",
                             PriorityID = 3,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Monstergirl Factory",
                             WishlistItemTypeID = 5
@@ -1234,12 +1497,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 4,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Get Limited Edition!",
                             PriorityID = 1,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Eiyuu Densetsu: Zero no Kiseki",
                             WishlistItemTypeID = 1
@@ -1486,6 +1749,55 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                     b.Navigation("PlayStatus");
                 });
 
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.JoinEntities.JournalGame", b =>
+                {
+                    b.HasOne("Hoard.Core.Entities.Games.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hoard.Core.Entities.Journal.JournalEntry", "JournalEntry")
+                        .WithMany("Games")
+                        .HasForeignKey("JournalEntryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("JournalEntry");
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.JoinEntities.JournalTag", b =>
+                {
+                    b.HasOne("Hoard.Core.Entities.Journal.JournalEntry", "JournalEntry")
+                        .WithMany("Tags")
+                        .HasForeignKey("JournalEntryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hoard.Core.Entities.Journal.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JournalEntry");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.JournalEntry", b =>
+                {
+                    b.HasOne("Hoard.Core.Entities.Games.Hoarder", "Hoarder")
+                        .WithMany()
+                        .HasForeignKey("HoarderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hoarder");
+                });
+
             modelBuilder.Entity("Hoard.Core.Entities.Wishlist.WishlistItem", b =>
                 {
                     b.HasOne("Hoard.Core.Entities.Games.Hoarder", "Hoarder")
@@ -1544,6 +1856,13 @@ namespace Hoard.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Hoard.Core.Entities.Games.PlayData", b =>
                 {
                     b.Navigation("Playthroughs");
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Journal.JournalEntry", b =>
+                {
+                    b.Navigation("Games");
+
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

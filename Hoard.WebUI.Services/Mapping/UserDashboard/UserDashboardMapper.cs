@@ -40,7 +40,7 @@ namespace Hoard.WebUI.Services.Mapping.UserDashboard
                 Date = journalEntry.Date,
                 DateString = (journalEntry.Date).ToString(EntityConstants.DateFormatString),
                 Title = journalEntry.Title,
-                URL = $"../Journal/Details/{journalEntry.ID}"
+                URL = $"../Journal" // TODO: Link to Journal/Details/id
             };
         }
 
@@ -54,6 +54,15 @@ namespace Hoard.WebUI.Services.Mapping.UserDashboard
                 GameID = playthrough.PlayData.GameID,
                 GamePlatform = playthrough.PlayData.Game.Platform.ShortName,
                 GameTitle = playthrough.PlayData.Game.Title
+            };
+        }
+
+        internal static UserDashboardPlatformStatisticsViewModel ToPlatformStatisticsViewModel(Platform platform)
+        {
+            return new UserDashboardPlatformStatisticsViewModel
+            {
+                PlatformID = platform.ID,
+                PlatformName = platform.Name
             };
         }
     }

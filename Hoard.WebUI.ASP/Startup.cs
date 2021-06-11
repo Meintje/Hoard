@@ -127,7 +127,7 @@ namespace Hoard.WebUI.ASP
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // TODO: Add middleware that inserts a different DbContext is the user is a Guest
+            // TODO: Add middleware that inserts a different DbContext if the user is in the role of "Guest"
 
             app.UseEndpoints(endpoints =>
             {

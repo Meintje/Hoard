@@ -943,8 +943,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 1,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 3000,
                             SideContentCompleted = false
@@ -961,8 +961,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 4,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 29000,
                             SideContentCompleted = false
@@ -971,8 +971,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 2,
                             PlaytimeInMinutes = 1000,
                             SideContentCompleted = true
@@ -981,8 +981,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 2,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 500,
                             SideContentCompleted = false
@@ -991,8 +991,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 6,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 4,
                             PlaytimeInMinutes = 10,
                             SideContentCompleted = false
@@ -1456,12 +1456,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 1,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 1,
                             Notes = "Maybe wait for PS7 version?",
                             PriorityID = 1,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.budgetgaming.nl/",
                             Title = "Persona 6 Royal",
                             WishlistItemTypeID = 1
@@ -1469,12 +1469,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 2,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Check out other works by this artist, too.",
                             PriorityID = 2,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Oresama Teacher",
                             WishlistItemTypeID = 2
@@ -1482,12 +1482,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 3,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Hide this from Bram.",
                             PriorityID = 3,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Monstergirl Factory",
                             WishlistItemTypeID = 5
@@ -1495,12 +1495,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 4,
-                            AddDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Get Limited Edition!",
                             PriorityID = 1,
-                            ReleaseDate = new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Eiyuu Densetsu: Zero no Kiseki",
                             WishlistItemTypeID = 1

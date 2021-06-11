@@ -17,16 +17,16 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
             this.context = context;
         }
 
-        public async Task AddAsync(WishlistItemType item)
+        public async Task AddAsync(WishlistItemType wishlistItemType)
         {
-            context.Add(item);
+            context.Add(wishlistItemType);
 
             await context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(WishlistItemType item)
+        public async Task UpdateAsync(WishlistItemType wishlistItemType)
         {
-            context.Update(item);
+            context.Update(wishlistItemType);
 
             await context.SaveChangesAsync();
         }
@@ -59,28 +59,12 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
             return item;
         }
 
-        public async Task<bool> CreateResultsInDuplicateEntryAsync(WishlistItemType newItem)
-        {
-            var item = await context.WishlistItemTypes
-                .Where(wi =>
-                    wi.Name == newItem.Name ||
-                    wi.OrdinalNumber == newItem.OrdinalNumber)
-                .FirstOrDefaultAsync();
-
-            if (item != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> UpdateResultsInDuplicateEntryAsync(WishlistItemType newItem)
+        public async Task<bool> CommandResultsInDuplicateEntryAsync(WishlistItemType wishlistItemType)
         {
             var item = await context.WishlistItemTypes
                 .Where(wi =>
                     wi.ID != wi.ID &&
-                    (wi.Name == newItem.Name || wi.OrdinalNumber == newItem.OrdinalNumber))
+                    (wi.Name == wishlistItemType.Name || wi.OrdinalNumber == wishlistItemType.OrdinalNumber))
                 .FirstOrDefaultAsync();
 
             if (item != null)
@@ -90,6 +74,5 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
 
             return false;
         }
-
     }
 }

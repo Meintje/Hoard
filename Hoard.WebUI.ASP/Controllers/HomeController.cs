@@ -25,7 +25,10 @@ namespace Hoard.WebUI.ASP.Controllers
         {
             // TODO: Redirect to Welcome if user is not logged in
 
-            return View(await _userDashboardViewService.GetUserDashboard(1));
+            // TODO: Get HoarderID from ASP.NET User
+            int hoarderID = 1;
+
+            return View(await _userDashboardViewService.GetUserDashboard(hoarderID));
         }
 
         public IActionResult Welcome()

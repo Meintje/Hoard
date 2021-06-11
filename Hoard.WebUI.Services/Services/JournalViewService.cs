@@ -54,7 +54,7 @@ namespace Hoard.WebUI.Services.Services
             var tagList = await tagDbService.GetAllAsync();
             var gameList = await gameDbService.GetAllAsync();
 
-            var vm = JournalEntryMapper.ToCreateViewModel(tagList, gameList);
+            var vm = JournalEntryMapper.ToCreateViewModel(hoarderID, tagList, gameList);
 
             return vm;
         }

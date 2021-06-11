@@ -1,62 +1,53 @@
 ﻿using Hoard.Core.Entities.Games;
 using Hoard.Core.Interfaces.Games;
 using Hoard.Infrastructure.Persistence.DataAccess;
+using Hoard.Infrastructure.Persistence.Services.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hoard.Infrastructure.Persistence.Services.Games
 {
-    public class GameDbService : IGameDbService
+    public class GameDbService : BaseDbService, IGameDbService
     {
-        private readonly HoardDbContext context;
-
-        public GameDbService(HoardDbContext context)
+        public GameDbService(HoardDbContext context) : base(context)
         {
-            this.context = context;
         }
 
-        public async Task AddAsync(Game newGame)
+        public async Task AddAsync(Game game)
         {
-            context.Add(newGame);
+            context.Add(game);
 
-            newGame.PlayData = new List<PlayData>();
+            game.PlayData = new List<PlayData>();
             foreach (var user in context.Hoarders.OrderBy(p => p.ID))
             {
-                newGame.PlayData.Add(new PlayData { Dropped = false, AchievementsCompleted = false, HoarderID = user.ID, GameID = newGame.ID, OwnershipStatusID = 2, PriorityID = 3 });
+                game.PlayData.Add(new PlayData { Dropped = false, AchievementsCompleted = false, HoarderID = user.ID, GameID = game.ID, OwnershipStatusID = 2, PriorityID = 3 });
             }
 
             await context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Game updatedGame)
+        public async Task UpdateAsync(Game game)
         {
-            var oldGenres = await context.GameGenres.Where(gg => gg.GameID == updatedGame.ID).ToListAsync();
-            UpdateManyToManyRelation(oldGenres, updatedGame.Genres);
+            var oldGenres = await context.GameGenres.Where(gg => gg.GameID == game.ID).ToListAsync();
+            UpdateManyToManyRelation(oldGenres, game.Genres);
 
-            var oldSeries = await context.GameSeries.Where(gg => gg.GameID == updatedGame.ID).ToListAsync();
-            UpdateManyToManyRelation(oldSeries, updatedGame.Series);
+            var oldSeries = await context.GameSeries.Where(gg => gg.GameID == game.ID).ToListAsync();
+            UpdateManyToManyRelation(oldSeries, game.Series);
 
-            var oldModes = await context.GameModes.Where(gg => gg.GameID == updatedGame.ID).ToListAsync();
-            UpdateManyToManyRelation(oldModes, updatedGame.Modes);
+            var oldModes = await context.GameModes.Where(gg => gg.GameID == game.ID).ToListAsync();
+            UpdateManyToManyRelation(oldModes, game.Modes);
 
-            var oldDevelopers = await context.GameDevelopers.Where(gg => gg.GameID == updatedGame.ID).ToListAsync();
-            UpdateManyToManyRelation(oldDevelopers, updatedGame.Developers);
+            var oldDevelopers = await context.GameDevelopers.Where(gg => gg.GameID == game.ID).ToListAsync();
+            UpdateManyToManyRelation(oldDevelopers, game.Developers);
 
-            var oldPublishers = await context.GamePublishers.Where(gg => gg.GameID == updatedGame.ID).ToListAsync();
-            UpdateManyToManyRelation(oldPublishers, updatedGame.Publishers);
+            var oldPublishers = await context.GamePublishers.Where(gg => gg.GameID == game.ID).ToListAsync();
+            UpdateManyToManyRelation(oldPublishers, game.Publishers);
 
-            context.Update(updatedGame);
+            context.Update(game);
 
             await context.SaveChangesAsync();
-        }
-
-        private void UpdateManyToManyRelation<T>(IEnumerable<T> oldItems, IEnumerable<T> newItems) where T : class
-        {
-            context.RemoveRange(oldItems);
-            context.AddRange(newItems);
         }
 
         public async Task DeleteAsync(int id)
@@ -145,37 +136,16 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return items;
         }
 
-        // TODO: Use Game as parameter instead
-        public async Task<bool> CreateResultsInDuplicateEntry(string title, int platformID, int languageID, int mediaTypeID, DateTime releaseDate)
+        public async Task<bool> CommandResultsInDuplicateEntry(Game game)
         {
             var item = await context.Games
                 .Where(g =>
-                    g.Title == title &&
-                    g.PlatformID == platformID &&
-                    g.LanguageID == languageID &&
-                    g.MediaTypeID == mediaTypeID &&
-                    g.ReleaseDate == releaseDate)
-                .FirstOrDefaultAsync();
-
-            if (item != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        // TODO: Use Game as parameter instead
-        public async Task<bool> UpdateResultsInDuplicateEntry(int id, string title, int platformID, int languageID, int mediaTypeID, DateTime releaseDate)
-        {
-            var item = await context.Games
-                .Where(g =>
-                    g.ID != id &&
-                    g.Title == title &&
-                    g.PlatformID == platformID &&
-                    g.LanguageID == languageID &&
-                    g.MediaTypeID == mediaTypeID &&
-                    g.ReleaseDate == releaseDate)
+                    g.ID != game.ID &&
+                    g.Title == game.Title &&
+                    g.PlatformID == game.PlatformID &&
+                    g.LanguageID == game.LanguageID &&
+                    g.MediaTypeID == game.MediaTypeID &&
+                    g.ReleaseDate == game.ReleaseDate)
                 .FirstOrDefaultAsync();
 
             if (item != null)

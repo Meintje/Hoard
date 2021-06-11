@@ -97,14 +97,14 @@ namespace Hoard.WebUI.Services
 
         public async Task CreateGame(GameCreateViewModel gcVM)
         {
-            var game = GameMapper.ToNewGame(gcVM);
+            var game = GameMapper.ToGame(gcVM);
 
             await gameDbService.AddAsync(game);
         }
 
         public async Task UpdateGame(GameUpdateViewModel guVM)
         {
-            var game = GameMapper.ToExistingGame(guVM);
+            var game = GameMapper.ToGame(guVM);
 
             await gameDbService.UpdateAsync(game);
         }
@@ -138,14 +138,22 @@ namespace Hoard.WebUI.Services
             return gvm;
         }
 
-        public async Task<bool> CreateResultsInDuplicateEntry(GameCreateViewModel gvm)
+        public async Task<bool> CreateResultsInDuplicateEntry(GameCreateViewModel vm)
         {
-            return await gameDbService.CreateResultsInDuplicateEntry(gvm.Title, gvm.PlatformID, gvm.LanguageID, gvm.MediaTypeID, (DateTime)gvm.ReleaseDate);
+            var newGame = GameMapper.ToGame(vm);
+
+            bool resultsInDuplicateGame = await gameDbService.CommandResultsInDuplicateEntry(newGame);
+
+            return resultsInDuplicateGame;
         }
 
-        public async Task<bool> UpdateResultsInDuplicateEntry(GameUpdateViewModel gvm)
+        public async Task<bool> UpdateResultsInDuplicateEntry(GameUpdateViewModel vm)
         {
-            return await gameDbService.UpdateResultsInDuplicateEntry(gvm.ID, gvm.Title, gvm.PlatformID, gvm.LanguageID, gvm.MediaTypeID, (DateTime)gvm.ReleaseDate);
+            var updatedGame = GameMapper.ToGame(vm);
+
+            bool resultsInDuplicateGame = await gameDbService.CommandResultsInDuplicateEntry(updatedGame);
+
+            return resultsInDuplicateGame;
         }
     }
 }

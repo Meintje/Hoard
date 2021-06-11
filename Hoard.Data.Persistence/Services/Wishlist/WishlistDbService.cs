@@ -17,16 +17,16 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
             this.context = context;
         }
 
-        public async Task AddAsync(WishlistItem item)
+        public async Task AddAsync(WishlistItem wishlistItem)
         {
-            context.Add(item);
+            context.Add(wishlistItem);
 
             await context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(WishlistItem item)
+        public async Task UpdateAsync(WishlistItem wishlistItem)
         {
-            context.Update(item);
+            context.Update(wishlistItem);
 
             await context.SaveChangesAsync();
         }
@@ -69,31 +69,14 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
             return item;
         }
 
-        public async Task<bool> CreateResultsInDuplicateEntryAsync(WishlistItem newItem)
+        public async Task<bool> CommandResultsInDuplicateEntryAsync(WishlistItem wishlistItem)
         {
             var item = await context.WishlistItems
                 .Where(wi =>
-                wi.Title == newItem.Title &&
-                wi.WishlistItemTypeID == newItem.WishlistItemTypeID &&
-                wi.HoarderID == newItem.HoarderID)
-                .FirstOrDefaultAsync();
-
-            if (item != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> UpdateResultsInDuplicateEntryAsync(WishlistItem newItem)
-        {
-            var item = await context.WishlistItems
-                .Where(wi =>
-                wi.ID != newItem.ID &&
-                wi.Title == newItem.Title &&
-                wi.WishlistItemTypeID == newItem.WishlistItemTypeID &&
-                wi.HoarderID == newItem.HoarderID)
+                wi.ID != wishlistItem.ID &&
+                wi.Title == wishlistItem.Title &&
+                wi.WishlistItemTypeID == wishlistItem.WishlistItemTypeID &&
+                wi.HoarderID == wishlistItem.HoarderID)
                 .FirstOrDefaultAsync();
 
             if (item != null)

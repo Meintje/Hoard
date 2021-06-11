@@ -161,8 +161,8 @@ namespace Hoard.Infrastructure.Persistence.DataAccess.ModelBuilderExtensions
             builder.Entity<PlayStatus>().HasData(
                 new PlayStatus { ID = 1, Name = "Playing", OrdinalNumber = 1 },
                 new PlayStatus { ID = 2, Name = "Hiatus", OrdinalNumber = 2 },
-                new PlayStatus { ID = 3, Name = "Finished", OrdinalNumber = 3 },
-                new PlayStatus { ID = 4, Name = "Dropped", OrdinalNumber = 4 },
+                new PlayStatus { ID = 3, Name = "Dropped", OrdinalNumber = 3 },
+                new PlayStatus { ID = 4, Name = "Finished", OrdinalNumber = 4 },
                 new PlayStatus { ID = 5, Name = "Endless", OrdinalNumber = 5 });
         }
 

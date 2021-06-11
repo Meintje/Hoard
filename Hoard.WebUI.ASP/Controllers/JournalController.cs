@@ -1,5 +1,6 @@
 ﻿using Hoard.WebUI.ASP.Attributes;
 using Hoard.WebUI.Services.Interfaces;
+using Hoard.WebUI.Services.ViewModels.Journal.CreateUpdate;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,88 @@ namespace Hoard.WebUI.ASP.Controllers
             // TODO: Get ID from ASP.NET User
             int hoarderID = 1;
 
-            // TODO: Put page number and size in Index parameters
+            // TODO: Put page number (and size?) in Index parameters
             int pageNumber = 1;
             int pageSize = 30;
 
-            var vm = await journalViewService.GetIndex(hoarderID, pageNumber, pageSize);
+            var viewModel = await journalViewService.GetIndex(hoarderID, pageNumber, pageSize);
 
-            return View(vm);
+            return View(viewModel);
+        }
+
+        // GET: Journal/Create
+        public async Task<IActionResult> Create()
+        {
+            // TODO: Get ID from ASP.NET User
+            int hoarderID = 1;
+
+            var viewModel = await journalViewService.GetCreateData(hoarderID);
+
+            return View(viewModel);
+        }
+
+        // POST: Journal/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("HoarderID,Title,Date,GameIDs,TagIDs,Content")] JournalCreateViewModel journalCreateViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (await journalViewService.CreateResultsInDuplicateEntry(journalCreateViewModel))
+                {
+                    ModelState.AddModelError(string.Empty, "A journal entry with the same date already exists in the database.");
+                    return View(journalCreateViewModel); // TODO: Refill SelectLists
+                }
+
+                await journalViewService.Create(journalCreateViewModel);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(journalCreateViewModel); // TODO: Refill SelectLists
+        }
+
+        // GET: Journal/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var guVM = await journalViewService.GetUpdateData((int)id);
+
+            if (guVM == null)
+            {
+                return NotFound();
+            }
+
+            return View(guVM);
+        }
+
+        // POST: Journal/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,HoarderID,Title,Date,GameIDs,TagIDs,Content")] JournalUpdateViewModel journalUpdateViewModel)
+        {
+            if (id != journalUpdateViewModel.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (await journalViewService.UpdateResultsInDuplicateEntry(journalUpdateViewModel))
+                {
+                    ModelState.AddModelError(string.Empty, "A journal entry with the same date already exists in the database.");
+                    return View(journalUpdateViewModel); // TODO: Refill SelectLists
+                }
+
+                await journalViewService.Update(journalUpdateViewModel);
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(journalUpdateViewModel); // TODO: Refill SelectLists
         }
     }
 }

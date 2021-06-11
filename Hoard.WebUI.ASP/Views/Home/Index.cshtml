@@ -55,7 +55,7 @@
                                 Owned games:
                             </dt>
                             <dd class="col-sm-9 card-text">
-                                @Model.TotalNumberOfGames
+                                @Model.NumberOfOwnedGames (of which @Model.NumberOfDroppedGames dropped)
                             </dd>
                             <dt class="col-sm-3 card-text">
                                 Total playtime:
@@ -78,15 +78,16 @@
                             </div>
                             <div class="col-md-8 mt-auto mb-auto">
                                 <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Finished</div>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 34%" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100">Played</div>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">Unplayed</div>
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Finished</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Played</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Unplayed</div>
+                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Dropped</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="list-group list-group-flush" style="overflow-y: scroll;">
+                <div class="list-group list-group-flush" style="overflow-y: auto;">
                     <div class="list-group-item list-group-item-compact">
                         <div class="row">
                             <div class="col-md-4">
@@ -94,26 +95,30 @@
                             </div>
                             <div class="col-md-8 mt-auto mb-auto">
                                 <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                    <!--TODO: Don't display text if lower than 5%-->
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: @($"{Model.TotalGamesFinishedPercentage}%")" aria-valuenow="@Model.TotalGamesFinishedPercentage" aria-valuemin="0" aria-valuemax="100">@Model.TotalGamesFinished</div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: @($"{Model.TotalGamesPlayedPercentage}%")" aria-valuenow="@Model.TotalGamesPlayedPercentage" aria-valuemin="0" aria-valuemax="100">@Model.TotalGamesPlayed</div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: @($"{Model.TotalGamesUnplayedPercentage}%")" aria-valuenow="@Model.TotalGamesUnplayedPercentage" aria-valuemin="0" aria-valuemax="100">@Model.TotalGamesUnplayed</div>
+                                    <div class="progress-bar bg-dark" role="progressbar" style="width: @($"{Model.TotalGamesDroppedPercentage}%")" aria-valuenow="@Model.TotalGamesDroppedPercentage" aria-valuemin="0" aria-valuemax="100">@Model.TotalGamesDropped</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="list-group-item bg-primary" style="padding: 5px 0px 0px 0px;"></div>
-                    @for (int i = 0; i < 20; i++)
+                    @foreach (var ps in Model.PlatformStatistics)
                     {
                         <div class="list-group-item list-group-item-compact">
                             <div class="row">
                                 <div class="col-md-4">
-                                    DummyConsole (77)
+                                    @ps.PlatformName (@ps.TotalGamesOwned)
                                 </div>
                                 <div class="col-md-8 mt-auto mb-auto">
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                        <!--TODO: Don't display text if percentage is lower than 5%-->
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: @($"{ps.FinishedGamesPercentage}%")" aria-valuenow="@ps.FinishedGamesPercentage" aria-valuemin="0" aria-valuemax="100">@ps.FinishedGames</div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: @($"{ps.PlayedGamesPercentage}%")" aria-valuenow="@ps.PlayedGamesPercentage" aria-valuemin="0" aria-valuemax="100">@ps.PlayedGames</div>
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: @($"{ps.UnplayedGamesPercentage}%")" aria-valuenow="@ps.UnplayedGamesPercentage" aria-valuemin="0" aria-valuemax="100">@ps.UnplayedGames</div>
+                                        <div class="progress-bar bg-dark" role="progressbar" style="width: @($"{ps.DroppedGamesPercentage}%")" aria-valuenow="@ps.DroppedGamesPercentage" aria-valuemin="0" aria-valuemax="100">@ps.DroppedGames</div>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +136,7 @@
                         <h4 class="mr-auto ml-2 card-text" style="margin: 0px 0px 0px 0px">Recent events</h4>
                     </div>
                 </div>
-                <div class="list-group list-group-flush" style="overflow-y: scroll;">
+                <div class="list-group list-group-flush" style="overflow-y: auto;">
                     @foreach (var item in Model.RecentEvents)
                     {
                         <a class="list-group-item list-group-item-action" href="@item.URL"><div class="small text-muted ml-auto">@item.DateString</div> <div><b>@item.Type:</b> @item.Title</div></a>

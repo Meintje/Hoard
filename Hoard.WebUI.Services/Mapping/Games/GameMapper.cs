@@ -172,17 +172,17 @@ namespace Hoard.WebUI.Services.Mapping.Games
             return vm;
         }
 
-        internal static Game ToNewGame(GameCreateViewModel gcVM)
+        internal static Game ToGame(GameCreateViewModel vm)
         {
             var game = new Game
             {
-                Title = gcVM.Title,
-                AlternateTitle = gcVM.AlternateTitle,
-                PlatformID = gcVM.PlatformID,
-                MediaTypeID = gcVM.MediaTypeID,
-                LanguageID = gcVM.LanguageID,
-                ReleaseDate = (DateTime)gcVM.ReleaseDate,
-                Description = gcVM.Description,
+                Title = vm.Title,
+                AlternateTitle = vm.AlternateTitle,
+                PlatformID = vm.PlatformID,
+                MediaTypeID = vm.MediaTypeID,
+                LanguageID = vm.LanguageID,
+                ReleaseDate = (DateTime)vm.ReleaseDate,
+                Description = vm.Description,
                 Genres = new List<GameGenre>(),
                 Modes = new List<GameMode>(),
                 Series = new List<GameSeries>(),
@@ -190,41 +190,41 @@ namespace Hoard.WebUI.Services.Mapping.Games
                 Publishers = new List<GamePublisher>(),
             };
 
-            if (gcVM.GenreIDs != null && gcVM.GenreIDs.Length > 0)
+            if (vm.GenreIDs != null && vm.GenreIDs.Length > 0)
             {
-                foreach (var genreID in gcVM.GenreIDs)
+                foreach (var genreID in vm.GenreIDs)
                 {
                     game.Genres.Add(new GameGenre { GenreID = genreID });
                 }
             }
 
-            if (gcVM.ModeIDs != null && gcVM.ModeIDs.Length > 0)
+            if (vm.ModeIDs != null && vm.ModeIDs.Length > 0)
             {
-                foreach (var modeID in gcVM.ModeIDs)
+                foreach (var modeID in vm.ModeIDs)
                 {
                     game.Modes.Add(new GameMode { ModeID = modeID });
                 }
             }
 
-            if (gcVM.SeriesIDs != null && gcVM.SeriesIDs.Length > 0)
+            if (vm.SeriesIDs != null && vm.SeriesIDs.Length > 0)
             {
-                foreach (var seriesID in gcVM.SeriesIDs)
+                foreach (var seriesID in vm.SeriesIDs)
                 {
                     game.Series.Add(new GameSeries { SeriesID = seriesID });
                 }
             }
 
-            if (gcVM.DeveloperIDs != null && gcVM.DeveloperIDs.Length > 0)
+            if (vm.DeveloperIDs != null && vm.DeveloperIDs.Length > 0)
             {
-                foreach (var developerID in gcVM.DeveloperIDs)
+                foreach (var developerID in vm.DeveloperIDs)
                 {
                     game.Developers.Add(new GameDeveloper { DeveloperID = developerID });
                 }
             }
 
-            if (gcVM.PublisherIDs != null && gcVM.PublisherIDs.Length > 0)
+            if (vm.PublisherIDs != null && vm.PublisherIDs.Length > 0)
             {
-                foreach (var publisherID in gcVM.PublisherIDs)
+                foreach (var publisherID in vm.PublisherIDs)
                 {
                     game.Publishers.Add(new GamePublisher { PublisherID = publisherID });
                 }
@@ -233,10 +233,10 @@ namespace Hoard.WebUI.Services.Mapping.Games
             return game;
         }
 
-        internal static Game ToExistingGame(GameUpdateViewModel guVM)
+        internal static Game ToGame(GameUpdateViewModel vm)
         {
-            var game = ToNewGame(guVM);
-            game.ID = guVM.ID;
+            var game = ToGame((GameCreateViewModel)vm);
+            game.ID = vm.ID;
 
             return game;
         }

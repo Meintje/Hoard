@@ -51,9 +51,12 @@ namespace Hoard.WebUI.Services.Mapping.Journal
             return vm;
         }
 
-        internal static JournalCreateViewModel ToCreateViewModel(IEnumerable<Tag> tagList, IEnumerable<Game> gameList)
+        internal static JournalCreateViewModel ToCreateViewModel(int hoarderID, IEnumerable<Tag> tagList, IEnumerable<Game> gameList)
         {
-            var vm = new JournalCreateViewModel();
+            var vm = new JournalCreateViewModel
+            {
+                HoarderID = hoarderID
+            };
 
             vm.GameSelectList = new SelectList(gameList, nameof(Game.ID), nameof(Game.Title));
             vm.TagSelectList = new SelectList(tagList, nameof(Tag.ID), nameof(Tag.Name));

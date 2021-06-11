@@ -76,14 +76,14 @@ namespace Hoard.WebUI.Services.Services
         {
             var newItem =  WishlistMapper.ToNewWishlistItem(wishlistCreateViewModel);
 
-            return await wishlistDbService.CreateResultsInDuplicateEntryAsync(newItem);
+            return await wishlistDbService.CommandResultsInDuplicateEntryAsync(newItem);
         }
 
         public async Task<bool> UpdateResultsInDuplicateEntry(WishlistUpdateViewModel wishlistUpdateViewModel)
         {
             var updatedItem = WishlistMapper.ToExistingWishlistItem(wishlistUpdateViewModel);
 
-            return await wishlistDbService.UpdateResultsInDuplicateEntryAsync(updatedItem);
+            return await wishlistDbService.CommandResultsInDuplicateEntryAsync(updatedItem);
         }
     }
 }

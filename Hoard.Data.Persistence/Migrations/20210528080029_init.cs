@@ -169,6 +169,19 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WishlistItemTypes",
                 columns: table => new
                 {
@@ -180,6 +193,28 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WishlistItemTypes", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JournalEntries",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HoarderID = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Date = table.Column<DateTime>(type: "date", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", maxLength: 8000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JournalEntries", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_JournalEntries_Hoarders_HoarderID",
+                        column: x => x.HoarderID,
+                        principalTable: "Hoarders",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,6 +295,30 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         name: "FK_WishlistItems_WishlistItemTypes_WishlistItemTypeID",
                         column: x => x.WishlistItemTypeID,
                         principalTable: "WishlistItemTypes",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JournalTags",
+                columns: table => new
+                {
+                    JournalEntryID = table.Column<int>(type: "int", nullable: false),
+                    TagID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JournalTags", x => new { x.JournalEntryID, x.TagID });
+                    table.ForeignKey(
+                        name: "FK_JournalTags_JournalEntries_JournalEntryID",
+                        column: x => x.JournalEntryID,
+                        principalTable: "JournalEntries",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JournalTags_Tags_TagID",
+                        column: x => x.TagID,
+                        principalTable: "Tags",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -385,6 +444,30 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JournalGames",
+                columns: table => new
+                {
+                    JournalEntryID = table.Column<int>(type: "int", nullable: false),
+                    GameID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JournalGames", x => new { x.JournalEntryID, x.GameID });
+                    table.ForeignKey(
+                        name: "FK_JournalGames_Games_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Games",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JournalGames_JournalEntries_JournalEntryID",
+                        column: x => x.JournalEntryID,
+                        principalTable: "JournalEntries",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayData",
                 columns: table => new
                 {
@@ -493,8 +576,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "ID", "Name", "ShortName" },
                 values: new object[,]
                 {
-                    { 2, "Japanese", "JP" },
-                    { 1, "English", "EN" }
+                    { 1, "English", "EN" },
+                    { 2, "Japanese", "JP" }
                 });
 
             migrationBuilder.InsertData(
@@ -511,10 +594,10 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "ID", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Single-player" },
-                    { 2, "Cooperative multiplayer" },
                     { 3, "Competitive multiplayer" },
-                    { 4, "MMO" }
+                    { 4, "MMO" },
+                    { 1, "Single-player" },
+                    { 2, "Cooperative multiplayer" }
                 });
 
             migrationBuilder.InsertData(
@@ -522,12 +605,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "ID", "Name", "OrdinalNumber" },
                 values: new object[,]
                 {
-                    { 6, "Other", 6 },
-                    { 5, "Formerly owned", 5 },
-                    { 4, "Subscription", 4 },
                     { 1, "Owned", 1 },
                     { 2, "Household", 2 },
-                    { 3, "Borrowed", 3 }
+                    { 3, "Borrowed", 3 },
+                    { 4, "Subscription", 4 },
+                    { 5, "Formerly owned", 5 },
+                    { 6, "Other", 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -535,24 +618,24 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "ID", "Name", "ShortName" },
                 values: new object[,]
                 {
-                    { 14, "Nintendo Switch", "Switch" },
-                    { 24, "Steam", "Steam" },
-                    { 23, "Microsoft Xbox Series X|S", "XSXS" },
-                    { 22, "Microsoft Xbox One", "XOne" },
-                    { 21, "Microsoft Xbox 360", "X360" },
-                    { 20, "Microsoft Xbox", "Xbox" },
-                    { 19, "Nintendo 3DS", "3DS" },
-                    { 18, "Nintendo DS", "DS" },
-                    { 17, "Nintendo Game Boy Advance", "GBA" },
-                    { 16, "Nintendo Game Boy Color", "GBC" },
                     { 15, "Nintendo Game Boy", "GB" },
+                    { 17, "Nintendo Game Boy Advance", "GBA" },
+                    { 18, "Nintendo DS", "DS" },
+                    { 19, "Nintendo 3DS", "3DS" },
+                    { 23, "Microsoft Xbox Series X|S", "XSXS" },
+                    { 21, "Microsoft Xbox 360", "X360" },
+                    { 22, "Microsoft Xbox One", "XOne" },
+                    { 24, "Steam", "Steam" },
+                    { 14, "Nintendo Switch", "Switch" },
+                    { 20, "Microsoft Xbox", "Xbox" },
                     { 13, "Nintendo Wii U", "Wii U" },
-                    { 12, "Nintendo Wii", "Wii" },
+                    { 16, "Nintendo Game Boy Color", "GBC" },
                     { 11, "Nintendo GameCube", "GCN" },
                     { 1, "Sony Playstation", "PSX" },
                     { 2, "Sony Playstation 2", "PS2" },
                     { 4, "Sony Playstation 4", "PS4" },
                     { 5, "Sony Playstation 5", "PS5" },
+                    { 6, "Sony Playstation Portable", "PSP" },
                     { 3, "Sony Playstation 3", "PS3" }
                 });
 
@@ -561,11 +644,11 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "ID", "Name", "ShortName" },
                 values: new object[,]
                 {
-                    { 7, "Sony Playstation Vita", "PSVita" },
                     { 8, "Nintendo Entertainment System", "NES" },
+                    { 12, "Nintendo Wii", "Wii" },
                     { 9, "Super Nintendo Entertainment System", "SNES" },
                     { 10, "Nintendo 64", "N64" },
-                    { 6, "Sony Playstation Portable", "PSP" }
+                    { 7, "Sony Playstation Vita", "PSVita" }
                 });
 
             migrationBuilder.InsertData(
@@ -585,11 +668,11 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "ID", "Name", "OrdinalNumber" },
                 values: new object[,]
                 {
-                    { 5, "Lowest", 5 },
                     { 4, "Low", 4 },
+                    { 3, "Neutral", 3 },
+                    { 5, "Lowest", 5 },
                     { 1, "Highest", 1 },
-                    { 2, "High", 2 },
-                    { 3, "Neutral", 3 }
+                    { 2, "High", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -611,6 +694,21 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                     { 2, "The Legend of Heroes" },
                     { 3, "Monster Hunter" },
                     { 4, "Yoshi" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "ID", "Name" },
+                values: new object[,]
+                {
+                    { 8, "Family/friends" },
+                    { 7, "Special event" },
+                    { 6, "Sleepy day" },
+                    { 5, "Analog day" },
+                    { 3, "Multiplayer chaos" },
+                    { 2, "Started a game" },
+                    { 1, "Finished a game" },
+                    { 4, "Big haul" }
                 });
 
             migrationBuilder.InsertData(
@@ -637,14 +735,29 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "JournalEntries",
+                columns: new[] { "ID", "Content", "Date", "HoarderID", "Title" },
+                values: new object[,]
+                {
+                    { 1, "It was turtles all the way down.", new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Once upon a time" },
+                    { 2, "Owari.", new DateTime(2021, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Mukashi mukashi" },
+                    { 3, "En ze leefden nog lang en gelukkig.", new DateTime(2021, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Er was eens" },
+                    { 4, "Kan ik niet. Te laat!", new DateTime(2021, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Vlieg!" },
+                    { 5, "Insert cat ipsum here.", new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Ambiguous frog" },
+                    { 6, "Kitty scratches couch bad kitty. Good morning sunshine. Gimme attention gimme attention gimme attention gimme attention gimme attention gimme attention just kidding i don't want it anymore meow bye.", new DateTime(2021, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Frantic apple" },
+                    { 7, "Scratch the furniture groom yourself 4 hours - checked, have your beauty sleep 18 hours - checked, be fabulous for the rest of the day - checked, or pet my belly, you know you want to; seize the hand and shred it!", new DateTime(2021, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Da-da-da-DAAAAAA" },
+                    { 8, "I like frogs and 0 gravity love or humans,humans, humans oh how much they love us felines we are the center of attention they feed, they clean yet if it fits, i sits, so the door is opening!", new DateTime(2021, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Something interesting" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "WishlistItems",
                 columns: new[] { "ID", "AddDate", "HoarderID", "LanguageID", "Notes", "PriorityID", "ReleaseDate", "StoreURL", "Title", "WishlistItemTypeID" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), 1, 1, "Maybe wait for PS7 version?", 1, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), "https://www.budgetgaming.nl/", "Persona 6 Royal", 1 },
-                    { 4, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), 1, 2, "Get Limited Edition!", 1, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), "https://www.amazon.co.jp/", "Eiyuu Densetsu: Zero no Kiseki", 1 },
-                    { 2, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), 1, 2, "Check out other works by this artist, too.", 2, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), "https://www.amazon.co.jp/", "Oresama Teacher", 2 },
-                    { 3, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), 1, 2, "Hide this from Bram.", 3, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), "https://www.amazon.co.jp/", "Monstergirl Factory", 5 }
+                    { 1, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), 1, 1, "Maybe wait for PS7 version?", 1, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), "https://www.budgetgaming.nl/", "Persona 6 Royal", 1 },
+                    { 4, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), 1, 2, "Get Limited Edition!", 1, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), "https://www.amazon.co.jp/", "Eiyuu Densetsu: Zero no Kiseki", 1 },
+                    { 2, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), 1, 2, "Check out other works by this artist, too.", 2, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), "https://www.amazon.co.jp/", "Oresama Teacher", 2 },
+                    { 3, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), 1, 2, "Hide this from Bram.", 3, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), "https://www.amazon.co.jp/", "Monstergirl Factory", 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -652,9 +765,9 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "DeveloperID", "GameID" },
                 values: new object[,]
                 {
-                    { 1, 1 },
+                    { 3, 3 },
                     { 2, 2 },
-                    { 3, 3 }
+                    { 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -662,10 +775,10 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "GameID", "GenreID" },
                 values: new object[,]
                 {
-                    { 1, 1 },
                     { 1, 4 },
-                    { 2, 2 },
-                    { 3, 3 }
+                    { 1, 1 },
+                    { 3, 3 },
+                    { 2, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -673,11 +786,11 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "GameID", "ModeID" },
                 values: new object[,]
                 {
-                    { 2, 2 },
                     { 2, 1 },
+                    { 2, 2 },
+                    { 1, 1 },
                     { 3, 1 },
-                    { 3, 2 },
-                    { 1, 1 }
+                    { 3, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -685,9 +798,9 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "GameID", "PublisherID" },
                 values: new object[,]
                 {
+                    { 2, 2 },
                     { 3, 3 },
-                    { 1, 1 },
-                    { 2, 2 }
+                    { 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -695,10 +808,38 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "GameID", "SeriesID" },
                 values: new object[,]
                 {
-                    { 3, 4 },
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 2, 3 },
+                    { 3, 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JournalGames",
+                columns: new[] { "GameID", "JournalEntryID" },
+                values: new object[,]
+                {
+                    { 3, 5 },
+                    { 3, 1 },
+                    { 2, 5 },
+                    { 1, 3 },
+                    { 1, 5 },
                     { 1, 2 },
                     { 1, 1 },
-                    { 2, 3 }
+                    { 2, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "JournalTags",
+                columns: new[] { "JournalEntryID", "TagID" },
+                values: new object[,]
+                {
+                    { 1, 2 },
+                    { 2, 5 },
+                    { 3, 3 },
+                    { 5, 6 },
+                    { 5, 7 },
+                    { 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -706,12 +847,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "ID", "AchievementsCompleted", "Dropped", "GameID", "HoarderID", "Notes", "OwnershipStatusID", "PriorityID", "Rating" },
                 values: new object[,]
                 {
-                    { 1, true, false, 1, 1, null, 1, 1, null },
-                    { 3, false, false, 2, 1, null, 1, 2, null },
-                    { 5, true, false, 3, 1, null, 1, 4, null },
-                    { 6, false, true, 3, 2, null, 1, 4, null },
                     { 2, false, true, 1, 2, null, 1, 5, null },
-                    { 4, false, false, 2, 2, null, 1, 2, null }
+                    { 6, false, true, 3, 2, null, 1, 4, null },
+                    { 5, true, false, 3, 1, null, 1, 4, null },
+                    { 3, false, false, 2, 1, null, 1, 2, null },
+                    { 4, false, false, 2, 2, null, 1, 2, null },
+                    { 1, true, false, 1, 1, null, 1, 1, null }
                 });
 
             migrationBuilder.InsertData(
@@ -719,12 +860,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 columns: new[] { "OrdinalNumber", "PlayDataID", "DateEnd", "DateStart", "Notes", "PlayStatusID", "PlaytimeInMinutes", "SideContentCompleted" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 3000, false },
-                    { 1, 5, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), null, 2, 1000, true },
-                    { 2, 5, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 500, false },
-                    { 1, 6, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), null, 4, 10, false },
+                    { 1, 1, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 3000, false },
+                    { 1, 5, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), null, 2, 1000, true },
+                    { 2, 5, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 500, false },
+                    { 1, 6, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), null, 4, 10, false },
                     { 1, 3, null, null, null, 3, 30000, false },
-                    { 1, 4, new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 14, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 29000, false }
+                    { 1, 4, new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local), null, 1, 29000, false }
                 });
 
             migrationBuilder.CreateIndex(
@@ -791,6 +932,22 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 table: "Hoarders",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JournalEntries_HoarderID_Date",
+                table: "JournalEntries",
+                columns: new[] { "HoarderID", "Date" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JournalGames_GameID",
+                table: "JournalGames",
+                column: "GameID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JournalTags_TagID",
+                table: "JournalTags",
+                column: "TagID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Languages_Name",
@@ -903,6 +1060,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tags_Name",
+                table: "Tags",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WishlistItems_HoarderID",
                 table: "WishlistItems",
                 column: "HoarderID");
@@ -959,6 +1122,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                 name: "GameSeries");
 
             migrationBuilder.DropTable(
+                name: "JournalGames");
+
+            migrationBuilder.DropTable(
+                name: "JournalTags");
+
+            migrationBuilder.DropTable(
                 name: "Playthroughs");
 
             migrationBuilder.DropTable(
@@ -978,6 +1147,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Series");
+
+            migrationBuilder.DropTable(
+                name: "JournalEntries");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "PlayData");
