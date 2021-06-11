@@ -25,6 +25,7 @@ using System.Globalization;
 using Hoard.WebUI.Services.Services;
 using Hoard.Infrastructure.Persistence.Services.Journal;
 using Hoard.Core.Interfaces.Journal;
+using MediatR;
 
 namespace Hoard.WebUI.ASP
 {
@@ -45,6 +46,8 @@ namespace Hoard.WebUI.ASP
             services.AddDbContext<HoardDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HoardConnection")).EnableSensitiveDataLogging());
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddMediatR(typeof(Startup).Assembly);
 
             services.AddScoped<IGameDbService, GameDbService>();
             services.AddScoped<IGenreDbService, GenreDbService>();

@@ -43,8 +43,6 @@ namespace Hoard.WebUI.Services
 
             var vm = GameMapper.ToIndexViewModel(games);
 
-
-
             return vm;
         }
 

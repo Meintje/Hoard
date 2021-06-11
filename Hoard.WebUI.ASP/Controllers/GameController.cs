@@ -1,19 +1,23 @@
 ﻿using System;
+using MediatR;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Hoard.WebUI.Services.Interfaces;
 using Hoard.WebUI.ASP.Attributes;
 using Hoard.WebUI.Services.ViewModels.Game.GameCreateUpdate;
+using Hoard.WebUI.ASP.MediatR;
 
 namespace Hoard.WebUI.ASP.Controllers
 {
     public class GameController : Controller
     {
         private readonly IGameViewService gameViewService;
+        private readonly IMediator mediator;
 
-        public GameController(IGameViewService gameService)
+        public GameController(IGameViewService gameService, IMediator mediator)
         {
             gameViewService = gameService;
+            this.mediator = mediator;
         }
 
         // GET: Game
@@ -23,7 +27,9 @@ namespace Hoard.WebUI.ASP.Controllers
             // TODO: Get HoarderID from ASP User
             int hoarderID = 1;
 
-            var vm = await gameViewService.GetGameIndex(hoarderID);
+            var vm = await mediator.Send(new GameIndexViewModelRequest(hoarderID));
+
+            //var vm = await gameViewService.GetGameIndex(hoarderID);
 
             return View(vm);
         }
@@ -71,6 +77,7 @@ namespace Hoard.WebUI.ASP.Controllers
         public async Task<IActionResult> Create([Bind("Title,AlternateTitle,PlatformID,LanguageID,MediaTypeID,GenreIDs,SeriesIDs,ModeIDs,DeveloperIDs,PublisherIDs,ReleaseDate,Description")]
                                                 GameCreateViewModel gameCreateViewModel)
         {
+            // TODO: Implement MediatR
             if (ModelState.IsValid)
             {
                 if (await gameViewService.CreateResultsInDuplicateEntry(gameCreateViewModel))
@@ -118,6 +125,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
+            // TODO: Implement MediatR
             if (ModelState.IsValid)
             {
                 if (await gameViewService.UpdateResultsInDuplicateEntry(gameUpdateViewModel))
