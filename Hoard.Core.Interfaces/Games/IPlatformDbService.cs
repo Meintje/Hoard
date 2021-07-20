@@ -6,6 +6,11 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface IPlatformDbService
     {
+        public Task AddAsync(Platform platform);
+        public Task UpdateAsync(Platform platform);
+        public Task DeleteAsync(int id);
         public Task<IEnumerable<Platform>> GetAllAsync();
+        public Task<Platform> GetUpdateDataAsync(int id);
+        public Task<bool> CommandResultsInDuplicateEntryAsync(Platform platform);
     }
 }

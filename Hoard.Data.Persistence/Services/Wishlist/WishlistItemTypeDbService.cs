@@ -33,11 +33,11 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
 
         public async Task DeleteAsync(int id)
         {
-            var item = await context.WishlistItemTypes.Where(wt => wt.ID == id).FirstOrDefaultAsync();
+            var wishlistItemType = await context.WishlistItemTypes.Where(wt => wt.ID == id).FirstOrDefaultAsync();
 
-            if (item != null)
+            if (wishlistItemType != null)
             {
-                context.WishlistItemTypes.Remove(item);
+                context.WishlistItemTypes.Remove(wishlistItemType);
             }
 
             await context.SaveChangesAsync();
@@ -45,29 +45,29 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
 
         public async Task<IEnumerable<WishlistItemType>> GetAllAsync()
         {
-            var items = await context.WishlistItemTypes.ToListAsync();
+            var wishlistItemTypes = await context.WishlistItemTypes.OrderBy(wt => wt.OrdinalNumber).ToListAsync();
 
-            return items;
+            return wishlistItemTypes;
         }
 
         public async Task<WishlistItemType> GetUpdateDataAsync(int id)
         {
-            var item = await context.WishlistItemTypes
+            var wishlistItemType = await context.WishlistItemTypes
                 .Where(wt => wt.ID == id)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return wishlistItemType;
         }
 
         public async Task<bool> CommandResultsInDuplicateEntryAsync(WishlistItemType wishlistItemType)
         {
-            var item = await context.WishlistItemTypes
-                .Where(wi =>
-                    wi.ID != wi.ID &&
-                    (wi.Name == wishlistItemType.Name || wi.OrdinalNumber == wishlistItemType.OrdinalNumber))
+            var duplicateWishlistItemType = await context.WishlistItemTypes
+                .Where(wt =>
+                    wt.ID != wishlistItemType.ID &&
+                    (wt.Name == wishlistItemType.Name || wt.OrdinalNumber == wishlistItemType.OrdinalNumber))
                 .FirstOrDefaultAsync();
 
-            if (item != null)
+            if (duplicateWishlistItemType != null)
             {
                 return true;
             }

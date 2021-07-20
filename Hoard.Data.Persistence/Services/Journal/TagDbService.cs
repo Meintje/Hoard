@@ -35,7 +35,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
 
         public async Task DeleteAsync(int id)
         {
-            var tag = await context.Tags.Where(g => g.ID == id).FirstOrDefaultAsync();
+            var tag = await context.Tags.Where(t => t.ID == id).FirstOrDefaultAsync();
 
             if (tag != null)
             {
@@ -47,29 +47,29 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
 
         public async Task<IEnumerable<Tag>> GetAllAsync()
         {
-            var items = await context.Tags.ToListAsync();
+            var tags = await context.Tags.OrderBy(t => t.Name).ToListAsync();
 
-            return items;
+            return tags;
         }
 
         public async Task<Tag> GetUpdateDataAsync(int id)
         {
-            var item = await context.Tags
+            var tag = await context.Tags
                 .Where(t => t.ID == id)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return tag;
         }
 
         public async Task<bool> CommandResultsInDuplicateEntryAsync(Tag tag)
         {
-            var item = await context.Tags
+            var duplicateTag = await context.Tags
                 .Where(t =>
                     t.ID != tag.ID &&
                     t.Name == tag.Name)
                 .FirstOrDefaultAsync();
 
-            if (item != null)
+            if (duplicateTag != null)
             {
                 return true;
             }

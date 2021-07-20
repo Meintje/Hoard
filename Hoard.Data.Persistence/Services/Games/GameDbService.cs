@@ -20,9 +20,19 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             context.Add(game);
 
             game.PlayData = new List<PlayData>();
-            foreach (var user in context.Hoarders.OrderBy(p => p.ID))
+
+            var defaultOwnershipStatus = await context.OwnershipStatuses.Where(os => os.Name == "Household").FirstOrDefaultAsync();
+            var defaultPriority = await context.Priorities.Where(p => p.Name == "Neutral").FirstOrDefaultAsync();
+
+            foreach (var hoarder in context.Hoarders.OrderBy(h => h.ID))
             {
-                game.PlayData.Add(new PlayData { Dropped = false, AchievementsCompleted = false, HoarderID = user.ID, GameID = game.ID, OwnershipStatusID = 2, PriorityID = 3 });
+                game.PlayData.Add(new PlayData { 
+                    Dropped = false, 
+                    AchievementsCompleted = false, 
+                    HoarderID = hoarder.ID, 
+                    GameID = game.ID, 
+                    OwnershipStatusID = defaultOwnershipStatus.ID, 
+                    PriorityID = defaultPriority.ID });
             }
 
             await context.SaveChangesAsync();
@@ -64,7 +74,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
 
         public async Task<IEnumerable<Game>> GetAllAsync()
         {
-            var items = await context.Games
+            var games = await context.Games
                 .Include(g => g.Platform)
                 .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
                 .Include(g => g.Modes).ThenInclude(m => m.Mode)
@@ -72,15 +82,15 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
                 .Include(g => g.Publishers).ThenInclude(d => d.Publisher)
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Priority)
-                .OrderBy(g => g.Platform.Name).ThenBy(g => g.Title)
+                .OrderBy(g => g.Title)
                 .ToListAsync();
 
-            return items;
+            return games;
         }
 
         public async Task<IEnumerable<Game>> GetAllAsync(int hoarderID)
         {
-            var items = await context.Games
+            var games = await context.Games
                 .Include(g => g.Platform)
                 .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
                 .Include(g => g.Modes).ThenInclude(m => m.Mode)
@@ -91,12 +101,12 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
                 .OrderBy(g => g.Platform.Name).ThenBy(g => g.Title)
                 .ToListAsync();
 
-            return items;
+            return games;
         }
 
         public async Task<Game> GetDetailsAsync(int id)
         {
-            var item = await context.Games
+            var game = await context.Games
                 .Include(g => g.Platform)
                 .Include(g => g.Language)
                 .Include(g => g.MediaType)
@@ -112,12 +122,12 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
                 .Where(g => g.ID == id)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return game;
         }
 
         public async Task<Game> GetUpdateDataAsync(int id)
         {
-            var item = await context.Games
+            var game = await context.Games
                 .Include(g => g.Genres)
                 .Include(g => g.Modes)
                 .Include(g => g.Series)
@@ -126,19 +136,19 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
                 .Where(g => g.ID == id)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return game;
         }
 
         public async Task<IEnumerable<Game>> FindByTitleAsync(string title)
         {
-            var items = await context.Games.Where(g => g.Title == title).ToListAsync(); // TODO: Add Include()s
+            var games = await context.Games.Where(g => g.Title == title).ToListAsync(); // TODO: Add Include()s
 
-            return items;
+            return games;
         }
 
         public async Task<bool> CommandResultsInDuplicateEntry(Game game)
         {
-            var item = await context.Games
+            var duplicateGame = await context.Games
                 .Where(g =>
                     g.ID != game.ID &&
                     g.Title == game.Title &&
@@ -148,7 +158,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
                     g.ReleaseDate == game.ReleaseDate)
                 .FirstOrDefaultAsync();
 
-            if (item != null)
+            if (duplicateGame != null)
             {
                 return true;
             }

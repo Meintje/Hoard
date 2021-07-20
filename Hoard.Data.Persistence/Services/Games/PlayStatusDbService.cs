@@ -17,11 +17,61 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
+        public async Task AddAsync(PlayStatus playStatus)
+        {
+            context.Add(playStatus);
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(PlayStatus playStatus)
+        {
+            context.Update(playStatus);
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var playStatus = await context.PlayStatuses.Where(ps => ps.ID == id).FirstOrDefaultAsync();
+
+            if (playStatus != null)
+            {
+                context.PlayStatuses.Remove(playStatus);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<PlayStatus>> GetAllAsync()
         {
-            var items = await context.PlayStatuses.OrderBy(ps => ps.OrdinalNumber).ToListAsync();
+            var playStatuses = await context.PlayStatuses.OrderBy(ps => ps.OrdinalNumber).ToListAsync();
 
-            return items;
+            return playStatuses;
+        }
+        public async Task<PlayStatus> GetUpdateDataAsync(int id)
+        {
+            var playStatus = await context.PlayStatuses
+                .Where(ps => ps.ID == id)
+                .FirstOrDefaultAsync();
+
+            return playStatus;
+        }
+
+        public async Task<bool> CommandResultsInDuplicateEntryAsync(PlayStatus playStatus)
+        {
+            var duplicatePlayStatus = await context.PlayStatuses
+                .Where(ps =>
+                    ps.ID != playStatus.ID &&
+                    (ps.Name == playStatus.Name || ps.OrdinalNumber == playStatus.OrdinalNumber))
+                .FirstOrDefaultAsync();
+
+            if (duplicatePlayStatus != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

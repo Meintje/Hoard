@@ -17,7 +17,7 @@
                     <tr>
                         <th>Platform</th>
                         <th>Title</th>
-                        <th>Notes</th>
+                        <th class="d-none d-md-table-cell">Notes</th>
                         <th style="width: 1%;"></th>
                     </tr>
                 </thead>
@@ -28,7 +28,7 @@
                         <tr style="cursor: pointer;" onclick="window.location='@Url.Action("Details", "Game", new { id = game.GameID })'">
                             <td>@game.GamePlatform</td>
                             <td>@game.GameTitle</td>
-                            <td>@game.PlaythroughNotes</td>
+                            <td class="d-none d-md-table-cell">@game.PlaythroughNotes</td>
                             <td style="vertical-align: middle;"><a asp-controller="PlayData" asp-action="Details" asp-route-id="@game.PlayDataID" class="btn btn-warning btn-sm table-button">Edit</a></td>
                         </tr>
                     }

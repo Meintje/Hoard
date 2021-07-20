@@ -17,11 +17,62 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
+        public async Task AddAsync(OwnershipStatus ownershipStatus)
+        {
+            context.Add(ownershipStatus);
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(OwnershipStatus ownershipStatus)
+        {
+            context.Update(ownershipStatus);
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var ownershipStatus = await context.OwnershipStatuses.Where(os => os.ID == id).FirstOrDefaultAsync();
+
+            if (ownershipStatus != null)
+            {
+                context.OwnershipStatuses.Remove(ownershipStatus);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<OwnershipStatus>> GetAllAsync()
         {
-            var items = await context.OwnershipStatuses.OrderBy(o => o.OrdinalNumber).ToListAsync();
+            var ownershipStatuses = await context.OwnershipStatuses.OrderBy(os => os.OrdinalNumber).ToListAsync();
 
-            return items;
+            return ownershipStatuses;
+        }
+
+        public async Task<OwnershipStatus> GetUpdateDataAsync(int id)
+        {
+            var ownershipStatus = await context.OwnershipStatuses
+                .Where(os => os.ID == id)
+                .FirstOrDefaultAsync();
+
+            return ownershipStatus;
+        }
+
+        public async Task<bool> CommandResultsInDuplicateEntryAsync(OwnershipStatus ownershipStatus)
+        {
+            var duplicateOwnershipStatus = await context.OwnershipStatuses
+                .Where(os =>
+                    os.ID != ownershipStatus.ID &&
+                    (os.Name == ownershipStatus.Name || os.OrdinalNumber == ownershipStatus.OrdinalNumber))
+                .FirstOrDefaultAsync();
+
+            if (duplicateOwnershipStatus != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

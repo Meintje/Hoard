@@ -19,7 +19,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
 
         public async Task<PlayData> GetDetailsAsync(int id)
         {
-            var item = await context.PlayData
+            var playData = await context.PlayData
                 .Include(pd => pd.Game)
                 .Include(pd => pd.Hoarder)
                 .Include(pd => pd.Priority)
@@ -28,45 +28,46 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
                 .Where(pd => pd.ID == id)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return playData;
         }
 
         public async Task<PlayData> GetUpdateDataAsync(int id)
         {
-            var item = await context.PlayData
+            var playData = await context.PlayData
                 .Include(pd => pd.Game)
                 .Include(pd => pd.Hoarder)
                 .Include(pd => pd.Playthroughs.OrderBy(pt => pt.OrdinalNumber)).ThenInclude(pt => pt.PlayStatus)
                 .Where(pd => pd.ID == id)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return playData;
         }
 
         public async Task UpdateAsync(PlayData playData)
         {
             context.Update(playData);
+
             await context.SaveChangesAsync();
         }
 
         public async Task<int> CountUserOwnedGames(int hoarderID)
         {
-            var userGames = await context.PlayData
+            var ownedGames = await context.PlayData
                 .Include(pd => pd.OwnershipStatus)
                 .Where(pd => pd.HoarderID == hoarderID && pd.OwnershipStatus.OrdinalNumber <= 2)
                 .CountAsync();
 
-            return userGames;
+            return ownedGames;
         }
 
         public async Task<int> CountUserDroppedGames(int hoarderID)
         {
-            var userGames = await context.PlayData
+            var droppedGames = await context.PlayData
                 .Include(pd => pd.OwnershipStatus)
                 .Where(pd => pd.HoarderID == hoarderID && pd.OwnershipStatus.OrdinalNumber <= 2 && pd.Dropped)
                 .CountAsync();
 
-            return userGames;
+            return droppedGames;
         }
 
         public async Task<TimeSpan> CountUserTotalPlaytime(int hoarderID)
@@ -88,15 +89,13 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
 
         public async Task<int> CountUserFinishedGamesByPlatform(int hoarderID, int platformID)
         {
-            // Count user's PlayData set to owned/household and not dropped, belonging to a specific platform, that has finished/endless playthroughs
+            // Count user's PlayData that is not dropped, belonging to a specific platform, has finished/endless playthroughs
             int finishedGames = await context.PlayData
                 .Include(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
-                .Include(pd => pd.OwnershipStatus)
                 .Include(pd => pd.Game)
                 .Where(pd => 
                             pd.HoarderID == hoarderID &&
                             pd.Game.PlatformID == platformID &&
-                            pd.OwnershipStatus.OrdinalNumber <= 2 &&
                             pd.Dropped == false &&
                             pd.Playthroughs.Any(pt => pt.PlayStatus.OrdinalNumber >= 4))
                 .CountAsync();
@@ -106,15 +105,13 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
 
         public async Task<int> CountUserPlayedGamesByPlatform(int hoarderID, int platformID)
         {
-            // Count user's PlayData set to owned/household and not dropped, that has playing/hiatus/dropped playthroughs, belonging to a specific platform
+            // Count user's PlayData that is not dropped, belonging to a specific platform, has playing/hiatus/dropped playthroughs but no finished/endless playthroughs
             int playedGames = await context.PlayData
                 .Include(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
-                .Include(pd => pd.OwnershipStatus)
                 .Include(pd => pd.Game)
                 .Where(pd =>
                             pd.HoarderID == hoarderID &&
                             pd.Game.PlatformID == platformID &&
-                            pd.OwnershipStatus.OrdinalNumber <= 2 &&
                             pd.Dropped == false &&
                             pd.Playthroughs.Any(pt => pt.PlayStatus.OrdinalNumber <= 3) &&
                             !pd.Playthroughs.Any(pt => pt.PlayStatus.OrdinalNumber >= 4))
@@ -125,15 +122,13 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
 
         public async Task<int> CountUserUnplayedGamesByPlatform(int hoarderID, int platformID)
         {
-            // TODO: Count user's PlayData set to owned/household and not dropped, that has no playthroughs, belonging to a specific platform
+            // Count user's PlayData that is not dropped, has no playthroughs, belonging to a specific platform
             int unplayedGames = await context.PlayData
                 .Include(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
-                .Include(pd => pd.OwnershipStatus)
                 .Include(pd => pd.Game)
                 .Where(pd =>
                             pd.HoarderID == hoarderID &&
                             pd.Game.PlatformID == platformID &&
-                            pd.OwnershipStatus.OrdinalNumber <= 2 &&
                             pd.Dropped == false &&
                             pd.Playthroughs.Count == 0)
                 .CountAsync();
@@ -143,14 +138,12 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
 
         public async Task<int> CountUserDroppedGamesByPlatform(int hoarderID, int platformID)
         {
-            // Count user's PlayData set to owned/household and dropped, belonging to a specific platform
+            // Count user's PlayData that is dropped, belonging to a specific platform
             int droppedGames = await context.PlayData
-                .Include(pd => pd.OwnershipStatus)
                 .Include(pd => pd.Game)
                 .Where(pd =>
                             pd.HoarderID == hoarderID &&
                             pd.Game.PlatformID == platformID &&
-                            pd.OwnershipStatus.OrdinalNumber <= 2 &&
                             pd.Dropped == true)
                 .CountAsync();
 

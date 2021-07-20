@@ -1,6 +1,7 @@
 ﻿using Hoard.Core.Entities.Journal;
 using Hoard.Core.Interfaces.Journal;
 using Hoard.Infrastructure.Persistence.DataAccess;
+using Hoard.Infrastructure.Persistence.Services.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,10 @@ using System.Threading.Tasks;
 
 namespace Hoard.Infrastructure.Persistence.Services.Journal
 {
-    public class JournalDbService : IJournalDbService
+    public class JournalDbService : BaseDbService, IJournalDbService
     {
-        private readonly HoardDbContext context;
-
-        public JournalDbService(HoardDbContext context)
+        public JournalDbService(HoardDbContext context) : base(context)
         {
-            this.context = context;
         }
 
         public async Task AddAsync(JournalEntry journalEntry)
@@ -39,12 +37,6 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
             await context.SaveChangesAsync();
         }
 
-        private void UpdateManyToManyRelation<T>(IEnumerable<T> oldItems, IEnumerable<T> newItems) where T : class
-        {
-            context.RemoveRange(oldItems);
-            context.AddRange(newItems);
-        }
-
         public async Task DeleteAsync(int id)
         {
             var journalEntry = await context.JournalEntries.Where(j => j.ID == id).FirstOrDefaultAsync();
@@ -59,7 +51,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
 
         public async Task<IEnumerable<JournalEntry>> GetJournalPageAsync(int hoarderID, int pageNumber, int pageSize)
         {
-            var items = await context.JournalEntries
+            var journalEntries = await context.JournalEntries
                 .Where(j => j.HoarderID == hoarderID)
                 .Include(j => j.Tags).ThenInclude(jt => jt.Tag)
                 .Include(j => j.Games).ThenInclude(jg => jg.Game)
@@ -68,12 +60,12 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
                 .Take(pageSize)
                 .ToListAsync();
 
-            return items;
+            return journalEntries;
         }
 
         public async Task<IEnumerable<JournalEntry>> GetRecentJournalEntriesAsync(int hoarderID)
         {
-            var items = await context.JournalEntries
+            var journalEntries = await context.JournalEntries
                 .Where(j => j.HoarderID == hoarderID)
                 .Include(j => j.Tags).ThenInclude(jt => jt.Tag)
                 .Include(j => j.Games).ThenInclude(jg => jg.Game)
@@ -81,42 +73,42 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
                 .Take(15)
                 .ToListAsync();
 
-            return items;
+            return journalEntries;
         }
 
 
         public async Task<JournalEntry> GetDetailsAsync(int id)
         {
-            var item = await context.JournalEntries
+            var journalEntry = await context.JournalEntries
                 .Where(j => j.ID == id)
                 .Include(j => j.Tags).ThenInclude(jt => jt.Tag)
                 .Include(j => j.Games).ThenInclude(jg => jg.Game).ThenInclude(g => g.Platform)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return journalEntry;
         }
 
         public async Task<JournalEntry> GetUpdateDataAsync(int id)
         {
-            var item = await context.JournalEntries
+            var journalEntry = await context.JournalEntries
                 .Where(j => j.ID == id)
                 .Include(j => j.Tags)
                 .Include(j => j.Games)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return journalEntry;
         }
 
         public async Task<bool> CommandResultsInDuplicateEntry(JournalEntry journalEntry)
         {
-            var item = await context.JournalEntries
+            var duplicateJournalEntry = await context.JournalEntries
                 .Where(j =>
                     j.ID != journalEntry.ID &&
                     j.Date == journalEntry.Date &&
                     j.HoarderID == journalEntry.HoarderID)
                 .FirstOrDefaultAsync();
 
-            if (item != null)
+            if (duplicateJournalEntry != null)
             {
                 return true;
             }

@@ -35,8 +35,8 @@ namespace Hoard.WebUI.Services
         {
             // TODO: Split into separate methods for each section of the dashboard?
 
-            var recentlyStartedPlaythroughs = await playthroughDbService.GetRecentlyStartedPlaythroughs(hoarderID);
-            var recentlyFinishedPlaythroughs = await playthroughDbService.GetRecentlyFinishedPlaythroughs(hoarderID);
+            var recentlyStartedPlaythroughs = await playthroughDbService.GetUserRecentlyStartedPlaythroughs(hoarderID);
+            var recentlyFinishedPlaythroughs = await playthroughDbService.GetUserRecentlyFinishedPlaythroughs(hoarderID);
             var recentJournalEntries = await journalDbService.GetRecentJournalEntriesAsync(hoarderID);
 
             var recentEvents = CreateRecentEventsList(recentlyStartedPlaythroughs, recentlyFinishedPlaythroughs, recentJournalEntries);
@@ -55,7 +55,7 @@ namespace Hoard.WebUI.Services
                 RecentEvents = recentEvents
             };
 
-            var currentPlaythroughs = await playthroughDbService.GetCurrentPlaythroughs(hoarderID);
+            var currentPlaythroughs = await playthroughDbService.GetUserCurrentPlaythroughs(hoarderID);
             foreach (var pt in currentPlaythroughs)
             {
                 userDashboardVM.CurrentGames.Add(UserDashboardMapper.ToGameViewModel(pt));

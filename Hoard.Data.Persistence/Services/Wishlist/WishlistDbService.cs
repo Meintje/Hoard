@@ -45,33 +45,34 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
 
         public async Task<IEnumerable<WishlistItem>> GetAllAsync(int hoarderID)
         {
-            var items = await context.WishlistItems
+            var wishlistItems = await context.WishlistItems
                 .Include(wi => wi.WishlistItemType)
                 .Include(wi => wi.Priority)
                 .Include(wi => wi.Language)
                 .Where(wi => wi.HoarderID == hoarderID)
                 .OrderBy(wi => wi.WishlistItemType.OrdinalNumber)
                 .ThenBy(wi => wi.Priority.OrdinalNumber)
+                .ThenBy(wi => wi.Title)
                 .ToListAsync();
 
-            return items;
+            return wishlistItems;
         }
 
         public async Task<WishlistItem> GetUpdateDataAsync(int id)
         {
-            var item = await context.WishlistItems
+            var wishlistItem = await context.WishlistItems
                 .Include(wi => wi.WishlistItemType)
                 .Include(wi => wi.Priority)
                 .Include(wi => wi.Language)
                 .Where(wi => wi.ID == id)
                 .FirstOrDefaultAsync();
 
-            return item;
+            return wishlistItem;
         }
 
         public async Task<bool> CommandResultsInDuplicateEntryAsync(WishlistItem wishlistItem)
         {
-            var item = await context.WishlistItems
+            var duplicateWishlistItem = await context.WishlistItems
                 .Where(wi =>
                 wi.ID != wishlistItem.ID &&
                 wi.Title == wishlistItem.Title &&
@@ -79,7 +80,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
                 wi.HoarderID == wishlistItem.HoarderID)
                 .FirstOrDefaultAsync();
 
-            if (item != null)
+            if (duplicateWishlistItem != null)
             {
                 return true;
             }
@@ -89,11 +90,11 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
 
         public async Task<int> CountUserWishlistItems(int hoarderID)
         {
-            var count = await context.WishlistItems
-                .Where(w => w.HoarderID == hoarderID)
+            var wishlistItems = await context.WishlistItems
+                .Where(wi => wi.HoarderID == hoarderID)
                 .CountAsync();
 
-            return count;
+            return wishlistItems;
         }
     }
 }
