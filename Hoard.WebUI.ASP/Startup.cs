@@ -41,7 +41,7 @@ namespace Hoard.WebUI.ASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
             services.AddDbContext<HoardDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HoardConnection")).EnableSensitiveDataLogging());
             services.AddDatabaseDeveloperPageExceptionFilter();
