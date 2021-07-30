@@ -28,7 +28,7 @@ namespace Hoard.WebUI.ASP.Controllers
             // TODO: Get HoarderID from ASP.NET User
             int hoarderID = 1;
 
-            return View(await _userDashboardViewService.GetUserDashboard(hoarderID));
+            return View(await _userDashboardViewService.GetUserDashboardAsync(hoarderID));
         }
 
         public IActionResult Welcome()

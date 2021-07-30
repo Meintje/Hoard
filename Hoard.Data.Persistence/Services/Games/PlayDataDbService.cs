@@ -50,7 +50,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             await context.SaveChangesAsync();
         }
 
-        public async Task<int> CountUserOwnedGames(int hoarderID)
+        public async Task<int> CountUserOwnedGamesAsync(int hoarderID)
         {
             var ownedGames = await context.PlayData
                 .Include(pd => pd.OwnershipStatus)
@@ -60,7 +60,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return ownedGames;
         }
 
-        public async Task<int> CountUserDroppedGames(int hoarderID)
+        public async Task<int> CountUserDroppedGamesAsync(int hoarderID)
         {
             var droppedGames = await context.PlayData
                 .Include(pd => pd.OwnershipStatus)
@@ -70,7 +70,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return droppedGames;
         }
 
-        public async Task<TimeSpan> CountUserTotalPlaytime(int hoarderID)
+        public async Task<TimeSpan> CountUserTotalPlaytimeAsync(int hoarderID)
         {
             var totalPlaytime = new TimeSpan();
 
@@ -87,7 +87,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return totalPlaytime;
         }
 
-        public async Task<int> CountUserFinishedGamesByPlatform(int hoarderID, int platformID)
+        public async Task<int> CountUserFinishedGamesByPlatformAsync(int hoarderID, int platformID)
         {
             // Count user's PlayData that is not dropped, belonging to a specific platform, has finished/endless playthroughs
             int finishedGames = await context.PlayData
@@ -103,7 +103,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return finishedGames;
         }
 
-        public async Task<int> CountUserPlayedGamesByPlatform(int hoarderID, int platformID)
+        public async Task<int> CountUserPlayedGamesByPlatformAsync(int hoarderID, int platformID)
         {
             // Count user's PlayData that is not dropped, belonging to a specific platform, has playing/hiatus/dropped playthroughs but no finished/endless playthroughs
             int playedGames = await context.PlayData
@@ -120,7 +120,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return playedGames;
         }
 
-        public async Task<int> CountUserUnplayedGamesByPlatform(int hoarderID, int platformID)
+        public async Task<int> CountUserUnplayedGamesByPlatformAsync(int hoarderID, int platformID)
         {
             // Count user's PlayData that is not dropped, has no playthroughs, belonging to a specific platform
             int unplayedGames = await context.PlayData
@@ -136,7 +136,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return unplayedGames;
         }
 
-        public async Task<int> CountUserDroppedGamesByPlatform(int hoarderID, int platformID)
+        public async Task<int> CountUserDroppedGamesByPlatformAsync(int hoarderID, int platformID)
         {
             // Count user's PlayData that is dropped, belonging to a specific platform
             int droppedGames = await context.PlayData

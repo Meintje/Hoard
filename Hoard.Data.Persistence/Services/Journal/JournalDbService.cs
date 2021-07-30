@@ -99,7 +99,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
             return journalEntry;
         }
 
-        public async Task<bool> CommandResultsInDuplicateEntry(JournalEntry journalEntry)
+        public async Task<bool> CommandResultsInDuplicateEntryAsync(JournalEntry journalEntry)
         {
             var duplicateJournalEntry = await context.JournalEntries
                 .Where(j =>

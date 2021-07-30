@@ -11,15 +11,15 @@ namespace Hoard.WebUI.Services.Interfaces
 {
     public interface IJournalViewService
     {
-        public Task<JournalIndexViewModel> GetIndex(int hoarderID, int pageNumber, int pageSize);
-        public Task<JournalDetailsViewModel> GetDetails(int id);
-        public Task<JournalCreateViewModel> GetCreateData(int hoarderID);
-        public Task<JournalUpdateViewModel> GetUpdateData(int id);
-        public Task Create(JournalCreateViewModel journalCreateViewModel);
-        public Task Update(JournalUpdateViewModel journalUpdateViewModel);
-        public Task Delete(int id);
+        public Task<JournalIndexViewModel> GetIndexAsync(int hoarderID, int pageNumber, int pageSize);
+        public Task<JournalDetailsViewModel> GetDetailsAsync(int id);
+        public Task<JournalCreateViewModel> GetCreateDataAsync(int hoarderID);
+        public Task<JournalUpdateViewModel> GetUpdateDataAsync(int id);
+        public Task CreateAsync(JournalCreateViewModel journalCreateViewModel);
+        public Task UpdateAsync(JournalUpdateViewModel journalUpdateViewModel);
+        public Task DeleteAsync(int id);
 
-        public Task<bool> CreateResultsInDuplicateEntry(JournalCreateViewModel journalCreateViewModel);
-        public Task<bool> UpdateResultsInDuplicateEntry(JournalUpdateViewModel journalUpdateViewModel);
+        public Task<bool> CreateResultsInDuplicateEntryAsync(JournalCreateViewModel journalCreateViewModel);
+        public Task<bool> UpdateResultsInDuplicateEntryAsync(JournalUpdateViewModel journalUpdateViewModel);
     }
 }

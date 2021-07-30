@@ -109,7 +109,6 @@ namespace Hoard.WebUI.Services.Mapping.Games
                 MediaTypeID = game.MediaTypeID
             };
 
-            // TODO: Add better way to create the arrays of selected IDs. (Make a helper method that uses BaseEntity)
             if (game.Genres != null && game.Genres.Count > 0)
             {
                 var selectedGenres = new List<int>();

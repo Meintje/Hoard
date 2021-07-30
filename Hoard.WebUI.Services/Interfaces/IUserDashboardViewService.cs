@@ -9,6 +9,6 @@ namespace Hoard.WebUI.Services.Interfaces
 {
     public interface IUserDashboardViewService
     {
-        public Task<UserDashboardViewModel> GetUserDashboard(int playerID);
+        public Task<UserDashboardViewModel> GetUserDashboardAsync(int playerID);
     }
 }

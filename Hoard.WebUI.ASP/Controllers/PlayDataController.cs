@@ -30,7 +30,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var playDataViewModel = await playDataViewService.GetPlayDataDetails((int)id);
+            var playDataViewModel = await playDataViewService.GetPlayDataDetailsAsync((int)id);
             if (playDataViewModel == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var playDataViewModel = await playDataViewService.GetPlayDataUpdateData((int)id);
+            var playDataViewModel = await playDataViewService.GetPlayDataUpdateDataAsync((int)id);
             if (playDataViewModel == null)
             {
                 return NotFound();
@@ -67,7 +67,7 @@ namespace Hoard.WebUI.ASP.Controllers
             {
                 try
                 {
-                    await playDataViewService.UpdatePlayData(playDataUpdateViewModel);
+                    await playDataViewService.UpdatePlayDataAsync(playDataUpdateViewModel);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -89,7 +89,7 @@ namespace Hoard.WebUI.ASP.Controllers
 
         public async Task<IActionResult> CreatePlaythrough(int playDataId)
         {
-            var playthroughCreateViewModel = await playDataViewService.GetPlaythroughCreateData(playDataId);
+            var playthroughCreateViewModel = await playDataViewService.GetPlaythroughCreateDataAsync(playDataId);
 
             return PartialView("_PlaythroughCreateModalPartial", playthroughCreateViewModel);
         }
@@ -100,7 +100,7 @@ namespace Hoard.WebUI.ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                await playDataViewService.CreatePlaythrough(playthroughCreateViewModel);
+                await playDataViewService.CreatePlaythroughAsync(playthroughCreateViewModel);
 
                 return RedirectToAction(nameof(Details), new { id = playthroughCreateViewModel.PlayDataID });
             }
@@ -112,7 +112,7 @@ namespace Hoard.WebUI.ASP.Controllers
 
         public async Task<IActionResult> EditPlaythrough(int playDataId, int ordinalNumber)
         {
-            var playthroughUpdateViewModel = await playDataViewService.GetPlaythroughUpdateData(playDataId, ordinalNumber);
+            var playthroughUpdateViewModel = await playDataViewService.GetPlaythroughUpdateDataAsync(playDataId, ordinalNumber);
 
             return PartialView("_PlaythroughUpdateModalPartial", playthroughUpdateViewModel);
         }
@@ -129,7 +129,7 @@ namespace Hoard.WebUI.ASP.Controllers
             
             if (ModelState.IsValid)
             {
-                await playDataViewService.UpdatePlaythrough(playthroughUpdateViewModel);
+                await playDataViewService.UpdatePlaythroughAsync(playthroughUpdateViewModel);
 
                 return RedirectToAction(nameof(Details), new { id = playthroughUpdateViewModel.PlayDataID });
             }
@@ -146,7 +146,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var playthroughDeleteViewModel = await playDataViewService.GetPlaythroughDeleteData((int)playDataID, (int)ordinalNumber);
+            var playthroughDeleteViewModel = await playDataViewService.GetPlaythroughDeleteDataAsync((int)playDataID, (int)ordinalNumber);
             if (playthroughDeleteViewModel == null)
             {
                 return NotFound();
@@ -159,7 +159,7 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePlaythrough(PlaythroughDeleteViewModel playthroughDetailsViewModel)
         {
-            await playDataViewService.DeletePlaythrough(playthroughDetailsViewModel);
+            await playDataViewService.DeletePlaythroughAsync(playthroughDetailsViewModel);
             
             // TODO: If the data couldn't be deleted, show error message in related PlayData page
 

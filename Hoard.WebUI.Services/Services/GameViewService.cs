@@ -37,7 +37,7 @@ namespace Hoard.WebUI.Services
             this.publisherDbService = publisherDbService;
         }
 
-        public async Task<GameIndexViewModel> GetGameIndex(int hoarderID)
+        public async Task<GameIndexViewModel> GetGameIndexAsync(int hoarderID)
         {
             var games = await gameDbService.GetAllAsync(hoarderID);
 
@@ -46,7 +46,7 @@ namespace Hoard.WebUI.Services
             return vm;
         }
 
-        public async Task<GameDetailsViewModel> GetGameDetails(int id)
+        public async Task<GameDetailsViewModel> GetGameDetailsAsync(int id)
         {
             var game = await gameDbService.GetDetailsAsync(id);
 
@@ -60,7 +60,7 @@ namespace Hoard.WebUI.Services
             return vm;
         }
 
-        public async Task<GameCreateViewModel> GetGameCreateData()
+        public async Task<GameCreateViewModel> GetGameCreateDataAsync()
         {
             var platformList = await platformDbService.GetAllAsync();
             var genreList = await genreDbService.GetAllAsync();
@@ -74,7 +74,7 @@ namespace Hoard.WebUI.Services
             return GameMapper.ToCreateViewModel(platformList, genreList, languageList, mediaTypeList, seriesList, modeList, developerList, publisherList);
         }
 
-        public async Task<GameUpdateViewModel> GetGameUpdateData(int id)
+        public async Task<GameUpdateViewModel> GetGameUpdateDataAsync(int id)
         {
             var game = await gameDbService.GetUpdateDataAsync(id);
 
@@ -95,21 +95,21 @@ namespace Hoard.WebUI.Services
             return GameMapper.ToUpdateViewModel(game, platformList, genreList, languageList, mediaTypeList, seriesList, modeList, developerList, publisherList);
         }
 
-        public async Task CreateGame(GameCreateViewModel gcVM)
+        public async Task CreateGameAsync(GameCreateViewModel gcVM)
         {
             var game = GameMapper.ToGame(gcVM);
 
             await gameDbService.AddAsync(game);
         }
 
-        public async Task UpdateGame(GameUpdateViewModel guVM)
+        public async Task UpdateGameAsync(GameUpdateViewModel guVM)
         {
             var game = GameMapper.ToGame(guVM);
 
             await gameDbService.UpdateAsync(game);
         }
 
-        public async Task DeleteGame(int id)
+        public async Task DeleteGameAsync(int id)
         {
             await gameDbService.DeleteAsync(id);
         }
@@ -138,20 +138,20 @@ namespace Hoard.WebUI.Services
             return gvm;
         }
 
-        public async Task<bool> CreateResultsInDuplicateEntry(GameCreateViewModel vm)
+        public async Task<bool> CreateResultsInDuplicateEntryAsync(GameCreateViewModel vm)
         {
             var newGame = GameMapper.ToGame(vm);
 
-            bool resultsInDuplicateGame = await gameDbService.CommandResultsInDuplicateEntry(newGame);
+            bool resultsInDuplicateGame = await gameDbService.CommandResultsInDuplicateEntryAsync(newGame);
 
             return resultsInDuplicateGame;
         }
 
-        public async Task<bool> UpdateResultsInDuplicateEntry(GameUpdateViewModel vm)
+        public async Task<bool> UpdateResultsInDuplicateEntryAsync(GameUpdateViewModel vm)
         {
             var updatedGame = GameMapper.ToGame(vm);
 
-            bool resultsInDuplicateGame = await gameDbService.CommandResultsInDuplicateEntry(updatedGame);
+            bool resultsInDuplicateGame = await gameDbService.CommandResultsInDuplicateEntryAsync(updatedGame);
 
             return resultsInDuplicateGame;
         }

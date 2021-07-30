@@ -26,14 +26,14 @@ namespace Hoard.WebUI.Services
             this.priorityDbService = priorityDbService;
         }
 
-        public async Task<PlayDataDetailsViewModel> GetPlayDataDetails(int id)
+        public async Task<PlayDataDetailsViewModel> GetPlayDataDetailsAsync(int id)
         {
             var playData = await playDataDbService.GetDetailsAsync(id);
 
             return PlayDataMapper.ToDetailsViewModel(playData);
         }
 
-        public async Task<PlayDataUpdateViewModel> GetPlayDataUpdateData(int id)
+        public async Task<PlayDataUpdateViewModel> GetPlayDataUpdateDataAsync(int id)
         {
             var playData = await playDataDbService.GetUpdateDataAsync(id);
 
@@ -43,14 +43,14 @@ namespace Hoard.WebUI.Services
             return PlayDataMapper.ToUpdateViewModel(playData, priorityList, ownershipStatusList);
         }
 
-        public async Task UpdatePlayData(PlayDataUpdateViewModel playDataUpdateViewModel)
+        public async Task UpdatePlayDataAsync(PlayDataUpdateViewModel playDataUpdateViewModel)
         {
             var playData = PlayDataMapper.ToPlayData(playDataUpdateViewModel);
 
             await playDataDbService.UpdateAsync(playData);
         }
 
-        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateData(int playDataID)
+        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateDataAsync(int playDataID)
         {
             var playStatusList = await playStatusDbService.GetAllAsync();
 
@@ -59,7 +59,7 @@ namespace Hoard.WebUI.Services
             return playthroughCreateVM;
         }
 
-        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateData(int playDataID, int ordinalNumber)
+        public async Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateDataAsync(int playDataID, int ordinalNumber)
         {
             var playthrough = await playthroughDbService.GetUpdateDataAsync(playDataID, ordinalNumber);
 
@@ -75,21 +75,21 @@ namespace Hoard.WebUI.Services
             return playthroughUpdateVM;
         }
 
-        public async Task CreatePlaythrough(PlaythroughCreateUpdateViewModel playthroughCreateViewModel)
+        public async Task CreatePlaythroughAsync(PlaythroughCreateUpdateViewModel playthroughCreateViewModel)
         {
             var playthrough = PlaythroughMapper.ToPlaythrough(playthroughCreateViewModel);
 
             await playthroughDbService.CreateAsync(playthrough);
         }
 
-        public async Task UpdatePlaythrough(PlaythroughCreateUpdateViewModel playthroughUpdateViewModel)
+        public async Task UpdatePlaythroughAsync(PlaythroughCreateUpdateViewModel playthroughUpdateViewModel)
         {
             var playthrough = PlaythroughMapper.ToPlaythrough(playthroughUpdateViewModel);
 
             await playthroughDbService.UpdateAsync(playthrough);
         }
 
-        public async Task<PlaythroughDeleteViewModel> GetPlaythroughDeleteData(int playDataID, int ordinalNumber)
+        public async Task<PlaythroughDeleteViewModel> GetPlaythroughDeleteDataAsync(int playDataID, int ordinalNumber)
         {
             var playthrough = await playthroughDbService.GetDetailsAsync(playDataID, ordinalNumber);
 
@@ -101,7 +101,7 @@ namespace Hoard.WebUI.Services
             return PlaythroughMapper.ToDeleteViewModel(playthrough);
         }
 
-        public async Task DeletePlaythrough(PlaythroughDeleteViewModel playthroughDeleteViewModel)
+        public async Task DeletePlaythroughAsync(PlaythroughDeleteViewModel playthroughDeleteViewModel)
         {
             await playthroughDbService.DeleteAsync(playthroughDeleteViewModel.PlayDataID, playthroughDeleteViewModel.OrdinalNumber);
         }

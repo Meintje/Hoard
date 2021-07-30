@@ -64,7 +64,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Playthrough>> GetUserRecentlyStartedPlaythroughs(int hoarderID)
+        public async Task<IEnumerable<Playthrough>> GetUserRecentlyStartedPlaythroughsAsync(int hoarderID)
         {
             var recentlyStartedPlaythroughs = await context.Playthroughs
                 .Where(pt => pt.PlayData.HoarderID == hoarderID && pt.DateStart != null)
@@ -76,7 +76,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return recentlyStartedPlaythroughs;
         }
 
-        public async Task<IEnumerable<Playthrough>> GetUserRecentlyFinishedPlaythroughs(int hoarderID)
+        public async Task<IEnumerable<Playthrough>> GetUserRecentlyFinishedPlaythroughsAsync(int hoarderID)
         {
             var recentlyFinishedPlaythroughs = await context.Playthroughs
                 .Where(pt => pt.PlayData.HoarderID == hoarderID && pt.DateEnd != null)
@@ -88,7 +88,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return recentlyFinishedPlaythroughs;
         }
 
-        public async Task<IEnumerable<Playthrough>> GetUserCurrentPlaythroughs(int hoarderID)
+        public async Task<IEnumerable<Playthrough>> GetUserCurrentPlaythroughsAsync(int hoarderID)
         {
             var currentPlaythroughs = await context.Playthroughs
                 .Where(pt => pt.PlayData.HoarderID == hoarderID && pt.PlayStatus.OrdinalNumber == 1)

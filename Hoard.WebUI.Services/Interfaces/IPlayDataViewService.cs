@@ -7,15 +7,15 @@ namespace Hoard.WebUI.Services.Interfaces
 {
     public interface IPlayDataViewService
     {
-        public Task<PlayDataDetailsViewModel> GetPlayDataDetails(int id);
-        public Task<PlayDataUpdateViewModel> GetPlayDataUpdateData(int id);
-        public Task UpdatePlayData(PlayDataUpdateViewModel playDataUpdateViewModel);
+        public Task<PlayDataDetailsViewModel> GetPlayDataDetailsAsync(int id);
+        public Task<PlayDataUpdateViewModel> GetPlayDataUpdateDataAsync(int id);
+        public Task UpdatePlayDataAsync(PlayDataUpdateViewModel playDataUpdateViewModel);
 
-        public Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateData(int playDataID);
-        public Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateData(int playDataID, int ordinalNumber);
-        public Task CreatePlaythrough(PlaythroughCreateUpdateViewModel playthroughCreateViewModel);
-        public Task UpdatePlaythrough(PlaythroughCreateUpdateViewModel playthroughUpdateViewModel);
-        public Task<PlaythroughDeleteViewModel> GetPlaythroughDeleteData(int playDataID, int ordinalNumber);
-        public Task DeletePlaythrough(PlaythroughDeleteViewModel playthroughDeleteViewModel);
+        public Task<PlaythroughCreateUpdateViewModel> GetPlaythroughCreateDataAsync(int playDataID);
+        public Task<PlaythroughCreateUpdateViewModel> GetPlaythroughUpdateDataAsync(int playDataID, int ordinalNumber);
+        public Task CreatePlaythroughAsync(PlaythroughCreateUpdateViewModel playthroughCreateViewModel);
+        public Task UpdatePlaythroughAsync(PlaythroughCreateUpdateViewModel playthroughUpdateViewModel);
+        public Task<PlaythroughDeleteViewModel> GetPlaythroughDeleteDataAsync(int playDataID, int ordinalNumber);
+        public Task DeletePlaythroughAsync(PlaythroughDeleteViewModel playthroughDeleteViewModel);
     }
 }

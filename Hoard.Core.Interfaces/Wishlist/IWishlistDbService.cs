@@ -12,6 +12,6 @@ namespace Hoard.Core.Interfaces.Wishlist
         public Task<IEnumerable<WishlistItem>> GetAllAsync(int hoarderID);
         public Task<WishlistItem> GetUpdateDataAsync(int id);
         public Task<bool> CommandResultsInDuplicateEntryAsync(WishlistItem wishlistItem);
-        public Task<int> CountUserWishlistItems(int hoarderID);
+        public Task<int> CountUserWishlistItemsAsync(int hoarderID);
     }
 }

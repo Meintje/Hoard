@@ -14,6 +14,6 @@ namespace Hoard.Core.Interfaces.Games
         public Task<Game> GetDetailsAsync(int id);
         public Task<Game> GetUpdateDataAsync(int id);
         public Task<IEnumerable<Game>> FindByTitleAsync(string title);
-        public Task<bool> CommandResultsInDuplicateEntry(Game game);
+        public Task<bool> CommandResultsInDuplicateEntryAsync(Game game);
     }
 }

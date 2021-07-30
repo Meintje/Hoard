@@ -10,13 +10,13 @@ namespace Hoard.Core.Interfaces.Games
         public Task<PlayData> GetUpdateDataAsync(int id);
         public Task UpdateAsync(PlayData playData);
 
-        public Task<int> CountUserOwnedGames(int hoarderID);
-        public Task<int> CountUserDroppedGames(int hoarderID);
-        public Task<TimeSpan> CountUserTotalPlaytime(int hoarderID);
+        public Task<int> CountUserOwnedGamesAsync(int hoarderID);
+        public Task<int> CountUserDroppedGamesAsync(int hoarderID);
+        public Task<TimeSpan> CountUserTotalPlaytimeAsync(int hoarderID);
 
-        public Task<int> CountUserFinishedGamesByPlatform(int hoarderID, int platformID);
-        public Task<int> CountUserPlayedGamesByPlatform(int hoarderID, int platformID);
-        public Task<int> CountUserUnplayedGamesByPlatform(int hoarderID, int platformID);
-        public Task<int> CountUserDroppedGamesByPlatform(int hoarderID, int platformID);
+        public Task<int> CountUserFinishedGamesByPlatformAsync(int hoarderID, int platformID);
+        public Task<int> CountUserPlayedGamesByPlatformAsync(int hoarderID, int platformID);
+        public Task<int> CountUserUnplayedGamesByPlatformAsync(int hoarderID, int platformID);
+        public Task<int> CountUserDroppedGamesByPlatformAsync(int hoarderID, int platformID);
     }
 }

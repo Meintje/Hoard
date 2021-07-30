@@ -6,14 +6,14 @@ namespace Hoard.WebUI.Services.Interfaces
 {
     public interface IWishlistViewService
     {
-        public Task<WishlistIndexViewModel> GetIndex(int hoarderID);
-        public Task<WishlistCreateViewModel> GetCreateData(int hoarderID);
-        public Task<WishlistUpdateViewModel> GetUpdateData(int id);
-        public Task Create(WishlistCreateViewModel wishlistCreateViewModel);
-        public Task Update(WishlistUpdateViewModel wishlistUpdateViewModel);
-        public Task Delete(int id);
+        public Task<WishlistIndexViewModel> GetIndexAsync(int hoarderID);
+        public Task<WishlistCreateViewModel> GetCreateDataAsync(int hoarderID);
+        public Task<WishlistUpdateViewModel> GetUpdateDataAsync(int id);
+        public Task CreateAsync(WishlistCreateViewModel wishlistCreateViewModel);
+        public Task UpdateAsync(WishlistUpdateViewModel wishlistUpdateViewModel);
+        public Task DeleteAsync(int id);
 
-        public Task<bool> CreateResultsInDuplicateEntry(WishlistCreateViewModel wishlistCreateViewModel);
-        public Task<bool> UpdateResultsInDuplicateEntry(WishlistUpdateViewModel wishlistUpdateViewModel);
+        public Task<bool> CreateResultsInDuplicateEntryAsync(WishlistCreateViewModel wishlistCreateViewModel);
+        public Task<bool> UpdateResultsInDuplicateEntryAsync(WishlistUpdateViewModel wishlistUpdateViewModel);
     }
 }

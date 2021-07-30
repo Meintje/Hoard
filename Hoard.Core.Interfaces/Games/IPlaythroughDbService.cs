@@ -11,8 +11,8 @@ namespace Hoard.Core.Interfaces.Games
         public Task CreateAsync(Playthrough playthrough);
         public Task UpdateAsync(Playthrough playthrough);
         public Task DeleteAsync(int playDataID, int ordinalNumber);
-        public Task<IEnumerable<Playthrough>> GetUserRecentlyStartedPlaythroughs(int playerID);
-        public Task<IEnumerable<Playthrough>> GetUserRecentlyFinishedPlaythroughs(int playerID);
-        public Task<IEnumerable<Playthrough>> GetUserCurrentPlaythroughs(int playerID);
+        public Task<IEnumerable<Playthrough>> GetUserRecentlyStartedPlaythroughsAsync(int playerID);
+        public Task<IEnumerable<Playthrough>> GetUserRecentlyFinishedPlaythroughsAsync(int playerID);
+        public Task<IEnumerable<Playthrough>> GetUserCurrentPlaythroughsAsync(int playerID);
     }
 }

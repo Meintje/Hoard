@@ -88,7 +88,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
             return false;
         }
 
-        public async Task<int> CountUserWishlistItems(int hoarderID)
+        public async Task<int> CountUserWishlistItemsAsync(int hoarderID)
         {
             var wishlistItems = await context.WishlistItems
                 .Where(wi => wi.HoarderID == hoarderID)

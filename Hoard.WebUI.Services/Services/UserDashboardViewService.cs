@@ -31,20 +31,20 @@ namespace Hoard.WebUI.Services
             this.platformDbService = platformDbService;
         }
 
-        public async Task<UserDashboardViewModel> GetUserDashboard(int hoarderID)
+        public async Task<UserDashboardViewModel> GetUserDashboardAsync(int hoarderID)
         {
             // TODO: Split into separate methods for each section of the dashboard?
 
-            var recentlyStartedPlaythroughs = await playthroughDbService.GetUserRecentlyStartedPlaythroughs(hoarderID);
-            var recentlyFinishedPlaythroughs = await playthroughDbService.GetUserRecentlyFinishedPlaythroughs(hoarderID);
+            var recentlyStartedPlaythroughs = await playthroughDbService.GetUserRecentlyStartedPlaythroughsAsync(hoarderID);
+            var recentlyFinishedPlaythroughs = await playthroughDbService.GetUserRecentlyFinishedPlaythroughsAsync(hoarderID);
             var recentJournalEntries = await journalDbService.GetRecentJournalEntriesAsync(hoarderID);
 
             var recentEvents = CreateRecentEventsList(recentlyStartedPlaythroughs, recentlyFinishedPlaythroughs, recentJournalEntries);
 
-            var totalPlayTime = await playDataDbService.CountUserTotalPlaytime(hoarderID);
-            var numberOfOwnedGames = await playDataDbService.CountUserOwnedGames(hoarderID);
-            var numberOfDroppedGames = await playDataDbService.CountUserDroppedGames(hoarderID);
-            var numberOfWishlistItems = await wishlistDbService.CountUserWishlistItems(hoarderID);
+            var totalPlayTime = await playDataDbService.CountUserTotalPlaytimeAsync(hoarderID);
+            var numberOfOwnedGames = await playDataDbService.CountUserOwnedGamesAsync(hoarderID);
+            var numberOfDroppedGames = await playDataDbService.CountUserDroppedGamesAsync(hoarderID);
+            var numberOfWishlistItems = await wishlistDbService.CountUserWishlistItemsAsync(hoarderID);
 
             var userDashboardVM = new UserDashboardViewModel
             {
@@ -55,7 +55,7 @@ namespace Hoard.WebUI.Services
                 RecentEvents = recentEvents
             };
 
-            var currentPlaythroughs = await playthroughDbService.GetUserCurrentPlaythroughs(hoarderID);
+            var currentPlaythroughs = await playthroughDbService.GetUserCurrentPlaythroughsAsync(hoarderID);
             foreach (var pt in currentPlaythroughs)
             {
                 userDashboardVM.CurrentGames.Add(UserDashboardMapper.ToGameViewModel(pt));
@@ -72,10 +72,10 @@ namespace Hoard.WebUI.Services
                 int platformID = platform.ID;
                 var platformStatisticsVM = UserDashboardMapper.ToPlatformStatisticsViewModel(platform);
 
-                int finishedGames = await playDataDbService.CountUserFinishedGamesByPlatform(hoarderID, platformID);
-                int playedGames = await playDataDbService.CountUserPlayedGamesByPlatform(hoarderID, platformID);
-                int unplayedGames = await playDataDbService.CountUserUnplayedGamesByPlatform(hoarderID, platformID);
-                int droppedGames = await playDataDbService.CountUserDroppedGamesByPlatform(hoarderID, platformID);
+                int finishedGames = await playDataDbService.CountUserFinishedGamesByPlatformAsync(hoarderID, platformID);
+                int playedGames = await playDataDbService.CountUserPlayedGamesByPlatformAsync(hoarderID, platformID);
+                int unplayedGames = await playDataDbService.CountUserUnplayedGamesByPlatformAsync(hoarderID, platformID);
+                int droppedGames = await playDataDbService.CountUserDroppedGamesByPlatformAsync(hoarderID, platformID);
 
                 int totalGames = finishedGames + playedGames + unplayedGames + droppedGames;
 

@@ -146,7 +146,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             return games;
         }
 
-        public async Task<bool> CommandResultsInDuplicateEntry(Game game)
+        public async Task<bool> CommandResultsInDuplicateEntryAsync(Game game)
         {
             var duplicateGame = await context.Games
                 .Where(g =>

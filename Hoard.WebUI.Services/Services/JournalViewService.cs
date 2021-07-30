@@ -26,7 +26,7 @@ namespace Hoard.WebUI.Services.Services
             this.gameDbService = gameDbService;
         }
 
-        public async Task<JournalIndexViewModel> GetIndex(int hoarderID, int pageNumber, int pageSize)
+        public async Task<JournalIndexViewModel> GetIndexAsync(int hoarderID, int pageNumber, int pageSize)
         {
             var journalEntries = await journalDbService.GetJournalPageAsync(hoarderID, pageNumber, pageSize);
 
@@ -35,7 +35,7 @@ namespace Hoard.WebUI.Services.Services
             return vm;
         }
 
-        public async Task<JournalDetailsViewModel> GetDetails(int id)
+        public async Task<JournalDetailsViewModel> GetDetailsAsync(int id)
         {
             var journalEntry = await journalDbService.GetDetailsAsync(id);
 
@@ -49,7 +49,7 @@ namespace Hoard.WebUI.Services.Services
             return vm;
         }
 
-        public async Task<JournalCreateViewModel> GetCreateData(int hoarderID)
+        public async Task<JournalCreateViewModel> GetCreateDataAsync(int hoarderID)
         {
             var tagList = await tagDbService.GetAllAsync();
             var gameList = await gameDbService.GetAllAsync();
@@ -59,7 +59,7 @@ namespace Hoard.WebUI.Services.Services
             return vm;
         }
 
-        public async Task<JournalUpdateViewModel> GetUpdateData(int id)
+        public async Task<JournalUpdateViewModel> GetUpdateDataAsync(int id)
         {
             var journalEntry = await journalDbService.GetUpdateDataAsync(id);
 
@@ -76,39 +76,39 @@ namespace Hoard.WebUI.Services.Services
             return vm;
         }
 
-        public async Task Create(JournalCreateViewModel journalCreateViewModel)
+        public async Task CreateAsync(JournalCreateViewModel journalCreateViewModel)
         {
             var newEntry = JournalEntryMapper.ToNewJournalEntry(journalCreateViewModel);
 
             await journalDbService.AddAsync(newEntry);
         }
 
-        public async Task Update(JournalUpdateViewModel journalUpdateViewModel)
+        public async Task UpdateAsync(JournalUpdateViewModel journalUpdateViewModel)
         {
             var updatedEntry = JournalEntryMapper.ToExistingJournalEntry(journalUpdateViewModel);
 
             await journalDbService.UpdateAsync(updatedEntry);
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             await journalDbService.DeleteAsync(id);
         }
 
-        public async Task<bool> CreateResultsInDuplicateEntry(JournalCreateViewModel journalCreateViewModel)
+        public async Task<bool> CreateResultsInDuplicateEntryAsync(JournalCreateViewModel journalCreateViewModel)
         {
             var newEntry = JournalEntryMapper.ToNewJournalEntry(journalCreateViewModel);
 
-            bool resultsInDuplicateEntry = await journalDbService.CommandResultsInDuplicateEntry(newEntry);
+            bool resultsInDuplicateEntry = await journalDbService.CommandResultsInDuplicateEntryAsync(newEntry);
 
             return resultsInDuplicateEntry;
         }
 
-        public async Task<bool> UpdateResultsInDuplicateEntry(JournalUpdateViewModel journalUpdateViewModel)
+        public async Task<bool> UpdateResultsInDuplicateEntryAsync(JournalUpdateViewModel journalUpdateViewModel)
         {
             var updatedEntry = JournalEntryMapper.ToExistingJournalEntry(journalUpdateViewModel);
 
-            bool resultsInDuplicateEntry = await journalDbService.CommandResultsInDuplicateEntry(updatedEntry);
+            bool resultsInDuplicateEntry = await journalDbService.CommandResultsInDuplicateEntryAsync(updatedEntry);
 
             return resultsInDuplicateEntry;
         }

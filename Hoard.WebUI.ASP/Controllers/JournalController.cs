@@ -28,7 +28,7 @@ namespace Hoard.WebUI.ASP.Controllers
             int pageNumber = 1;
             int pageSize = 30;
 
-            var viewModel = await journalViewService.GetIndex(hoarderID, pageNumber, pageSize);
+            var viewModel = await journalViewService.GetIndexAsync(hoarderID, pageNumber, pageSize);
 
             return View(viewModel);
         }
@@ -39,7 +39,7 @@ namespace Hoard.WebUI.ASP.Controllers
             // TODO: Get ID from ASP.NET User
             int hoarderID = 1;
 
-            var viewModel = await journalViewService.GetCreateData(hoarderID);
+            var viewModel = await journalViewService.GetCreateDataAsync(hoarderID);
 
             return View(viewModel);
         }
@@ -51,13 +51,13 @@ namespace Hoard.WebUI.ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await journalViewService.CreateResultsInDuplicateEntry(journalCreateViewModel))
+                if (await journalViewService.CreateResultsInDuplicateEntryAsync(journalCreateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A journal entry with the same date already exists in the database.");
                     return View(journalCreateViewModel); // TODO: Refill SelectLists
                 }
 
-                await journalViewService.Create(journalCreateViewModel);
+                await journalViewService.CreateAsync(journalCreateViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -73,7 +73,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var guVM = await journalViewService.GetUpdateData((int)id);
+            var guVM = await journalViewService.GetUpdateDataAsync((int)id);
 
             if (guVM == null)
             {
@@ -95,13 +95,13 @@ namespace Hoard.WebUI.ASP.Controllers
 
             if (ModelState.IsValid)
             {
-                if (await journalViewService.UpdateResultsInDuplicateEntry(journalUpdateViewModel))
+                if (await journalViewService.UpdateResultsInDuplicateEntryAsync(journalUpdateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A journal entry with the same date already exists in the database.");
                     return View(journalUpdateViewModel); // TODO: Refill SelectLists
                 }
 
-                await journalViewService.Update(journalUpdateViewModel);
+                await journalViewService.UpdateAsync(journalUpdateViewModel);
 
                 return RedirectToAction(nameof(Index));
             }

@@ -23,7 +23,7 @@ namespace Hoard.WebUI.ASP.Controllers
             // TODO: Get HoarderID from ASP User
             int hoarderID = 1;
 
-            var vm = await gameViewService.GetGameIndex(hoarderID);
+            var vm = await gameViewService.GetGameIndexAsync(hoarderID);
 
             return View(vm);
         }
@@ -36,7 +36,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var gameVM = await gameViewService.GetGameDetails((int)id);
+            var gameVM = await gameViewService.GetGameDetailsAsync((int)id);
 
             if (gameVM == null || gameVM.ID == 0)
             {
@@ -52,7 +52,7 @@ namespace Hoard.WebUI.ASP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await gameViewService.DeleteGame(id);
+            await gameViewService.DeleteGameAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
@@ -60,7 +60,7 @@ namespace Hoard.WebUI.ASP.Controllers
         // GET: Game/Create
         public async Task<IActionResult> Create()
         {
-            var gcVM = await gameViewService.GetGameCreateData();
+            var gcVM = await gameViewService.GetGameCreateDataAsync();
 
             return View(gcVM);
         }
@@ -73,13 +73,13 @@ namespace Hoard.WebUI.ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await gameViewService.CreateResultsInDuplicateEntry(gameCreateViewModel))
+                if (await gameViewService.CreateResultsInDuplicateEntryAsync(gameCreateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
                     return View(gameCreateViewModel); // TODO: Refill SelectLists
                 }
 
-                await gameViewService.CreateGame(gameCreateViewModel);
+                await gameViewService.CreateGameAsync(gameCreateViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -95,7 +95,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var guVM = await gameViewService.GetGameUpdateData((int)id);
+            var guVM = await gameViewService.GetGameUpdateDataAsync((int)id);
 
             if (guVM == null)
             {
@@ -120,13 +120,13 @@ namespace Hoard.WebUI.ASP.Controllers
 
             if (ModelState.IsValid)
             {
-                if (await gameViewService.UpdateResultsInDuplicateEntry(gameUpdateViewModel))
+                if (await gameViewService.UpdateResultsInDuplicateEntryAsync(gameUpdateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
                     return View(gameUpdateViewModel); // TODO: Refill SelectLists
                 }
 
-                await gameViewService.UpdateGame(gameUpdateViewModel);
+                await gameViewService.UpdateGameAsync(gameUpdateViewModel);
 
                 return RedirectToAction(nameof(Details), new { id = id });
             }

@@ -7,14 +7,14 @@ namespace Hoard.WebUI.Services.Interfaces
 {
     public interface IGameViewService
     {
-        public Task<GameIndexViewModel> GetGameIndex(int hoarderID);
-        public Task<GameDetailsViewModel> GetGameDetails(int id);
-        public Task<GameCreateViewModel> GetGameCreateData();
-        public Task<GameUpdateViewModel> GetGameUpdateData(int id);
-        public Task CreateGame(GameCreateViewModel gameCreateViewModel);
-        public Task UpdateGame(GameUpdateViewModel gameUpdateViewModel);
-        public Task DeleteGame(int id);
-        public Task<bool> CreateResultsInDuplicateEntry(GameCreateViewModel gameCreateViewModel);
-        public Task<bool> UpdateResultsInDuplicateEntry(GameUpdateViewModel gameUpdateViewModel);
+        public Task<GameIndexViewModel> GetGameIndexAsync(int hoarderID);
+        public Task<GameDetailsViewModel> GetGameDetailsAsync(int id);
+        public Task<GameCreateViewModel> GetGameCreateDataAsync();
+        public Task<GameUpdateViewModel> GetGameUpdateDataAsync(int id);
+        public Task CreateGameAsync(GameCreateViewModel gameCreateViewModel);
+        public Task UpdateGameAsync(GameUpdateViewModel gameUpdateViewModel);
+        public Task DeleteGameAsync(int id);
+        public Task<bool> CreateResultsInDuplicateEntryAsync(GameCreateViewModel gameCreateViewModel);
+        public Task<bool> UpdateResultsInDuplicateEntryAsync(GameUpdateViewModel gameUpdateViewModel);
     }
 }

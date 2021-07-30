@@ -13,6 +13,6 @@ namespace Hoard.Core.Interfaces.Journal
         public Task<IEnumerable<JournalEntry>> GetRecentJournalEntriesAsync(int hoarderID);
         public Task<JournalEntry> GetDetailsAsync(int id);
         public Task<JournalEntry> GetUpdateDataAsync(int id);
-        public Task<bool> CommandResultsInDuplicateEntry(JournalEntry journalEntry);
+        public Task<bool> CommandResultsInDuplicateEntryAsync(JournalEntry journalEntry);
     }
 }

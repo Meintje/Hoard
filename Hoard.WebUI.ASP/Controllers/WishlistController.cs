@@ -34,7 +34,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 hoarderID = (int)id;
             }
 
-            var vm = await wishlistViewService.GetIndex(hoarderID);
+            var vm = await wishlistViewService.GetIndexAsync(hoarderID);
 
             return View(vm);
         }
@@ -45,7 +45,7 @@ namespace Hoard.WebUI.ASP.Controllers
             // TODO: Get HoarderID from ASP User
             int hoarderID = 1;
 
-            var gcVM = await wishlistViewService.GetCreateData(hoarderID);
+            var gcVM = await wishlistViewService.GetCreateDataAsync(hoarderID);
 
             return View(gcVM);
         }
@@ -57,13 +57,13 @@ namespace Hoard.WebUI.ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await wishlistViewService.CreateResultsInDuplicateEntry(wishlistCreateViewModel))
+                if (await wishlistViewService.CreateResultsInDuplicateEntryAsync(wishlistCreateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A wishlist entry with the same owner, title and type already exists in the database.");
                     return View(wishlistCreateViewModel); // TODO: Refill SelectLists
                 }
 
-                await wishlistViewService.Create(wishlistCreateViewModel);
+                await wishlistViewService.CreateAsync(wishlistCreateViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -79,7 +79,7 @@ namespace Hoard.WebUI.ASP.Controllers
                 return NotFound();
             }
 
-            var guVM = await wishlistViewService.GetUpdateData((int)id);
+            var guVM = await wishlistViewService.GetUpdateDataAsync((int)id);
 
             if (guVM == null)
             {
@@ -101,13 +101,13 @@ namespace Hoard.WebUI.ASP.Controllers
 
             if (ModelState.IsValid)
             {
-                if (await wishlistViewService.UpdateResultsInDuplicateEntry(wishlistUpdateViewModel))
+                if (await wishlistViewService.UpdateResultsInDuplicateEntryAsync(wishlistUpdateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A wishlist entry with the same owner, title and type already exists in the database.");
                     return View(wishlistUpdateViewModel); // TODO: Refill SelectLists
                 }
 
-                await wishlistViewService.Update(wishlistUpdateViewModel);
+                await wishlistViewService.UpdateAsync(wishlistUpdateViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
