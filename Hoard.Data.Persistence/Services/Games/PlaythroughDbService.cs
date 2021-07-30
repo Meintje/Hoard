@@ -17,26 +17,6 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
-        public async Task<Playthrough> GetDetailsAsync(int playDataID, int ordinalNumber)
-        {
-            var playthrough = await context.Playthroughs
-                .Include(pt => pt.PlayStatus)
-                .Include(pt => pt.PlayData).ThenInclude(pd => pd.Hoarder)
-                .Include(pt => pt.PlayData).ThenInclude(pd => pd.Game)
-                .Where(pt => pt.PlayDataID == playDataID && pt.OrdinalNumber == ordinalNumber).FirstOrDefaultAsync();
-
-            return playthrough;
-        }
-
-        public async Task<Playthrough> GetUpdateDataAsync(int playDataID, int ordinalNumber)
-        {
-            var playthrough = await context.Playthroughs
-                .Include(pt => pt.PlayStatus)
-                .Where(pt => pt.PlayDataID == playDataID && pt.OrdinalNumber == ordinalNumber).FirstOrDefaultAsync();
-
-            return playthrough;
-        }
-
         public async Task CreateAsync(Playthrough playthrough)
         {
             context.Add(playthrough);
@@ -62,6 +42,26 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             }
 
             await context.SaveChangesAsync();
+        }
+
+        public async Task<Playthrough> GetDetailsAsync(int playDataID, int ordinalNumber)
+        {
+            var playthrough = await context.Playthroughs
+                .Include(pt => pt.PlayStatus)
+                .Include(pt => pt.PlayData).ThenInclude(pd => pd.Hoarder)
+                .Include(pt => pt.PlayData).ThenInclude(pd => pd.Game)
+                .Where(pt => pt.PlayDataID == playDataID && pt.OrdinalNumber == ordinalNumber).FirstOrDefaultAsync();
+
+            return playthrough;
+        }
+
+        public async Task<Playthrough> GetUpdateDataAsync(int playDataID, int ordinalNumber)
+        {
+            var playthrough = await context.Playthroughs
+                .Include(pt => pt.PlayStatus)
+                .Where(pt => pt.PlayDataID == playDataID && pt.OrdinalNumber == ordinalNumber).FirstOrDefaultAsync();
+
+            return playthrough;
         }
 
         public async Task<IEnumerable<Playthrough>> GetUserRecentlyStartedPlaythroughsAsync(int hoarderID)

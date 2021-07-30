@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
-        public async Task AddAsync(Platform platform)
+        public async Task CreateAsync(Platform platform)
         {
             context.Add(platform);
 

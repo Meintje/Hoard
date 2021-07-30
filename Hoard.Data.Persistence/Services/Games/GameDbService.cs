@@ -15,7 +15,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
         {
         }
 
-        public async Task AddAsync(Game game)
+        public async Task CreateAsync(Game game)
         {
             context.Add(game);
 

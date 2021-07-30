@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface ILanguageDbService
     {
-        public Task AddAsync(Language language);
+        public Task CreateAsync(Language language);
         public Task UpdateAsync(Language language);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<Language>> GetAllAsync();

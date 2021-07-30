@@ -17,6 +17,13 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
+        public async Task UpdateAsync(PlayData playData)
+        {
+            context.Update(playData);
+
+            await context.SaveChangesAsync();
+        }
+
         public async Task<PlayData> GetDetailsAsync(int id)
         {
             var playData = await context.PlayData
@@ -41,13 +48,6 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
                 .FirstOrDefaultAsync();
 
             return playData;
-        }
-
-        public async Task UpdateAsync(PlayData playData)
-        {
-            context.Update(playData);
-
-            await context.SaveChangesAsync();
         }
 
         public async Task<int> CountUserOwnedGamesAsync(int hoarderID)

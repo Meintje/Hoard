@@ -19,7 +19,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
             this.context = context;
         }
 
-        public async Task AddAsync(Tag tag)
+        public async Task CreateAsync(Tag tag)
         {
             context.Add(tag);
 

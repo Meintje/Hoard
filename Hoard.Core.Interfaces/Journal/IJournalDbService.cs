@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Journal
 {
     public interface IJournalDbService
     {
-        public Task AddAsync(JournalEntry journalEntry);
+        public Task CreateAsync(JournalEntry journalEntry);
         public Task UpdateAsync(JournalEntry journalEntry);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<JournalEntry>> GetJournalPageAsync(int hoarderID, int pageNumber, int pageSize);

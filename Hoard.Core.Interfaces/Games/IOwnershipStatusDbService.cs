@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface IOwnershipStatusDbService
     {
-        public Task AddAsync(OwnershipStatus ownershipStatus);
+        public Task CreateAsync(OwnershipStatus ownershipStatus);
         public Task UpdateAsync(OwnershipStatus ownershipStatus);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<OwnershipStatus>> GetAllAsync();

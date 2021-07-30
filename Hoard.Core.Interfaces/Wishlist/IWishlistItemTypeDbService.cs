@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Wishlist
 {
     public interface IWishlistItemTypeDbService
     {
-        public Task AddAsync(WishlistItemType wishlistItemType);
+        public Task CreateAsync(WishlistItemType wishlistItemType);
         public Task UpdateAsync(WishlistItemType wishlistItemType);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<WishlistItemType>> GetAllAsync();

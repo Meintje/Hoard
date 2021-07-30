@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface IPriorityDbService
     {
-        public Task AddAsync(Priority priority);
+        public Task CreateAsync(Priority priority);
         public Task UpdateAsync(Priority priority);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<Priority>> GetAllAsync();

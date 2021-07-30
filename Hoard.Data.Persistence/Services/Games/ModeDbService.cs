@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
-        public async Task AddAsync(Mode mode)
+        public async Task CreateAsync(Mode mode)
         {
             context.Add(mode);
 

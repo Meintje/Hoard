@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface ISeriesDbService
     {
-        public Task AddAsync(Series series);
+        public Task CreateAsync(Series series);
         public Task UpdateAsync(Series series);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<Series>> GetAllAsync();

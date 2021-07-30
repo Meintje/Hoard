@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Wishlist
             this.context = context;
         }
 
-        public async Task AddAsync(WishlistItemType wishlistItemType)
+        public async Task CreateAsync(WishlistItemType wishlistItemType)
         {
             context.Add(wishlistItemType);
 

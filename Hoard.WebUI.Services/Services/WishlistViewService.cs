@@ -57,7 +57,7 @@ namespace Hoard.WebUI.Services.Services
         {
             var newItem = WishlistMapper.ToNewWishlistItem(wishlistCreateViewModel);
 
-            await wishlistDbService.AddAsync(newItem);
+            await wishlistDbService.CreateAsync(newItem);
         }
 
         public async Task UpdateAsync(WishlistUpdateViewModel wishlistUpdateViewModel)

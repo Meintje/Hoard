@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Journal
 {
     public interface ITagDbService
     {
-        public Task AddAsync(Tag tag);
+        public Task CreateAsync(Tag tag);
         public Task UpdateAsync(Tag tag);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<Tag>> GetAllAsync();

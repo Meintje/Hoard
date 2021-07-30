@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
-        public async Task AddAsync(Priority priority)
+        public async Task CreateAsync(Priority priority)
         {
             context.Add(priority);
 

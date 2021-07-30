@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface IPlayStatusDbService
     {
-        public Task AddAsync(PlayStatus playStatus);
+        public Task CreateAsync(PlayStatus playStatus);
         public Task UpdateAsync(PlayStatus playStatus);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<PlayStatus>> GetAllAsync();

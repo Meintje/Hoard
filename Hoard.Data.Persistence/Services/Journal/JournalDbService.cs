@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Journal
         {
         }
 
-        public async Task AddAsync(JournalEntry journalEntry)
+        public async Task CreateAsync(JournalEntry journalEntry)
         {
             context.Add(journalEntry);
 

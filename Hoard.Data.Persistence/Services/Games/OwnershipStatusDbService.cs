@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
-        public async Task AddAsync(OwnershipStatus ownershipStatus)
+        public async Task CreateAsync(OwnershipStatus ownershipStatus)
         {
             context.Add(ownershipStatus);
 

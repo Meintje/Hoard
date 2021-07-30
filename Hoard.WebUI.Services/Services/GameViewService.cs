@@ -99,7 +99,7 @@ namespace Hoard.WebUI.Services
         {
             var game = GameMapper.ToGame(gcVM);
 
-            await gameDbService.AddAsync(game);
+            await gameDbService.CreateAsync(game);
         }
 
         public async Task UpdateGameAsync(GameUpdateViewModel guVM)

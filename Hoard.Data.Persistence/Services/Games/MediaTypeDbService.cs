@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
-        public async Task AddAsync(MediaType mediaType)
+        public async Task CreateAsync(MediaType mediaType)
         {
             context.Add(mediaType);
 

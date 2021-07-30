@@ -6,9 +6,9 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface IPlayDataDbService
     {
+        public Task UpdateAsync(PlayData playData);
         public Task<PlayData> GetDetailsAsync(int id);
         public Task<PlayData> GetUpdateDataAsync(int id);
-        public Task UpdateAsync(PlayData playData);
 
         public Task<int> CountUserOwnedGamesAsync(int hoarderID);
         public Task<int> CountUserDroppedGamesAsync(int hoarderID);

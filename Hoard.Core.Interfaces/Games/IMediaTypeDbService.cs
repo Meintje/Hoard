@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface IMediaTypeDbService
     {
-        public Task AddAsync(MediaType mediaType);
+        public Task CreateAsync(MediaType mediaType);
         public Task UpdateAsync(MediaType mediaType);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<MediaType>> GetAllAsync();

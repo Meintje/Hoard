@@ -80,7 +80,7 @@ namespace Hoard.WebUI.Services.Services
         {
             var newEntry = JournalEntryMapper.ToNewJournalEntry(journalCreateViewModel);
 
-            await journalDbService.AddAsync(newEntry);
+            await journalDbService.CreateAsync(newEntry);
         }
 
         public async Task UpdateAsync(JournalUpdateViewModel journalUpdateViewModel)

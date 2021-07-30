@@ -17,7 +17,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
             this.context = context;
         }
 
-        public async Task AddAsync(Language language)
+        public async Task CreateAsync(Language language)
         {
             context.Add(language);
 

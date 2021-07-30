@@ -6,7 +6,7 @@ namespace Hoard.Core.Interfaces.Games
 {
     public interface IModeDbService
     {
-        public Task AddAsync(Mode mode);
+        public Task CreateAsync(Mode mode);
         public Task UpdateAsync(Mode mode);
         public Task DeleteAsync(int id);
         public Task<IEnumerable<Mode>> GetAllAsync();
