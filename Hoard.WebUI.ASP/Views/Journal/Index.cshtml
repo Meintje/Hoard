@@ -35,19 +35,25 @@
                     </p>
                 </div>
                 <div class="list-group list-group-flush">
-                    <div class="list-group-item">
-                        <dl class="row card-text">
-                            <dt class="col-sm-3 col-lg-2 card-text">
-                                @Html.DisplayNameFor(modelItem => item.Games)
-                            </dt>
-                            <dd class="col-sm-9 col-lg-10 card-text">
-                                @Html.DisplayFor(modelItem => item.Games)
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text text-muted">@Html.DisplayFor(modelItem => item.Tags)</p>
+                    @if (item.Games != null && item.Games != "")
+                    {
+                        <div class="list-group-item">
+                            <dl class="row card-text">
+                                <dt class="col-sm-3 col-lg-2 card-text">
+                                    @Html.DisplayNameFor(modelItem => item.Games)
+                                </dt>
+                                <dd class="col-sm-9 col-lg-10 card-text">
+                                    @Html.DisplayFor(modelItem => item.Games)
+                                </dd>
+                            </dl>
+                        </div>
+                    }
+                    @if (item.Tags != null && item.Tags != "")
+                    {
+                        <div class="list-group-item">
+                            <p class="card-text text-muted">@Html.DisplayFor(modelItem => item.Tags)</p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

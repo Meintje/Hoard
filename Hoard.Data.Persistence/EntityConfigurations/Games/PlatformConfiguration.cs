@@ -11,7 +11,8 @@ namespace Hoard.Infrastructure.Persistence.EntityConfigurations.Games
         {
             builder.ToTable("Platforms");
 
-            builder.HasIndex(p => p.Name).IsUnique();
+            builder.HasIndex(p => new { p.PlatformDeveloperID, p.PlatformTypeID, p.Name }).IsUnique();
+            builder.HasIndex(p => new { p.PlatformDeveloperID, p.PlatformTypeID, p.OrdinalNumber }).IsUnique();
             builder.HasIndex(p => p.ShortName).IsUnique();
 
             builder.Property(p => p.Name)

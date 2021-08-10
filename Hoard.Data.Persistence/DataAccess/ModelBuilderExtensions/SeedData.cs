@@ -17,34 +17,55 @@ namespace Hoard.Infrastructure.Persistence.DataAccess.ModelBuilderExtensions
                 new Hoarder { ID = 1, Name = "Meintje" },
                 new Hoarder { ID = 2, Name = "Bram" });
         }
+        
+        internal static void SeedPlatformDevelopers(this ModelBuilder builder)
+        {
+            builder.Entity<PlatformDeveloper>().HasData(
+               new PlatformDeveloper { ID = 1, Name = "Nintendo", OrdinalNumber = 1 },
+               new PlatformDeveloper { ID = 2, Name = "Sony", OrdinalNumber = 2 },
+               new PlatformDeveloper { ID = 3, Name = "Microsoft", OrdinalNumber = 3 },
+               new PlatformDeveloper { ID = 4, Name = "Sega", OrdinalNumber = 4 },
+               new PlatformDeveloper { ID = 5, Name = "Valve", OrdinalNumber = 5 },
+               new PlatformDeveloper { ID = 6, Name = "Epic Games", OrdinalNumber = 6 });
+        }
+
+        internal static void SeedPlatformTypes(this ModelBuilder builder)
+        {
+            builder.Entity<PlatformType>().HasData(
+               new PlatformType { ID = 1, Name = "Console" },
+               new PlatformType { ID = 2, Name = "Handheld" },
+               new PlatformType { ID = 3, Name = "Other" });
+        }
 
         internal static void SeedPlatforms(this ModelBuilder builder)
         {
             builder.Entity<Platform>().HasData(
-               new Platform { ID = 1, Name = "Sony Playstation", ShortName = "PSX" },
-               new Platform { ID = 2, Name = "Sony Playstation 2", ShortName = "PS2" },
-               new Platform { ID = 3, Name = "Sony Playstation 3", ShortName = "PS3" },
-               new Platform { ID = 4, Name = "Sony Playstation 4", ShortName = "PS4" },
-               new Platform { ID = 5, Name = "Sony Playstation 5", ShortName = "PS5" },
-               new Platform { ID = 6, Name = "Sony Playstation Portable", ShortName = "PSP" },
-               new Platform { ID = 7, Name = "Sony Playstation Vita", ShortName = "PSVita" },
-               new Platform { ID = 8, Name = "Nintendo Entertainment System", ShortName = "NES" },
-               new Platform { ID = 9, Name = "Super Nintendo Entertainment System", ShortName = "SNES" },
-               new Platform { ID = 10, Name = "Nintendo 64", ShortName = "N64" },
-               new Platform { ID = 11, Name = "Nintendo GameCube", ShortName = "GCN" },
-               new Platform { ID = 12, Name = "Nintendo Wii", ShortName = "Wii" },
-               new Platform { ID = 13, Name = "Nintendo Wii U", ShortName = "Wii U" },
-               new Platform { ID = 14, Name = "Nintendo Switch", ShortName = "Switch" },
-               new Platform { ID = 15, Name = "Nintendo Game Boy", ShortName = "GB" },
-               new Platform { ID = 16, Name = "Nintendo Game Boy Color", ShortName = "GBC" },
-               new Platform { ID = 17, Name = "Nintendo Game Boy Advance", ShortName = "GBA" },
-               new Platform { ID = 18, Name = "Nintendo DS", ShortName = "DS" },
-               new Platform { ID = 19, Name = "Nintendo 3DS", ShortName = "3DS" },
-               new Platform { ID = 20, Name = "Microsoft Xbox", ShortName = "Xbox" },
-               new Platform { ID = 21, Name = "Microsoft Xbox 360", ShortName = "X360" },
-               new Platform { ID = 22, Name = "Microsoft Xbox One", ShortName = "XOne" },
-               new Platform { ID = 23, Name = "Microsoft Xbox Series X|S", ShortName = "XSXS" },
-               new Platform { ID = 24, Name = "Steam", ShortName = "Steam" });
+               new Platform { ID = 1, Name = "Sony Playstation", ShortName = "PSX", PlatformDeveloperID = 2, PlatformTypeID = 1, OrdinalNumber = 1 },
+               new Platform { ID = 2, Name = "Sony Playstation 2", ShortName = "PS2", PlatformDeveloperID = 2, PlatformTypeID = 1, OrdinalNumber = 2 },
+               new Platform { ID = 3, Name = "Sony Playstation 3", ShortName = "PS3", PlatformDeveloperID = 2, PlatformTypeID = 1, OrdinalNumber = 3 },
+               new Platform { ID = 4, Name = "Sony Playstation 4", ShortName = "PS4", PlatformDeveloperID = 2, PlatformTypeID = 1, OrdinalNumber = 4 },
+               new Platform { ID = 5, Name = "Sony Playstation 5", ShortName = "PS5", PlatformDeveloperID = 2, PlatformTypeID = 1, OrdinalNumber = 5 },
+               new Platform { ID = 6, Name = "Sony Playstation Portable", ShortName = "PSP", PlatformDeveloperID = 2, PlatformTypeID = 2, OrdinalNumber = 1 },
+               new Platform { ID = 7, Name = "Sony Playstation Vita", ShortName = "PSVita", PlatformDeveloperID = 2, PlatformTypeID = 2, OrdinalNumber = 2 },
+               new Platform { ID = 8, Name = "Nintendo Entertainment System", ShortName = "NES", PlatformDeveloperID = 1, PlatformTypeID = 1, OrdinalNumber = 1 },
+               new Platform { ID = 9, Name = "Super Nintendo Entertainment System", ShortName = "SNES", PlatformDeveloperID = 1, PlatformTypeID = 1, OrdinalNumber = 2 },
+               new Platform { ID = 10, Name = "Nintendo 64", ShortName = "N64", PlatformDeveloperID = 1, PlatformTypeID = 1, OrdinalNumber = 3 },
+               new Platform { ID = 11, Name = "Nintendo GameCube", ShortName = "GCN", PlatformDeveloperID = 1, PlatformTypeID = 1, OrdinalNumber = 4 },
+               new Platform { ID = 12, Name = "Nintendo Wii", ShortName = "Wii", PlatformDeveloperID = 1, PlatformTypeID = 1, OrdinalNumber = 5 },
+               new Platform { ID = 13, Name = "Nintendo Wii U", ShortName = "Wii U", PlatformDeveloperID = 1, PlatformTypeID = 1, OrdinalNumber = 6 },
+               new Platform { ID = 14, Name = "Nintendo Switch", ShortName = "Switch", PlatformDeveloperID = 1, PlatformTypeID = 1, OrdinalNumber = 7 },
+               new Platform { ID = 15, Name = "Nintendo Game Boy", ShortName = "GB", PlatformDeveloperID = 1, PlatformTypeID = 2, OrdinalNumber = 1 },
+               new Platform { ID = 16, Name = "Nintendo Game Boy Color", ShortName = "GBC", PlatformDeveloperID = 1, PlatformTypeID = 2, OrdinalNumber = 2 },
+               new Platform { ID = 17, Name = "Nintendo Game Boy Advance", ShortName = "GBA", PlatformDeveloperID = 1, PlatformTypeID = 2, OrdinalNumber = 3 },
+               new Platform { ID = 18, Name = "Nintendo DS", ShortName = "NDS", PlatformDeveloperID = 1, PlatformTypeID = 2, OrdinalNumber = 4 },
+               new Platform { ID = 19, Name = "Nintendo 3DS", ShortName = "3DS", PlatformDeveloperID = 1, PlatformTypeID = 2, OrdinalNumber = 5 },
+               new Platform { ID = 20, Name = "Microsoft Windows", ShortName = "PC", PlatformDeveloperID = 3, PlatformTypeID = 3, OrdinalNumber = 1 },
+               new Platform { ID = 21, Name = "Microsoft Xbox", ShortName = "Xbox", PlatformDeveloperID = 3, PlatformTypeID = 1, OrdinalNumber = 1 },
+               new Platform { ID = 22, Name = "Microsoft Xbox 360", ShortName = "X360", PlatformDeveloperID = 3, PlatformTypeID = 1, OrdinalNumber = 2 },
+               new Platform { ID = 23, Name = "Microsoft Xbox One", ShortName = "XOne", PlatformDeveloperID = 3, PlatformTypeID = 1, OrdinalNumber = 3 },
+               new Platform { ID = 24, Name = "Microsoft Xbox Series X|S", ShortName = "XSXS", PlatformDeveloperID = 3, PlatformTypeID = 1, OrdinalNumber = 4 },
+               new Platform { ID = 25, Name = "Steam", ShortName = "Steam", PlatformDeveloperID = 5, PlatformTypeID = 3, OrdinalNumber = 1 },
+               new Platform { ID = 26, Name = "Epic Games Store", ShortName = "Epic", PlatformDeveloperID = 6, PlatformTypeID = 3, OrdinalNumber = 1 });
         }
 
         internal static void SeedGenres(this ModelBuilder builder)

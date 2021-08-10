@@ -24,7 +24,7 @@ namespace Hoard.WebUI.ASP.Controllers
             // TODO: Get ID from ASP.NET User
             int hoarderID = 1;
 
-            // TODO: Put page number (and size?) in Index parameters
+            // TODO: Put page number (and size?) in Index parameters?
             int pageNumber = 1;
             int pageSize = 30;
 

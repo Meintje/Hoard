@@ -83,16 +83,21 @@ namespace Hoard.WebUI.Services
                 return null;
             }
 
-            var platformList = await platformDbService.GetAllAsync();
-            var genreList = await genreDbService.GetAllAsync();
-            var languageList = await languageDbService.GetAllAsync();
-            var mediaTypeList = await mediaTypeDbService.GetAllAsync();
-            var seriesList = await seriesDbService.GetAllAsync();
-            var modeList = await modeDbService.GetAllAsync();
-            var developerList = await developerDbService.GetAllAsync();
-            var publisherList = await publisherDbService.GetAllAsync();
+            //var platformList = await platformDbService.GetAllAsync();
+            //var genreList = await genreDbService.GetAllAsync();
+            //var languageList = await languageDbService.GetAllAsync();
+            //var mediaTypeList = await mediaTypeDbService.GetAllAsync();
+            //var seriesList = await seriesDbService.GetAllAsync();
+            //var modeList = await modeDbService.GetAllAsync();
+            //var developerList = await developerDbService.GetAllAsync();
+            //var publisherList = await publisherDbService.GetAllAsync();
 
-            return GameMapper.ToUpdateViewModel(game, platformList, genreList, languageList, mediaTypeList, seriesList, modeList, developerList, publisherList);
+            //return GameMapper.ToUpdateViewModel(game, platformList, genreList, languageList, mediaTypeList, seriesList, modeList, developerList, publisherList);
+            
+            GameUpdateViewModel vm = GameMapper.ToUpdateViewModel(game);
+            await FillSelectLists(vm);
+
+            return vm;
         }
 
         public async Task CreateGameAsync(GameCreateViewModel gcVM)
@@ -116,7 +121,6 @@ namespace Hoard.WebUI.Services
 
         public async Task<GameCreateViewModel> FillSelectLists(GameCreateViewModel gvm)
         {
-            // TODO
             var platformList = await platformDbService.GetAllAsync();
             var genreList = await genreDbService.GetAllAsync();
             var languageList = await languageDbService.GetAllAsync();

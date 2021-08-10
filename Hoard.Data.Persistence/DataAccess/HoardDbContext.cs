@@ -22,6 +22,8 @@ namespace Hoard.Infrastructure.Persistence.DataAccess
         public DbSet<Playthrough> Playthroughs { get; set; }
         public DbSet<PlayStatus> PlayStatuses { get; set; }
         public DbSet<Platform> Platforms { get; set; }
+        public DbSet<PlatformDeveloper> PlatformDevelopers { get; set; }
+        public DbSet<PlatformType> PlatformTypes { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<GameGenre> GameGenres { get; set; }
         public DbSet<Mode> Modes { get; set; }
@@ -57,6 +59,8 @@ namespace Hoard.Infrastructure.Persistence.DataAccess
 
             #region Games
             modelBuilder.SeedHoarders();
+            modelBuilder.SeedPlatformDevelopers();
+            modelBuilder.SeedPlatformTypes();
             modelBuilder.SeedPlatforms();
             modelBuilder.SeedLanguages();
             modelBuilder.SeedMediaTypes();

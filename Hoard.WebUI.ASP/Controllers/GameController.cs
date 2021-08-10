@@ -40,7 +40,6 @@ namespace Hoard.WebUI.ASP.Controllers
 
             if (gameVM == null || gameVM.ID == 0)
             {
-                //throw new Exception();
                 return NotFound();
             }
 
@@ -76,7 +75,8 @@ namespace Hoard.WebUI.ASP.Controllers
                 if (await gameViewService.CreateResultsInDuplicateEntryAsync(gameCreateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
-                    return View(gameCreateViewModel); // TODO: Refill SelectLists
+                    await gameViewService.FillSelectLists(gameCreateViewModel);
+                    return View(gameCreateViewModel);
                 }
 
                 await gameViewService.CreateGameAsync(gameCreateViewModel);
@@ -84,7 +84,8 @@ namespace Hoard.WebUI.ASP.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(gameCreateViewModel); // TODO: Refill SelectLists
+            await gameViewService.FillSelectLists(gameCreateViewModel);
+            return View(gameCreateViewModel);
         }
 
         // GET: Game/Edit/5
@@ -123,14 +124,17 @@ namespace Hoard.WebUI.ASP.Controllers
                 if (await gameViewService.UpdateResultsInDuplicateEntryAsync(gameUpdateViewModel))
                 {
                     ModelState.AddModelError(string.Empty, "A game with the same title, platform, release date and language already exists in the database.");
-                    return View(gameUpdateViewModel); // TODO: Refill SelectLists
+                    await gameViewService.FillSelectLists(gameUpdateViewModel);
+                    return View(gameUpdateViewModel);
                 }
 
                 await gameViewService.UpdateGameAsync(gameUpdateViewModel);
 
                 return RedirectToAction(nameof(Details), new { id = id });
             }
-            return View(gameUpdateViewModel); // TODO: Refill SelectLists
+
+            await gameViewService.FillSelectLists(gameUpdateViewModel);
+            return View(gameUpdateViewModel);
         }
     }
 }

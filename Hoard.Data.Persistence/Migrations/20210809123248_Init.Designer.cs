@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hoard.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(HoardDbContext))]
-    [Migration("20210528080029_init")]
-    partial class init
+    [Migration("20210809123248_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -580,6 +580,15 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<int>("OrdinalNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlatformDeveloperID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlatformTypeID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ShortName")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -587,10 +596,15 @@ namespace Hoard.Infrastructure.Persistence.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("PlatformTypeID");
 
                     b.HasIndex("ShortName")
+                        .IsUnique();
+
+                    b.HasIndex("PlatformDeveloperID", "PlatformTypeID", "Name")
+                        .IsUnique();
+
+                    b.HasIndex("PlatformDeveloperID", "PlatformTypeID", "OrdinalNumber")
                         .IsUnique();
 
                     b.ToTable("Platforms");
@@ -600,145 +614,336 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             ID = 1,
                             Name = "Sony Playstation",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 2,
+                            PlatformTypeID = 1,
                             ShortName = "PSX"
                         },
                         new
                         {
                             ID = 2,
                             Name = "Sony Playstation 2",
+                            OrdinalNumber = 2,
+                            PlatformDeveloperID = 2,
+                            PlatformTypeID = 1,
                             ShortName = "PS2"
                         },
                         new
                         {
                             ID = 3,
                             Name = "Sony Playstation 3",
+                            OrdinalNumber = 3,
+                            PlatformDeveloperID = 2,
+                            PlatformTypeID = 1,
                             ShortName = "PS3"
                         },
                         new
                         {
                             ID = 4,
                             Name = "Sony Playstation 4",
+                            OrdinalNumber = 4,
+                            PlatformDeveloperID = 2,
+                            PlatformTypeID = 1,
                             ShortName = "PS4"
                         },
                         new
                         {
                             ID = 5,
                             Name = "Sony Playstation 5",
+                            OrdinalNumber = 5,
+                            PlatformDeveloperID = 2,
+                            PlatformTypeID = 1,
                             ShortName = "PS5"
                         },
                         new
                         {
                             ID = 6,
                             Name = "Sony Playstation Portable",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 2,
+                            PlatformTypeID = 2,
                             ShortName = "PSP"
                         },
                         new
                         {
                             ID = 7,
                             Name = "Sony Playstation Vita",
+                            OrdinalNumber = 2,
+                            PlatformDeveloperID = 2,
+                            PlatformTypeID = 2,
                             ShortName = "PSVita"
                         },
                         new
                         {
                             ID = 8,
                             Name = "Nintendo Entertainment System",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 1,
                             ShortName = "NES"
                         },
                         new
                         {
                             ID = 9,
                             Name = "Super Nintendo Entertainment System",
+                            OrdinalNumber = 2,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 1,
                             ShortName = "SNES"
                         },
                         new
                         {
                             ID = 10,
                             Name = "Nintendo 64",
+                            OrdinalNumber = 3,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 1,
                             ShortName = "N64"
                         },
                         new
                         {
                             ID = 11,
                             Name = "Nintendo GameCube",
+                            OrdinalNumber = 4,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 1,
                             ShortName = "GCN"
                         },
                         new
                         {
                             ID = 12,
                             Name = "Nintendo Wii",
+                            OrdinalNumber = 5,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 1,
                             ShortName = "Wii"
                         },
                         new
                         {
                             ID = 13,
                             Name = "Nintendo Wii U",
+                            OrdinalNumber = 6,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 1,
                             ShortName = "Wii U"
                         },
                         new
                         {
                             ID = 14,
                             Name = "Nintendo Switch",
+                            OrdinalNumber = 7,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 1,
                             ShortName = "Switch"
                         },
                         new
                         {
                             ID = 15,
                             Name = "Nintendo Game Boy",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 2,
                             ShortName = "GB"
                         },
                         new
                         {
                             ID = 16,
                             Name = "Nintendo Game Boy Color",
+                            OrdinalNumber = 2,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 2,
                             ShortName = "GBC"
                         },
                         new
                         {
                             ID = 17,
                             Name = "Nintendo Game Boy Advance",
+                            OrdinalNumber = 3,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 2,
                             ShortName = "GBA"
                         },
                         new
                         {
                             ID = 18,
                             Name = "Nintendo DS",
-                            ShortName = "DS"
+                            OrdinalNumber = 4,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 2,
+                            ShortName = "NDS"
                         },
                         new
                         {
                             ID = 19,
                             Name = "Nintendo 3DS",
+                            OrdinalNumber = 5,
+                            PlatformDeveloperID = 1,
+                            PlatformTypeID = 2,
                             ShortName = "3DS"
                         },
                         new
                         {
                             ID = 20,
-                            Name = "Microsoft Xbox",
-                            ShortName = "Xbox"
+                            Name = "Microsoft Windows",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 3,
+                            PlatformTypeID = 3,
+                            ShortName = "PC"
                         },
                         new
                         {
                             ID = 21,
-                            Name = "Microsoft Xbox 360",
-                            ShortName = "X360"
+                            Name = "Microsoft Xbox",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 3,
+                            PlatformTypeID = 1,
+                            ShortName = "Xbox"
                         },
                         new
                         {
                             ID = 22,
-                            Name = "Microsoft Xbox One",
-                            ShortName = "XOne"
+                            Name = "Microsoft Xbox 360",
+                            OrdinalNumber = 2,
+                            PlatformDeveloperID = 3,
+                            PlatformTypeID = 1,
+                            ShortName = "X360"
                         },
                         new
                         {
                             ID = 23,
-                            Name = "Microsoft Xbox Series X|S",
-                            ShortName = "XSXS"
+                            Name = "Microsoft Xbox One",
+                            OrdinalNumber = 3,
+                            PlatformDeveloperID = 3,
+                            PlatformTypeID = 1,
+                            ShortName = "XOne"
                         },
                         new
                         {
                             ID = 24,
+                            Name = "Microsoft Xbox Series X|S",
+                            OrdinalNumber = 4,
+                            PlatformDeveloperID = 3,
+                            PlatformTypeID = 1,
+                            ShortName = "XSXS"
+                        },
+                        new
+                        {
+                            ID = 25,
                             Name = "Steam",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 5,
+                            PlatformTypeID = 3,
                             ShortName = "Steam"
+                        },
+                        new
+                        {
+                            ID = 26,
+                            Name = "Epic Games Store",
+                            OrdinalNumber = 1,
+                            PlatformDeveloperID = 6,
+                            PlatformTypeID = 3,
+                            ShortName = "Epic"
+                        });
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Games.PlatformDeveloper", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("OrdinalNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("OrdinalNumber")
+                        .IsUnique();
+
+                    b.ToTable("PlatformDevelopers");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Nintendo",
+                            OrdinalNumber = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Sony",
+                            OrdinalNumber = 2
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Microsoft",
+                            OrdinalNumber = 3
+                        },
+                        new
+                        {
+                            ID = 4,
+                            Name = "Sega",
+                            OrdinalNumber = 4
+                        },
+                        new
+                        {
+                            ID = 5,
+                            Name = "Valve",
+                            OrdinalNumber = 5
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Name = "Epic Games",
+                            OrdinalNumber = 6
+                        });
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Games.PlatformType", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("PlatformTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Name = "Console"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Name = "Handheld"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Name = "Other"
                         });
                 });
 
@@ -891,13 +1096,13 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 3,
-                            Name = "Finished",
+                            Name = "Dropped",
                             OrdinalNumber = 3
                         },
                         new
                         {
                             ID = 4,
-                            Name = "Dropped",
+                            Name = "Finished",
                             OrdinalNumber = 4
                         },
                         new
@@ -945,8 +1150,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 1,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 3000,
                             SideContentCompleted = false
@@ -963,8 +1168,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 4,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 29000,
                             SideContentCompleted = false
@@ -973,8 +1178,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 2,
                             PlaytimeInMinutes = 1000,
                             SideContentCompleted = true
@@ -983,8 +1188,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 5,
                             OrdinalNumber = 2,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 1,
                             PlaytimeInMinutes = 500,
                             SideContentCompleted = false
@@ -993,8 +1198,8 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         {
                             PlayDataID = 6,
                             OrdinalNumber = 1,
-                            DateEnd = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
-                            DateStart = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateEnd = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateStart = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             PlayStatusID = 4,
                             PlaytimeInMinutes = 10,
                             SideContentCompleted = false
@@ -1458,12 +1663,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 1,
-                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 1,
                             Notes = "Maybe wait for PS7 version?",
                             PriorityID = 1,
-                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.budgetgaming.nl/",
                             Title = "Persona 6 Royal",
                             WishlistItemTypeID = 1
@@ -1471,12 +1676,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 2,
-                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Check out other works by this artist, too.",
                             PriorityID = 2,
-                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Oresama Teacher",
                             WishlistItemTypeID = 2
@@ -1484,12 +1689,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 3,
-                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Hide this from Bram.",
                             PriorityID = 3,
-                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Monstergirl Factory",
                             WishlistItemTypeID = 5
@@ -1497,12 +1702,12 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         new
                         {
                             ID = 4,
-                            AddDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            AddDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             HoarderID = 1,
                             LanguageID = 2,
                             Notes = "Get Limited Edition!",
                             PriorityID = 1,
-                            ReleaseDate = new DateTime(2021, 5, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            ReleaseDate = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             StoreURL = "https://www.amazon.co.jp/",
                             Title = "Eiyuu Densetsu: Zero no Kiseki",
                             WishlistItemTypeID = 1
@@ -1588,7 +1793,7 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("Hoard.Core.Entities.Games.Platform", "Platform")
-                        .WithMany()
+                        .WithMany("Games")
                         .HasForeignKey("PlatformID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1693,6 +1898,25 @@ namespace Hoard.Infrastructure.Persistence.Migrations
                     b.Navigation("Game");
 
                     b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Games.Platform", b =>
+                {
+                    b.HasOne("Hoard.Core.Entities.Games.PlatformDeveloper", "Developer")
+                        .WithMany()
+                        .HasForeignKey("PlatformDeveloperID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hoard.Core.Entities.Games.PlatformType", "Type")
+                        .WithMany()
+                        .HasForeignKey("PlatformTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Developer");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Hoard.Core.Entities.Games.PlayData", b =>
@@ -1851,6 +2075,11 @@ namespace Hoard.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Hoard.Core.Entities.Games.Hoarder", b =>
                 {
                     b.Navigation("GameProgress");
+                });
+
+            modelBuilder.Entity("Hoard.Core.Entities.Games.Platform", b =>
+                {
+                    b.Navigation("Games");
                 });
 
             modelBuilder.Entity("Hoard.Core.Entities.Games.PlayData", b =>

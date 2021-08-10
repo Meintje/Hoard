@@ -16,5 +16,6 @@ namespace Hoard.WebUI.Services.Interfaces
         public Task DeleteGameAsync(int id);
         public Task<bool> CreateResultsInDuplicateEntryAsync(GameCreateViewModel gameCreateViewModel);
         public Task<bool> UpdateResultsInDuplicateEntryAsync(GameUpdateViewModel gameUpdateViewModel);
+        public Task<GameCreateViewModel> FillSelectLists(GameCreateViewModel gvm);
     }
 }

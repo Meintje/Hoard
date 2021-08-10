@@ -171,6 +171,73 @@ namespace Hoard.WebUI.Services.Mapping.Games
             return vm;
         }
 
+        internal static GameUpdateViewModel ToUpdateViewModel(Game game)
+        {
+            var vm = new GameUpdateViewModel
+            {
+                ID = game.ID,
+                Title = game.Title,
+                AlternateTitle = game.AlternateTitle,
+                ReleaseDate = game.ReleaseDate,
+                Description = game.Description,
+                PlatformID = game.PlatformID,
+                LanguageID = game.LanguageID,
+                MediaTypeID = game.MediaTypeID
+            };
+
+            if (game.Genres != null && game.Genres.Count > 0)
+            {
+                var selectedGenres = new List<int>();
+                foreach (var genre in game.Genres)
+                {
+                    selectedGenres.Add(genre.GenreID);
+                }
+                vm.GenreIDs = selectedGenres.ToArray();
+            }
+
+            if (game.Series != null && game.Series.Count > 0)
+            {
+                var selectedSeries = new List<int>();
+                foreach (var series in game.Series)
+                {
+                    selectedSeries.Add(series.SeriesID);
+                }
+                vm.SeriesIDs = selectedSeries.ToArray();
+            }
+
+            if (game.Modes != null && game.Modes.Count > 0)
+            {
+                var selectedModes = new List<int>();
+                foreach (var mode in game.Modes)
+                {
+                    selectedModes.Add(mode.ModeID);
+                }
+                vm.ModeIDs = selectedModes.ToArray();
+            }
+
+            if (game.Developers != null && game.Developers.Count > 0)
+            {
+                var selectedDevelopers = new List<int>();
+                foreach (var developer in game.Developers)
+                {
+                    selectedDevelopers.Add(developer.DeveloperID);
+                }
+                vm.DeveloperIDs = selectedDevelopers.ToArray();
+            }
+
+            if (game.Publishers != null && game.Publishers.Count > 0)
+            {
+                var selectedPublishers = new List<int>();
+                foreach (var publisher in game.Publishers)
+                {
+                    selectedPublishers.Add(publisher.PublisherID);
+                }
+                vm.PublisherIDs = selectedPublishers.ToArray();
+            }
+
+            return vm;
+        }
+
         internal static Game ToGame(GameCreateViewModel vm)
         {
             var game = new Game

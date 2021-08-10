@@ -75,14 +75,15 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
         public async Task<IEnumerable<Game>> GetAllAsync()
         {
             var games = await context.Games
-                .Include(g => g.Platform)
+                .Include(g => g.Platform).ThenInclude(p => p.Developer)
+                .Include(g => g.Platform).ThenInclude(p => p.Type)
                 .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
                 .Include(g => g.Modes).ThenInclude(m => m.Mode)
                 .Include(g => g.Developers).ThenInclude(d => d.Developer)
                 .Include(g => g.Publishers).ThenInclude(d => d.Publisher)
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
                 .Include(g => g.PlayData).ThenInclude(pd => pd.Priority)
-                .OrderBy(g => g.Title)
+                .OrderBy(g => g.Platform.Developer.OrdinalNumber).ThenBy(g => g.Platform.Type.Name).ThenBy(g => g.Platform.OrdinalNumber).ThenBy(g => g.Title)
                 .ToListAsync();
 
             return games;
@@ -91,14 +92,15 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
         public async Task<IEnumerable<Game>> GetAllAsync(int hoarderID)
         {
             var games = await context.Games
-                .Include(g => g.Platform)
+                .Include(g => g.Platform).ThenInclude(p => p.Developer)
+                .Include(g => g.Platform).ThenInclude(p => p.Type)
                 .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
                 .Include(g => g.Modes).ThenInclude(m => m.Mode)
                 .Include(g => g.Developers).ThenInclude(d => d.Developer)
                 .Include(g => g.Publishers).ThenInclude(d => d.Publisher)
                 .Include(g => g.PlayData.Where(pd => pd.HoarderID == hoarderID)).ThenInclude(pd => pd.Playthroughs).ThenInclude(pt => pt.PlayStatus)
                 .Include(g => g.PlayData.Where(pd => pd.HoarderID == hoarderID)).ThenInclude(pd => pd.Priority)
-                .OrderBy(g => g.Platform.Name).ThenBy(g => g.Title)
+                .OrderBy(g => g.Platform.Developer.OrdinalNumber).ThenBy(g => g.Platform.Type.Name).ThenBy(g => g.Platform.OrdinalNumber).ThenBy(g => g.Title)
                 .ToListAsync();
 
             return games;
@@ -107,7 +109,7 @@ namespace Hoard.Infrastructure.Persistence.Services.Games
         public async Task<Game> GetDetailsAsync(int id)
         {
             var game = await context.Games
-                .Include(g => g.Platform)
+                .Include(g => g.Platform).ThenInclude(p => p.Developer)
                 .Include(g => g.Language)
                 .Include(g => g.MediaType)
                 .Include(g => g.Genres).ThenInclude(genre => genre.Genre)
